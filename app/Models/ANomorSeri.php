@@ -25,5 +25,5 @@ class ANomorSeri extends Model
 
     protected $dates = ['created_at', 'updated_at', 'Prod_date', 'Warranty_Start', 'Warranty_Duration'];
 
-    protected string $model = ANomorSeri::class;
+//    protected string $model = ANomorSeri::class;
 }

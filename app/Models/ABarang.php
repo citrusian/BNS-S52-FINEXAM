@@ -13,7 +13,6 @@ class ABarang extends Model
      *
      * @var string
      */
-//    protected $table = 'Barang';
 
     protected $fillable = [
         'Product_Name',

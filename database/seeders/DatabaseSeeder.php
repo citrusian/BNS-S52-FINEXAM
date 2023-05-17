@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\ABarang;
 use App\Models\ANomorSeri;
+use App\Models\BTransaksi;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -33,10 +34,14 @@ class DatabaseSeeder extends Seeder
 //      Call Additional Seeder Using Factories
 //        $this->call([
 //            ABarangSeeder::class,
+//            ANomorSeriSeeder::class,
+//            BTransaksiSeeder::class,
 //        ]);
+        // Disabled, more easy to define number in here than *Seeder.php
 
-//        Disabled, idk why but it use count = 10, not portable when i want to use count =15
-
+        User::factory()
+            ->count(5)
+            ->create();
 
         ABarang::factory()
             ->count(10)
@@ -46,8 +51,10 @@ class DatabaseSeeder extends Seeder
             ->count(10)
             ->create();
 
-        User::factory()
-            ->count(5)
-            ->create();
+        // Used to dynamically calculate random data input
+        $this->call([
+            BTransaksiSeeder::class,
+            BDetailTransaksiSeeder::class,
+        ]);
     }
 }
