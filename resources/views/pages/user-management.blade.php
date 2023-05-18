@@ -3,7 +3,7 @@
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Item Data'])
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="./assets/js/jquery-1.11.2.min.js"></script>
     <script src="./assets/js/simplePagination.js"></script>
 {{--    Assets located at public/assets/js--}}
     <div class="row mt-4 mx-4">
