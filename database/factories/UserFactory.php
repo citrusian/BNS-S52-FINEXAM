@@ -37,6 +37,7 @@ class UserFactory extends Factory
             'country' => $this->faker->country(),
             'postal' => $this->faker->postcode(),
             'about' => $this->faker->bs(),
+            'pp_path' => ($this->faker->numberBetween(1, 8)).".jpg",
 
 
 

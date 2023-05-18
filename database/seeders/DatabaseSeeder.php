@@ -24,11 +24,33 @@ class DatabaseSeeder extends Seeder
 //      Manual Seeder Input
         DB::table('users')->insert([
             'role' => '0',
+            'username' => 'supdadmin',
+            'firstname' => 'SupAdmin',
+            'lastname' => 'Admin',
+            'email' => 'supdadmin@admin.com',
+            'password' => bcrypt('supdadmin'),
+            'address' => "Address",
+            'city' => "Jakarta",
+            'country' => 'Indonesia',
+            'postal' => '111111',
+            'about' => "lorem ipsum",
+            'pp_path' => "1.jpg",
+        ]);
+
+//      Manual Seeder Input
+        DB::table('users')->insert([
+            'role' => '1',
             'username' => 'admin',
             'firstname' => 'Admin',
             'lastname' => 'Admin',
             'email' => 'admin@admin.com',
-            'password' => bcrypt('admin')
+            'password' => bcrypt('admin'),
+            'address' => "Address",
+            'city' => "Jakarta",
+            'country' => 'Indonesia',
+            'postal' => '111111',
+            'about' => "lorem ipsum",
+            'pp_path' => "2.jpg",
         ]);
 
 //      Call Additional Seeder Using Factories
@@ -40,7 +62,7 @@ class DatabaseSeeder extends Seeder
         // Disabled, more easy to define number in here than *Seeder.php
 
         User::factory()
-            ->count(5)
+            ->count(15)
             ->create();
 
         ABarang::factory()
