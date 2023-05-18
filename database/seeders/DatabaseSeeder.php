@@ -62,7 +62,7 @@ class DatabaseSeeder extends Seeder
         // Disabled, more easy to define number in here than *Seeder.php
 
         User::factory()
-            ->count(5)
+            ->count(15)
             ->create();
 
         ABarang::factory()

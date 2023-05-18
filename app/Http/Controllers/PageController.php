@@ -16,6 +16,7 @@ class PageController extends Controller
      */
     public function index(string $page)
     {
+        error_log('Some message here.');
         if (view()->exists("pages.{$page}")) {
             return view("pages.{$page}");
         }
@@ -65,7 +66,28 @@ class PageController extends Controller
             ->select('*')
             ->get();
         Log::debug($query);
-        return view("pages.user-management",['q1'=>$query]);
+//        Log::info(print_r($query, true));
+//        return view("pages.user-management",['q1'=>$query]);
+//        return view("pages.user-management")->json([
+//            'data' => $query,
+//            'message' => 'Success get all Students',
+//            ]);
+        error_log('Some message here.');
+        return response()
+            ->json([
+                'data' => $query,
+                'message' => 'Success get all Students',
+            ]);
+
+
+
+
+
+
+
+
+
+
     }
 
     public function new_user()

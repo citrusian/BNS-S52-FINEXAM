@@ -1,6 +1,15 @@
 <?php
 
+use App\Http\Controllers\ChangePassword;
 use App\Http\Controllers\CUserManagement;
+use App\Http\Controllers\EditProfileController;
+use App\Http\Controllers\GuestRegisterController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ResetPassword;
+use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,18 +27,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\UserProfileController;
-use App\Http\Controllers\ResetPassword;
-use App\Http\Controllers\ChangePassword;
-
 
 Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
-Route::get('/register', [RegisterController::class, 'create'])->middleware('guest')->name('register');
-Route::post('/register', [RegisterController::class, 'store'])->middleware('guest')->name('register.perform');
+
+Route::get('/register', [GuestRegisterController::class, 'create'])->middleware('guest')->name('register');
+Route::post('/register', [GuestRegisterController::class, 'store'])->middleware('guest')->name('register.perform');
+
 Route::get('/login', [LoginController::class, 'show'])->middleware('guest')->name('login');
 Route::post('/login', [LoginController::class, 'login'])->middleware('guest')->name('login.perform');
 Route::get('/reset-password', [ResetPassword::class, 'show'])->middleware('guest')->name('reset-password');
@@ -45,17 +48,23 @@ Route::group(['middleware' => 'auth'], function () {
 //    workaround: use unused url+rand if you want to use 2 invoke in one page
 //    eg: profile.update = invoke1, profile_ktp = invoke2
 
-//    Route::get('/user_management', [CUserManagement::class, 'user_management'])->name('user_management');
-//    Route::get('/user_management', 'App\Http\Controllers\CUserManagement@index')->name('user_management');
-    Route::get('/user_management', [PageController::class, 'user_management'])->name('user_management');
+//    Route::get('/user_management', [PageController::class, 'user_management'])->name('user_management');
+//    Route::get('/new_user', [UserProfileController::class, 'show_new'])->name('show_new');
+//    Route::post('/new_user', [UserProfileController::class, 'new'])->name('profile_new');
+
+
+    Route::get('/user_management', [CUserManagement::class, 'index'])->name('user_management');
     Route::get('/new_user', [UserProfileController::class, 'show_new'])->name('show_new');
     Route::post('/new_user', [UserProfileController::class, 'new'])->name('profile_new');
 
 
-	Route::get('/virtual-reality', [PageController::class, 'vr'])->name('virtual-reality');
-	Route::get('/rtl', [PageController::class, 'rtl'])->name('rtl');
+    Route::get('/edituser', [EditProfileController::class, 'show'])->name('editeuser');
+    Route::post('/edituser', [EditProfileController::class, 'updateuser'])->name('updateuser');
+    Route::post('/edituser2', [EditProfileController::class, 'updateppicture'])->name('updateppicture');
 
 
+    Route::get('/register', [RegisterController::class, 'create'])->name('register');
+    Route::post('/register', [RegisterController::class, 'store'])->name('register.perform');
 
 
 	Route::get('/profile-static', [PageController::class, 'profile'])->name('profile-static');

@@ -29,6 +29,7 @@ class User extends Authenticatable
         'postal',
         'about',
         'pp_path',
+        'role',
     ];
 
     /**

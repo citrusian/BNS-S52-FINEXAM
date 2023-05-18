@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CUserManagement extends Controller
 {
@@ -22,29 +23,10 @@ class CUserManagement extends Controller
             ->select('*')
             ->get();
 
-        $test = "session Test";
+        $test = " Test";
+        $test2 = ' Test';
 
-//        return view("pages.user-management",['q1'=>$query]);
-//        return view("pages.user-management",['asd'=>$test]);
-////        return view("pages.user-management",['asd'=>$test])->with('asd',$test);
-//        return view("pages.user-management")->with('asd',$test);
+//        Log::debug($query);
+        return view("pages.user-management",['q1'=>$query]);
     }
-
-
-//    public function user_management()
-//    {
-////        Get All Query
-//        $query = DB::table('users')
-//            ->select('*')
-//            ->get();
-//
-//        $test = "session Test";
-//
-////        return view("pages.user-management",['q1'=>$query]);
-////        return view("pages.user-management",['asd'=>$test]);
-//////        return view("pages.user-management",['asd'=>$test])->with('asd',$test);
-//        return view("pages.user-management")->with('asd',$test);
-//    }
-
-
 }
