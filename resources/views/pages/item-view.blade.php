@@ -4,12 +4,8 @@
     @include('layouts.navbars.auth.topnav', ['title' => 'Item Data'])
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="./assets/js/jquery-1.11.2.min.js"></script>
-{{--    <script src="./assets/js/simplePagination.js"></script>--}}
     <script src="./assets/js/jquery.simplePagination.enrique26.js"></script>
-{{--    <script src="./assets/js/simplePagination-1.6.js"></script>--}}
-{{--    <script src="./assets/js/main.js"></script>--}}
-{{--    <script src="./assets/js/jquery.pajinate.min.js"></script>--}}
-{{--    <link type="text/css" rel="stylesheet" href="./assets/css/simplePagination.css"/>--}}
+{{--    public/assets/js--}}
     <div class="row mt-4 mx-4">
         <div class="col-12">
             <div class="card mb-4">
@@ -17,7 +13,7 @@
                     <h6>Action</h6>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
-                    <form role="form" method="GET" action={{ route('transaksiregister') }} enctype="multipart/form-data">
+                    <form role="form" method="GET" action={{ route('transaksi-register') }} enctype="multipart/form-data">
 {{--                        @csrf--}}
                         <div class="card-header pb-0">
                             <button type="submit" class="btn btn-primary btn-sm ms-auto">New Transaction</button>
@@ -27,34 +23,37 @@
             </div>
             <div class="card mb-4">
                 <div class="card-header pb-0">
-                    <h6>Transaction List</h6>
+                    <h6>Item List</h6>
                 </div>
-
-
+                <div class="mx-md-11 text-md-center" id="alert">
+                    @include('components.alert')
+                </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive-xl" id="table-id">
                         <table class="table align-items-center table-flush" id="table-id">
                             <thead>
                             <tr>
-{{--                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="No">No.</th>--}}
-                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Image">Transaction No.</th>
-                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Nama">Tanggal</th>
-                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Item Code</th>
-                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Harga</th>
-                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Customer / Vendor</th>
-                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Jenis Transaksi</th>
+                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="No">No.</th>
+                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Image">Model</th>
+                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Nama">Name</th>
+                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Brand</th>
+                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Price</th>
+                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Serial_no</th>
+                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Prod_date</th>
+                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Used</th>
                                 <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Action</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
-{{--                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="No">No.</th>--}}
-                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Image">Transaction No.</th>
-                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Nama">Tanggal</th>
-                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Item Code</th>
-                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Harga</th>
-                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Customer / Vendor</th>
-                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Jenis Transaksi</th>
+                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="No">No.</th>
+                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Image">Model</th>
+                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Nama">Name</th>
+                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Brand</th>
+                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Price</th>
+                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Serial_no</th>
+                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Prod_date</th>
+                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Used</th>
                                 <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Action</th>
                             </tr>
                             </tfoot>
@@ -62,30 +61,33 @@
                             <tbody class="Table">
                             @foreach ($q1 as $query)
                                 <tr  class="paginate">
-{{--                                    <td class="No align-middle text-center text-wrap" style="width:3%;">--}}
-{{--                                        {{ $query->id }}--}}
-{{--                                    </td>--}}
+                                    <td class="No align-middle text-center text-wrap" style="width:3%;">
+                                        {{ $query->id }}
+                                    </td>
                                     <td class="Nama align-middle text-center text-wrap">
-                                        {{ $query->No_Trans }}
+                                        {{ $query->Model_No }}
                                     </td>
                                     <td class="Deskripsi align-middle text-center text-wrap" style="width:15%;">
-                                        {{ $query->Tanggal }}
+                                        {{ $query->Product_Name }}
                                     </td>
-                                    <td class="Jenis align-middle text-center text-wrap">
-                                        {{ $query->Product_id }}
+                                    <td class="Deskripsi align-middle text-center text-wrap" style="width:15%;">
+                                        {{ $query->Brand }}
                                     </td>
                                     <td class="Jenis align-middle text-center text-wrap">
                                         {{ $query->Price }}
                                     </td>
                                     <td class="Jenis align-middle text-center text-wrap">
-                                        {{ $query->Trans_Type }}
+                                        {{ $query->Serial_no }}
                                     </td>
-                                    <td class="Stok align-middle text-center text-wrap"  style="width: 10%;">
-                                        {{ $query->Customer_Vendor }}
+                                    <td class="Jenis align-middle text-center text-wrap">
+                                        {{ $query->Prod_date }}
+                                    </td>
+                                    <td class="Stok align-middle text-center text-wrap">
+                                        {{ $query->Used }}
                                     </td>
                                     <td class="Action text-center text-wrap"  style="width: 5%; height: 5%">
                                         <div class="justify-content-center align-items-center">
-                                            <form role="form" method="GET" action={{ route('transaksicreate') }} enctype="multipart/form-data">
+                                            <form role="form" method="POST" action={{ route('item-edit') }} enctype="multipart/form-data">
                                                 @csrf
                                                 <div id='HiddenView' style="display: none;">
                                                     <input class="form-control" type="text" name="postid" value="{{ $query->id }}" >
@@ -105,16 +107,6 @@
                     <!-- Card footer -->
                     <div class="card-footer"  style="border-radius: 0 0;">
                         <script>
-                            $(function() {
-                                $('#table-id').pagination({
-                                    items: 100,
-                                    itemsOnPage: 10,
-                                    cssStyle: 'light-theme'
-                                });
-                            });
-
-
-
                             $("#table-id").simplePagination({
                                 perPage: 10,
                                 currentPage: 1,

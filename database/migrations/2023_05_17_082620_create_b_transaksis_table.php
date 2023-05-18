@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->integer('No_Trans')->unique();
             $table->date('Tanggal');
-            $table->string('Customer_Vendor');
             $table->string('Trans_Type');
+            $table->string('Customer_Vendor');
             $table->timestamps();
         });
     }

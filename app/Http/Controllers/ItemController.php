@@ -9,163 +9,45 @@ use App\Models\BTransaksi;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use App\Http\Traits\DebugToConsole;
 
-class TransaksiController extends Controller
+class ItemController extends Controller
 {
-    use DebugToConsole;
-
 
     public function get()
     {
-        $query = DB::table('b_transaksis')
+        $query = DB::table('a_barangs')
             ->select('*')
-            ->rightJoin('b_detail_transaksis','Transaksi_id','=','No_Trans')
+            ->rightJoin('a_nomor_seris','Product_id','=','Model_No')
             ->get();
 //        dd($query);
-        return view("pages.transaksi-view",['q1'=>$query]);
+        return view("pages.item-view",['q1'=>$query]);
     }
 
     public function index()
     {
-        return view('pages.transaksi-register');
+        return view('pages.item-register');
     }
 
 //--------------------------------------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------------------------------------
-    public function delete(Request $request)
+    public function delete()
     {
-        $postkey = $request->get('postkey');
-//        dd($postkey);
-
-        $getModel = DB::table('b_detail_transaksis')
-            ->select('*')->where('Transaksi_id', ($postkey))
-            ->get()->first()->Product_id;
-
-        $getSerial = DB::table('b_detail_transaksis')
-            ->select('*')->where('Transaksi_id', ($postkey))
-            ->get()->first()->Serial_no;
-
-        $getType = DB::table('b_transaksis')
-            ->select('*')->where('No_Trans', ($postkey))
-            ->get()->first()->Trans_Type;
-
-//        dd($postkey,$getType,$getModel,$getSerial);
-//        -------------------------------------------------------------------------------
-//        Jual - Update ANomorSeri DB
-//        -------------------------------------------------------------------------------
-        if ($getType === "Jual"){
-            $delT = DB::table('b_transaksis')->where('No_Trans', $postkey)->delete();
-            $delTD = DB::table('b_detail_transaksis')->where('Transaksi_id', $postkey)->delete();
-
-
-            ANomorSeri::where('Serial_no', $getSerial)
-                ->update([
-                    // price not updated, because it was buying price
-                    'Warranty_Start' => null,
-                    'Warranty_Duration' => null,
-                    'Used' => '0',
-                ]);
-            return back()
-                ->with('warn','Transaction Deleted!');
-        }
-//        -------------------------------------------------------------------------------
-//        Beli - Delete All Related to the items
-//        -------------------------------------------------------------------------------
-        elseif ($getType === "Beli"){
-            $delT = DB::table('b_transaksis')->where('No_Trans', $postkey)->delete();
-            $delTD = DB::table('b_detail_transaksis')->where('Transaksi_id', $postkey)->delete();
-            $delTD = DB::table('a_barangs')->where('Model_No', $getModel)->delete();
-            $delTD = DB::table('a_nomor_seris')->where('Product_id', $getModel)->delete();
-            return back()
-                ->with('warn','Transaction Deleted!');
-        }
-        else{
-            return back()
-                ->with('error','Error! Missing Request Data!');
-        }
-    }
-
-//--------------------------------------------------------------------------------------------------------------------------------------
-//--------------------------------------------------------------------------------------------------------------------------------------
-    public function edit(Request $request)
-    {
-        $postkey = $request->get('postkey');
-//        dd($postkey);
-
-        $getModel = DB::table('b_detail_transaksis')
-            ->select('*')->where('Transaksi_id', ($postkey))
-            ->get()->first()->Product_id;
-//        dd($getModel);
-
-        $getDetailData = DB::table('b_detail_transaksis')
-            ->select('*')->where('Transaksi_id', ($postkey))
-            ->get()->first();
-
-        $getTransData = DB::table('b_transaksis')
-            ->select('*')->where('No_Trans', ($postkey))
-            ->get()->first();
-
-        $getSNData = DB::table('a_nomor_seris')
-            ->select('*')->where('Product_id', ($getModel))
-            ->get()->first();
-
-        $getBarangData = DB::table('a_barangs')
-            ->select('*')->where('Model_No', ($getModel))
-            ->get()->first();
-//        dd($getBarangData);
-
-//        dd($getModel,$getDetailData,$getTransData,$getSNData,$getBarangData);
-        $Transaksi_id = $postkey;
-        $Product_id = $getModel;
-        $Serial_no = $getDetailData->Serial_no;
-        $Product_Name = $getBarangData->Product_Name;
-        $Brand = $getBarangData->Brand;
-        $Customer_Vendor = $getTransData->Customer_Vendor;
-        $Trans_Type = $getTransData->Trans_Type;
-        $Price = $getDetailData->Price;
-        $Discount = $getDetailData->Discount;
-
-
-//        dd($Transaksi_id,$Product_id,$Serial_no,$Price,$Discount,$Trans_Type,$Customer_Vendor,$Product_Name,$Brand);
-//        $collection = [$Transaksi_id,$Product_id,$Serial_no,$Price,$Discount,$Trans_Type,$Customer_Vendor,$Product_Name,$Brand];
-//        dd($collection);
-//        $JSONcoll = json_encode($collection);
-//        dd($myJSON);
-
-//        value="{{session('q1')[2]}}" >
-
-
-//        return view('transaksi-edit')->with('postkey',$postkey)->with('q1',$collection);
-//        return redirect('transaksi-edit')->with('collection', $JSONcoll);
-
-        return redirect('transaksi-edit')->with([
-            'postkey' =>  $postkey,
-            'Transaksi_id' =>  $Transaksi_id,
-            'Product_id' =>  $Product_id,
-            'Serial_no' =>  $Serial_no,
-            'Product_Name' =>  $Product_Name,
-            'Brand' =>  $Brand,
-            'Customer_Vendor' =>  $Customer_Vendor,
-            'Trans_Type' =>  $Trans_Type,
-            'Price' =>  $Price,
-            'Discount' =>  $Discount,
-        ]);
-    }
-
-//--------------------------------------------------------------------------------------------------------------------------------------
-//--------------------------------------------------------------------------------------------------------------------------------------
-    public function update(Request $request)
-    {
+//        $deleted = DB::table('b_transaksis')->where('votes', '>', 100)->delete();
+//        $deleted = DB::table('b_detail_transaksis')->where('votes', '>', 100)->delete();
         return back()
             ->with('error','Error! Missing Request Data!');
     }
-//    public function invoke()
-//    {
-//        return back()
-//            ->with('error','Error! Missing Request Data!');
-//    }
+
+//--------------------------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------------------------------------
+    public function edit()
+    {
+//        $deleted = DB::table('b_transaksis')->where('votes', '>', 100)->delete();
+//        $deleted = DB::table('b_detail_transaksis')->where('votes', '>', 100)->delete();
+        return back()
+            ->with('error','Error! Missing Request Data!');
+    }
+
 //--------------------------------------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------------------------------------
 
@@ -182,8 +64,9 @@ class TransaksiController extends Controller
         $currdate = \Carbon\Carbon::now()->toDateString();
 //        dd($currdate);
         $Transaksi_id = $curid + 1000;
+//        dd($Transaksi_id);
 
-        $request->request->add(['Transaksi_id' => $Transaksi_id, 'No_Trans' => $Transaksi_id, 'Tanggal' => $currdate]);
+        $request->request->add(['Transaksi_id' => $Transaksi_id, 'No_Trans' => $curid, 'Tanggal' => $currdate]);
         // adding item to request not safe, but idk the alternative
 //--------------------------------------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------------------------------------

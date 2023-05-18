@@ -1,10 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-{{--    <div id="alert">--}}
-{{--        @include('components.alert')--}}
-{{--    </div>--}}
-{{--// visual bug--}}
+    @include('layouts.navbars.auth.topnav', ['title' => 'Item Data'])
     <div class="page-header align-items-start pt-5 pb-11 m-3 border-radius-lg">
     </div>
     <div class="container-fluid"style="
@@ -14,7 +11,6 @@
      background-size: cover;
      background-repeat: no-repeat;">
         <div class="row mt-lg-n10 mt-md-n11 mt-n10 justify-content-center">
-            {{--                <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">--}}
             <div class="col-md-8">
                 <div class="card z-index-0">
                     <div class="card-header text-center pt-4">
@@ -24,7 +20,7 @@
                             @include('components.alert')
                         </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('transaksicreate') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('transaksi-create') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <p class="text-uppercase text-sm">Transaction Data</p>
@@ -118,5 +114,4 @@
             </div>
         </div>
     </div>
-    {{--    </main>--}}
 @endsection

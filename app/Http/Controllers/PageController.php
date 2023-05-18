@@ -32,10 +32,10 @@ class PageController extends Controller
 //    {
 //        return view("pages.transaksiview");
 //    }
-    public function itemmanagement()
-    {
-        return view("pages.item");
-    }
+//    public function itemmanagement()
+//    {
+//        return view("pages.item");
+//    }
 //
 //    public function signin()
 //    {

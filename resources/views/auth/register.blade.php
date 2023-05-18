@@ -1,9 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <div id="alert">
-        @include('components.alert')
-    </div>
     <div class="page-header align-items-start pt-5 pb-8 m-3 border-radius-lg">
     </div>
     <div class="container-fluid py-4"style="background-image: url('/background/signup-cover.jpg');
@@ -13,6 +10,9 @@
                 <div class="card z-index-0">
                     <div class="card-header text-center pt-4">
                         <h5>Register New User</h5>
+                    </div>
+                    <div id="alert">
+                        @include('components.alert')
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('register.perform') }}" enctype="multipart/form-data">

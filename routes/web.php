@@ -5,6 +5,7 @@ use App\Http\Controllers\CUserManagement;
 use App\Http\Controllers\EditProfileController;
 use App\Http\Controllers\GuestRegisterController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\RegisterController;
@@ -72,9 +73,19 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
-    Route::get('/transaksiview', [TransaksiController::class, 'get'])->name('transaksiview');
-    Route::get('/newtransaction', [TransaksiController::class, 'index'])->name('transaksiregister');
-    Route::post('/newtransaction', [TransaksiController::class, 'create'])->name('transaksicreate');
+    Route::get('/transaksi-view', [TransaksiController::class, 'get'])->name('transaksi-view');
+    Route::get('/transaksi-register', [TransaksiController::class, 'index'])->name('transaksi-register');
+    Route::post('/transaksi-register', [TransaksiController::class, 'create'])->name('transaksi-create');
+    Route::post('/transaksi-edit', [TransaksiController::class, 'edit'])->name('transaksi-edit');
+    Route::post('/transaksi-edit-update', [TransaksiController::class, 'update'])->name('transaksi-edit-update');
+    Route::post('/transaksi-delete', [TransaksiController::class, 'delete'])->name('transaksi-delete');
+
+    Route::get('/item-view', [ItemController::class, 'get'])->name('item-view');
+//    Route::post('/item-view', [ItemController::class, 'delete'])->name('item-delete');
+    Route::get('/item-register', [ItemController::class, 'index'])->name('item-register');
+    Route::post('/item-register', [TransaksiController::class, 'create'])->name('item-create');
+    Route::post('/item-view', [ItemController::class, 'edit'])->name('item-edit');
+    Route::post('/item-delete', [ItemController::class, 'delete'])->name('item-delete');
 
 
 

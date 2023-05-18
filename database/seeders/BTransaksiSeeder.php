@@ -26,8 +26,8 @@ class BTransaksiSeeder extends Seeder
             $tanggal = DB::table('a_nomor_seris')->where('id', (self::$counterBarang))->value('Prod_date');
 
             $getUsed = DB::table('a_nomor_seris')->where('id', (self::$counterBarang))->value('Used');
-            $transCV = "Beli";
-            $TransJB = "Vendor";
+            $TransJB = "Beli";
+            $transCV = "Vendor";
 
             DB::table('b_transaksis')->insert([
                 'No_Trans' => (self::$counterNoTrans++) + (1000),
@@ -40,8 +40,8 @@ class BTransaksiSeeder extends Seeder
 
             // only add additional transaction when Used === 1
             if ($getUsed === 1){
-                $transCV = "Jual";
-                $TransJB = "Customer";
+                $TransJB = "Jual";
+                $transCV = "Customer";
                 $tanggal = DB::table('a_nomor_seris')->where('id', (self::$counterBarang))->value('Warranty_Start');
 
                 DB::table('b_transaksis')->insert([
