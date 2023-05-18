@@ -71,24 +71,15 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group">
-{{--                                        <select id="role">--}}
-{{--                                            <option data-text="Admin" value="1">Admin</option>--}}
-{{--                                            <option data-text="Super Admin" value="0">Super Admin</option>--}}
-{{--                                        </select>--}}
                                         <label for="role" class="form-control-label">Role</label>
                                         {{--                                            fallback to old value if validator failed--}}
                                         <select type="role" name="role" class="form-control">
-
-                                                <option data-text="Admin" value=0>Admin</option>
-                                                <option data-text="Super Admin" value=1>Super Admin</option>
-
-
-{{--                                            <option value="1"  {{ old('role') == 'Admin' ? 'selected' : '' }}>--}}
-{{--                                                Admin--}}
-{{--                                            </option>--}}
-{{--                                            <option value="0" {{ old('role') == 'Super Admin' ? 'selected' : '' }}>--}}
-{{--                                                Super Admin--}}
-{{--                                            </option>--}}
+                                            <option value="0" {{ old('role') == 0 ? 'selected' : '' }}>
+                                                Super Admin
+                                            </option>
+                                            <option value="1" {{ old('role') == 1 ? 'selected' : '' }}>
+                                                Admin
+                                            </option>
                                         </select>
                                         @error('role') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
                                     </div>

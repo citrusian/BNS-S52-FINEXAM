@@ -31,7 +31,11 @@ Route::get('/', function () {
 Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
 
 Route::get('/register', [GuestRegisterController::class, 'create'])->middleware('guest')->name('register');
-Route::post('/register', [GuestRegisterController::class, 'store'])->middleware('guest')->name('register.perform');
+//Route::post('/register', [GuestRegisterController::class, 'store'])->middleware('guest')->name('register.perform');
+
+
+Route::get('/new_user', [RegisterController::class, 'create'])->middleware('auth')->name('register');
+Route::post('/register', [RegisterController::class, 'store'])->middleware('auth')->name('register.perform');
 
 Route::get('/login', [LoginController::class, 'show'])->middleware('guest')->name('login');
 Route::post('/login', [LoginController::class, 'login'])->middleware('guest')->name('login.perform');
@@ -63,8 +67,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/edituser2', [EditProfileController::class, 'updateppicture'])->name('updateppicture');
 
 
-    Route::get('/register', [RegisterController::class, 'create'])->name('register');
-    Route::post('/register', [RegisterController::class, 'store'])->name('register.perform');
+//    Route::get('/register', [RegisterController::class, 'create'])->name('register');
+//    Route::post('/register', [RegisterController::class, 'store'])->name('register.perform');
 
 
 	Route::get('/profile-static', [PageController::class, 'profile'])->name('profile-static');

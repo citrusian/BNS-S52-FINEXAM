@@ -90,21 +90,12 @@
                                             <label for="example-text-input" class="form-control-label">Role</label>
                                             {{--                                            fallback to old value if validator failed--}}
                                             <select type="role" name="role" class="form-control">
-
-
                                                 <option value="0" {{ old('role', $user[0]->role) == 0 ? 'selected' : '' }}>
                                                     Super Admin
                                                 </option>
                                                 <option value="1" {{ old('role', $user[0]->role) == 1 ? 'selected' : '' }}>
                                                     Admin
                                                 </option>
-
-{{--                                                <option value="0" {{ old('role', $user[0]->role) == 'Admin' ? 'selected' : '' }}>--}}
-{{--                                                    Admin--}}
-{{--                                                </option>--}}
-{{--                                                <option value="1" {{ old('role', $user[0]->role) == 'Customer' ? 'selected' : '' }}>--}}
-{{--                                                    Super Admin--}}
-{{--                                                </option>--}}
                                             </select>
                                         </div>
                                     </div>
@@ -156,8 +147,6 @@
                         <div class="col-4 col-lg-4 order-lg-2">
                             <div class="mt-n4 mt-lg-n6 mb-4 mb-lg-0">
                                 <a href="javascript:;">
-                                    {{--                                    <img src="/img/profile/team-3.jpg"--}}
-                                    {{--                                    <img src="{{ Auth::user()->profile_photo_path }}"--}}
                                     <img src="/img/profile/{{ $user[0]->pp_path }}"
                                          class="rounded-circle img-fluid border border-2 border-white">
                                 </a>

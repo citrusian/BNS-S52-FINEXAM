@@ -45,7 +45,6 @@ class EditProfileController extends Controller
             'firstname' => ['max:100'],
             'lastname' => ['max:100'],
 //            'email' => ['required', 'email', 'max:255',  Rule::unique('users')->ignore(auth()->user()->id),],
-//            'email' => ['required', 'email', 'max:255',  Rule::unique('users')->ignore(auth()->user()->id),],
             'address' => ['max:100'],
             'city' => ['max:100'],
             'country' => ['max:100'],
