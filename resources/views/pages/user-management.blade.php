@@ -12,17 +12,17 @@
                 <div class="card-header pb-0">
                     <h6>Action</h6>
                 </div>
-
-
                 <div class="card-body px-0 pt-0 pb-2">
                     <form role="form" method="GET" action={{ route('show_new') }} enctype="multipart/form-data">
                         @csrf
                         <div class="card-header pb-0">
+{{--                            <div class="card-header">--}}
                             <button type="submit" class="btn btn-primary btn-sm ms-auto">New User</button>
                         </div>
                     </form>
                 </div>
             </div>
+
             <div class="card mb-4">
                 <div class="card-header pb-0">
                     <h6>User List</h6>
@@ -93,7 +93,7 @@
                                                     <input class="form-control" type="text" name="postid" value="{{ $query->id }}" >
                                                 </div>
                                                 <div class="card-header pb-0">
-                                                    <button type="submit" class="">Edit</button>
+                                                    <button type="submit" class="btn btn-primary">Edit</button>
                                                 </div>
 
                                             </form>
@@ -112,8 +112,8 @@
                             $("#table-id").simplePagination({
                                 perPage: 5,
                                 currentPage: 1,
-                                previousButtonClass: "btn btn-twitter",
-                                nextButtonClass: "btn btn-twitter"
+                                previousButtonClass: "btn btn-primary",
+                                nextButtonClass: "btn btn-primary"
                             });
                         </script>
                     </div>

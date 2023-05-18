@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('a_barangs', function (Blueprint $table) {
             $table->id();
-            $table->string('Product_Name');
-            $table->string('Brand');
-            $table->unsignedBigInteger('Price');
             $table->string('Model_No')->unique();
+            $table->string('Product_Name')->nullable();
+            $table->string('Brand')->nullable();
+            $table->integer('Price');
             $table->timestamps();
         });
     }

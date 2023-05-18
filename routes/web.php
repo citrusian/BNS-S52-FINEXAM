@@ -9,6 +9,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetPassword;
+use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -56,6 +57,7 @@ Route::group(['middleware' => 'auth'], function () {
 //    Route::get('/new_user', [UserProfileController::class, 'show_new'])->name('show_new');
 //    Route::post('/new_user', [UserProfileController::class, 'new'])->name('profile_new');
 
+    Route::get('/credits', [PageController::class, 'credits'])->name('credits');
 
     Route::get('/user_management', [CUserManagement::class, 'index'])->name('user_management');
     Route::get('/new_user', [UserProfileController::class, 'show_new'])->name('show_new');
@@ -67,13 +69,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/edituser2', [EditProfileController::class, 'updateppicture'])->name('updateppicture');
 
 
-//    Route::get('/register', [RegisterController::class, 'create'])->name('register');
-//    Route::post('/register', [RegisterController::class, 'store'])->name('register.perform');
 
 
-	Route::get('/profile-static', [PageController::class, 'profile'])->name('profile-static');
-	Route::get('/sign-in-static', [PageController::class, 'signin'])->name('sign-in-static');
-	Route::get('/sign-up-static', [PageController::class, 'signup'])->name('sign-up-static');
+
+    Route::get('/transaksiview', [TransaksiController::class, 'get'])->name('transaksiview');
+    Route::get('/newtransaction', [TransaksiController::class, 'index'])->name('transaksiregister');
+    Route::post('/newtransaction', [TransaksiController::class, 'create'])->name('transaksicreate');
+
+
+
+    Route::get('/itemmanagement', [PageController::class, 'itemmanagement'])->name('itemmanagement');
 
 
 

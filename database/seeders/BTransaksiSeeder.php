@@ -30,9 +30,9 @@ class BTransaksiSeeder extends Seeder
             $TransJB = "Vendor";
 
             DB::table('b_transaksis')->insert([
-                'Tanggal' => $tanggal,
                 'No_Trans' => (self::$counterNoTrans++) + (1000),
-                'Customer / Vendor' => $transCV,
+                'Tanggal' => $tanggal,
+                'Customer_Vendor' => $transCV,
                 'Trans_Type' => $TransJB,
                 "created_at" =>  \Carbon\Carbon::now(),
                 "updated_at" => \Carbon\Carbon::now(),
@@ -45,9 +45,9 @@ class BTransaksiSeeder extends Seeder
                 $tanggal = DB::table('a_nomor_seris')->where('id', (self::$counterBarang))->value('Warranty_Start');
 
                 DB::table('b_transaksis')->insert([
-                    'Tanggal' => $tanggal,
                     'No_Trans' => (self::$counterNoTrans++) + (1000),
-                    'Customer / Vendor' => $transCV,
+                    'Tanggal' => $tanggal,
+                    'Customer_Vendor' => $transCV,
                     'Trans_Type' => $TransJB,
                     "created_at" =>  \Carbon\Carbon::now(),
                     "updated_at" => \Carbon\Carbon::now(),

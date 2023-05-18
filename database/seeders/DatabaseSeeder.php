@@ -66,11 +66,11 @@ class DatabaseSeeder extends Seeder
             ->create();
 
         ABarang::factory()
-            ->count(10)
+            ->count(50)
             ->create();
 
         ANomorSeri::factory()
-            ->count(10)
+            ->count(50)
             ->create();
 
         // Used to dynamically calculate random data input
