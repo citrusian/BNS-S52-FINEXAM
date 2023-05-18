@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class PageController extends Controller
 {
@@ -21,28 +23,69 @@ class PageController extends Controller
         return abort(404);
     }
 
-    public function vr()
+//    public function profile()
+//    {
+//        return view("pages.profile-static");
+//    }
+//
+//    public function signin()
+//    {
+//        return view("pages.sign-in-static");
+//    }
+//
+//    public function signup()
+//    {
+//        return view("pages.sign-up-static");
+//    }
+
+    public function itemData()
     {
-        return view("pages.virtual-reality");
+//        Get All Query
+        $query = DB::table('data_barangs')
+            ->select('*')
+            ->get();
+
+        return view("pages.itemData",['q1'=>$query]);
     }
 
-    public function rtl()
+    public function transactionData()
     {
-        return view("pages.rtl");
+//        Get All Query
+        $query = DB::table('data_barangs')
+            ->select('*')
+            ->get();
+
+        return view("pages.itemData",['q1'=>$query]);
     }
 
-    public function profile()
+    public function user_management()
     {
-        return view("pages.profile-static");
+//        Get All Query
+        $query = DB::table('users')
+            ->select('*')
+            ->get();
+        Log::debug($query);
+        return view("pages.user-management",['q1'=>$query]);
     }
 
-    public function signin()
+    public function new_user()
     {
-        return view("pages.sign-in-static");
+        return view("pages.new_user");
     }
 
-    public function signup()
-    {
-        return view("pages.sign-up-static");
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
