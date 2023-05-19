@@ -15,8 +15,8 @@ class ANomorSeriSeeder extends Seeder
      */
     public function run()
     {
-        ANomorSeri::factory()
-            ->count(10)
-            ->create();
+//        ANomorSeri::factory()
+//            ->count(10)
+//            ->create();
     }
 }

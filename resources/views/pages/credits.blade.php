@@ -6,14 +6,14 @@
         <div class="page-header align-items-start pt-5 pb-11 m-3 border-radius-lg"
              style="background-image: url('/background/bg1-compress.jpg');
              background-position: top;
-             height: 97vh;
+             height: 85vh;
              background-size: cover;
              background-repeat: no-repeat;">
             <span class="mask bg-gradient-dark opacity-9"></span>
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-5 mx-auto">
-                        <h3 class="text-lead text-white">About</h3>
+                        <h3 class="text-lead text-white" style="text-align: center">About</h3>
                         <h3 class="text-lead text-white">&nbsp</h3>
                     </div>
                     <div class="col-lg-5 text-center mx-auto">
@@ -21,16 +21,14 @@
                     </div>
 
                     <div class="col-lg-5 mx-auto">
-                        <h5 class="text-lead text-white">Website dibuat dengan tujuan ujian Final Exam Binus</h5>
-                        <h5 class="text-lead text-white">COMP6621036 – Web Programming</h5>
+                        <h5 class="text-lead text-white" style="text-align: center">Website dibuat untuk ujian Final Exam Binus</h5>
+                        <h5 class="text-lead text-white" style="text-align: center">COMP6621036 – Web Programming</h5>
                         <h5 class="text-lead text-white">&nbsp</h5>
-                        <h5 class="text-lead text-white">-Nama: Reyhan Aulia Faried</h5>
-                        <h5 class="text-lead text-white">-Nim : 2401963084</h5>
                     </div>
 
                     <div class="col-lg-5 text-center mx-auto">
                         <h4 class="text-lead text-white">Template:</h4>
-                        <h5 class="text-lead text-white">Argon 2</h5>
+                        <h5 class="text-lead text-white">&copy; Argon 2</h5>
                         <h5 class="text-lead text-white">
                             <script>
                                 document.write(new Date().getFullYear())
@@ -49,8 +47,13 @@
                             &
                             <a href="https://github.com/enrique26/jquery.simplePagination" class="font-weight-bold" target="_blank" style="color: #0c9ab4">enrique26</a>
                         </h5>
+                        <h3 class="text-lead text-white">&nbsp</h3>
+                        <h4 class="text-lead text-white">Script:</h4>
+                        <h5 class="text-lead text-white">Google Chart</h5>
 
-
+                        <h5 class="text-lead text-white">
+                            <a href="https://developers.google.com/chart/interactive/docs/gallery" class="font-weight-bold" target="_blank" style="color: #0c9ab4">Google</a>
+                        </h5>
 {{--                        <h5 class="text-lead text-white"><a href="https://github.com/smarulanda/jquery.simplePagination" class="font-weight-bold" target="_blank" style="color: #0c9ab4">Sebastian Marulanda</a></h5>--}}
 {{--                        <h5 class="text-lead text-white"><a href="https://github.com/enrique26/jquery.simplePagination" class="font-weight-bold" target="_blank" style="color: #0c9ab4">enrique26</a></h5>--}}
                     </div>

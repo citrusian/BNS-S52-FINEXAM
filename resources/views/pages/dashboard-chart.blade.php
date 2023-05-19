@@ -11,13 +11,13 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Money</p>
-                                    <h5 class="font-weight-bolder">
-                                        $53,000
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Sales</p>
+                                    <h5 class="font-weight-bolder" style="color: #40a603">
+                                        Rp. {{$monthIncome}}
                                     </h5>
                                     <p class="mb-0">
-                                        <span class="text-success text-sm font-weight-bolder">+55%</span>
-                                        since yesterday
+                                        <span class="text-success text-sm font-weight-bolder"></span>
+                                        This Month
                                     </p>
                                 </div>
                             </div>
@@ -36,13 +36,13 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Users</p>
-                                    <h5 class="font-weight-bolder">
-                                        2,300
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Expense</p>
+                                    <h5 class="font-weight-bolder" style="color: #e30000">
+                                        Rp. {{$monthExpense}}
                                     </h5>
                                     <p class="mb-0">
-                                        <span class="text-success text-sm font-weight-bolder">+3%</span>
-                                        since last week
+                                        <span class="text-success text-sm font-weight-bolder"></span>
+                                        This Month
                                     </p>
                                 </div>
                             </div>
@@ -61,13 +61,13 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">New Clients</p>
-                                    <h5 class="font-weight-bolder">
-                                        +3,462
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Staff</p>
+                                    <h5 class="font-weight-bolder" style="color: #262626">
+                                        {{$totalUser}}
                                     </h5>
                                     <p class="mb-0">
-                                        <span class="text-danger text-sm font-weight-bolder">-2%</span>
-                                        since last quarter
+                                        <span class="text-danger text-sm font-weight-bolder"></span>
+                                        &nbsp
                                     </p>
                                 </div>
                             </div>
@@ -86,12 +86,12 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Sales</p>
-                                    <h5 class="font-weight-bolder">
-                                        $103,430
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Profit / Loss</p>
+                                    <h5 class="font-weight-bolder" style="color: {{ $lossStatus === 0 ? '#40a603' : '#e30000' }}">
+                                        {{ $monthProfit }}
                                     </h5>
                                     <p class="mb-0">
-                                        <span class="text-success text-sm font-weight-bolder">+5%</span> than last month
+                                        <span class="text-success text-sm font-weight-bolder"></span> This month Profit / Loss
                                     </p>
                                 </div>
                             </div>
@@ -105,23 +105,15 @@
                 </div>
             </div>
         </div>
-
-
-
-
-
-
-
         <div class="row mt-4">
-            <div class="col-lg-7 mb-lg-0 mb-4">
+{{--            <div class="col-lg-7 mb-lg-0 mb-4">--}}
+            <div class="col-lg-7 mx-auto">
 {{--                <div class="card z-index-2 h-100">--}}
                 <div class="card z-index-2" style="height: 100% ">
                     <div class="card-header pb-0 pt-3 bg-transparent">
                         <h6 class="text-capitalize">Sales overview</h6>
                     </div>
                     <div class="card-body p-3">
-
-
                         <div class="chart">
                             <div id="chart_div"></div>
                             <script>
@@ -130,34 +122,28 @@
 
                                 function drawChart() {
 
-                                    var button = document.getElementById('change-chart');
                                     var chartDiv = document.getElementById('chart_div');
 
                                     var data = new google.visualization.DataTable();
                                     data.addColumn('date', 'Month');
-                                    data.addColumn('number', "Average Temperature");
-                                    data.addColumn('number', "Average Hours of Daylight");
+                                    data.addColumn('number', "Income");
+                                    data.addColumn('number', "Expense");
 
                                     data.addRows([
-                                        [new Date(2014, 0),  -.5,  5.7],
-                                        [new Date(2014, 1),   .4,  8.7],
-                                        [new Date(2014, 2),   .5,   12],
-                                        [new Date(2014, 3),  2.9, 15.3],
-                                        [new Date(2014, 4),  6.3, 18.6],
-                                        [new Date(2014, 5),    9, 20.9],
-                                        [new Date(2014, 6), 10.6, 19.8],
-                                        [new Date(2014, 7), 10.3, 16.6],
-                                        [new Date(2014, 8),  7.4, 13.3],
-                                        [new Date(2014, 9),  4.4,  9.9],
-                                        [new Date(2014, 10), 1.1,  6.6],
-                                        [new Date(2014, 11), -.2,  4.5]
+                                        [new Date(2022, 11),  {{$datj11022}},  {{$datb11022}}],
+                                        [new Date(2022, 12),   {{$datj12022}},  {{$datb12022}}],
+                                        [new Date(2023, 1),   {{$datj1122}},  {{$datb1122}}],
+                                        [new Date(2023, 2),   {{$datj2122}},  {{$datb2122}}],
+                                        [new Date(2023, 3),   {{$datj3122}},  {{$datb3122}}],
+                                        [new Date(2023, 4),   {{$datj4122}},  {{$datb4122}}],
+                                        [new Date(2023, 5),  {{$datj5122}},  {{$datb5122}}],
                                     ]);
 
                                     var materialOptions = {
                                         chart: {
-                                            title: 'Average Temperatures and Daylight in Iceland Throughout the Year'
+                                            title: 'Average of Income and Expense Throughout the Year'
                                         },
-                                        width: 1000,
+                                        width: 850,
                                         height: 500,
                                         series: {
                                             // Gives each series an axis name that matches the Y-axis below.
@@ -167,35 +153,8 @@
                                         axes: {
                                             // Adds labels to each axis; they don't have to match the axis names.
                                             y: {
-                                                Temps: {label: 'Temps (Celsius)'},
-                                                Daylight: {label: 'Daylight'}
-                                            }
-                                        }
-                                    };
-
-                                    var classicOptions = {
-                                        title: 'Average Temperatures and Daylight in Iceland Throughout the Year',
-                                        width: 900,
-                                        height: 500,
-                                        // Gives each series an axis that matches the vAxes number below.
-                                        series: {
-                                            0: {targetAxisIndex: 0},
-                                            1: {targetAxisIndex: 1}
-                                        },
-                                        vAxes: {
-                                            // Adds titles to each axis.
-                                            0: {title: 'Temps (Celsius)'},
-                                            1: {title: 'Daylight'}
-                                        },
-                                        hAxis: {
-                                            ticks: [new Date(2014, 0), new Date(2014, 1), new Date(2014, 2), new Date(2014, 3),
-                                                new Date(2014, 4),  new Date(2014, 5), new Date(2014, 6), new Date(2014, 7),
-                                                new Date(2014, 8), new Date(2014, 9), new Date(2014, 10), new Date(2014, 11)
-                                            ]
-                                        },
-                                        vAxis: {
-                                            viewWindow: {
-                                                max: 30
+                                                Temps: {label: 'Million (Rupiah)'},
+                                                Daylight: {label: 'Million'}
                                             }
                                         }
                                     };
@@ -203,65 +162,43 @@
                                     function drawMaterialChart() {
                                         var materialChart = new google.charts.Line(chartDiv);
                                         materialChart.draw(data, materialOptions);
-                                        button.innerText = 'Change to Classic';
-                                        button.onclick = drawClassicChart;
                                     }
-
-                                    function drawClassicChart() {
-                                        var classicChart = new google.visualization.LineChart(chartDiv);
-                                        classicChart.draw(data, classicOptions);
-                                        button.innerText = 'Change to Material';
-                                        button.onclick = drawMaterialChart;
-                                    }
-
                                     drawMaterialChart();
-
                                 }
-
                             </script>
                         </div>
-
-
-
-
-
-
-
                     </div>
                 </div>
             </div>
             <div class="col-lg-5">
                 <div class="card card-carousel overflow-hidden h-100 p-0">
+                    <script type="text/javascript">
+                        google.charts.load('current', {'packages':['corechart']});
+                        google.charts.setOnLoadCallback(drawChart);
 
-                </div>
-            </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-lg-7 mb-lg-0 mb-4">
-                <div class="card ">
-                    <div class="card-header pb-0 p-3">
-                        <div class="d-flex justify-content-between">
-                            <h6 class="mb-2">Sales by Country</h6>
-                        </div>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table align-items-center ">
-                            <tbody>
+                        function drawChart() {
 
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-5">
-                <div class="card">
-                    <div class="card-header pb-0 p-3">
-                        <h6 class="mb-0">Categories</h6>
-                    </div>
-                    <div class="card-body p-3">
+                            var data = google.visualization.arrayToDataTable([
+                                ['Vendor', 'Hours per Day'],
+                                ['Acer',      {{$Acer}}],
+                                ['Apple',     {{$Apple}}],
+                                ['Asus',      {{$Asus}}],
+                                ['Dell',      {{$Dell}}],
+                                ['HP',        {{$HP}}],
+                                ['Lenovo',    {{$Lenovo}}],
+                                ['Other',     {{$Other}}]
+                            ]);
+                            var options = {
+                                title: 'Available Stock'
+                            };
 
+                            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
-                    </div>
+                            chart.draw(data, options);
+                        }
+                    </script>
+{{--                    <div id="piechart" style="width: 900px; height: 600px;"></div>--}}
+                    <div id="piechart" style="width: 900px; height: 600px;margin-right: 0; margin-left: 0;"></div>
                 </div>
             </div>
         </div>

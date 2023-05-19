@@ -21,6 +21,9 @@
                     <div class="card-header text-center pt-4">
                         <h5>Input Transaksi</h5>
                     </div>
+                    <div class="mx-md-11" id="alert">
+                        @include('components.alert')
+                    </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('transaksi-create') }}" enctype="multipart/form-data">
                             @csrf

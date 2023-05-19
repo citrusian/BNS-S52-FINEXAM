@@ -23,6 +23,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('pages.dashboard');
+        $test="ads";
+//        dd($test);
+        return view('pages.dashboard-chart');
     }
 }
