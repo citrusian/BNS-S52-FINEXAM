@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Traits\DebugToConsole;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 
 class TransaksiController extends Controller
 {
@@ -158,14 +160,133 @@ class TransaksiController extends Controller
 //--------------------------------------------------------------------------------------------------------------------------------------
     public function update(Request $request)
     {
+//        dd($request);
+        $old_Product_id = $request->old_Product_id;
+        $old_Serial_no = $request->old_Serial_no;
+        $new_Product_id = $request->Product_id;
+        $new_Serial_no = $request->Serial_no;
+//        dd($old_Product_id,$old_Serial_no);
+
+//        $attributes = request()->validate([
+//            'Transaksi_id' => ['required'],
+//            'old_Product_id' => ['required'],
+//            'old_Serial_no' => ['required|numeric'],
+//
+//            'Product_id' => ['required|unique->ignore.$user->id'],
+//            'Serial_no' => ['required|numeric|min:3'],
+////            'Product_id' => ['required',Rule::unique('posts')->ignore($this->route('post'))  ],
+////            'Serial_no' => ['required|numeric|min:3|unique->ignore($request->old_Serial_no)'],
+//
+//            'Product_Name' => 'required|max:255',   // Editable
+//            'Brand' => 'required|max:255',          // Editable
+//            'Customer_Vendor' => 'required',        // Editable
+//
+//            'Trans_Type' => 'required',
+//
+//            'Price' => 'required',                  // Editable
+//            'Discount' => 'required',               // Editable
+//        ]);
+//            $test = response()->json(['errors'=>$attributes->errors()]);
+//            $test = response()->json(['errors'=>$attributes->errors()]);
+//            $test = $attributes->errors();
+//            dd($test);
+
+        $postkey =  $request->postkey;
+        $TID =  $request->Transaksi_id;
+        $PID =  $request->old_Product_id;
+        $SN =  $request->old_Serial_no;
+        $PN =  $request->Product_Name;
+        $BR =  $request->Brand;
+        $CV =  $request->Customer_Vendor;
+        $TY =  $request->Trans_Type;
+        $PR =  $request->Price;
+        $DC =  $request->Discount;
+
+//        Manual validator, unique->ignore cant validate request .......................
+        if ($old_Product_id != $new_Product_id){
+            $attributes = Validator::make($request->all(),[
+                'Transaksi_id' => ['required'],
+                'Product_id' => ['required','unique:a_nomor_seris'],
+                'Serial_no' => ['required','numeric'],
+                'Product_Name' => 'required|max:255',   // Editable
+                'Brand' => 'required|max:255',          // Editable
+                'Customer_Vendor' => 'required',        // Editable
+                'Trans_Type' => 'required',
+                'Price' => 'required',                  // Editable
+                'Discount' => 'required',               // Editable
+            ]);
+            $message = $attributes->messages()->all()[0];
+//            dd($message);
+
+            if ($attributes->fails()) {
+                return redirect('transaksi-edit')
+                    ->with(['error' => $message])
+                    // not in collection, because i already using this at view-edit
+                    ->with([
+                    'postkey' =>  $postkey,'Transaksi_id' =>  $TID,'Product_id' =>  $PID,'Serial_no' => $SN,
+                    'Product_Name' =>  $PN,'Brand' =>  $BR,'Customer_Vendor' =>  $CV,'Trans_Type' =>  $TY,
+                    'Price' =>  $PR,'Discount' =>  $DC,
+                ]);
+            }
+        }
+        if ($old_Serial_no !=$new_Serial_no){
+            $attributes = request()->validate([
+                'Transaksi_id' => ['required'],
+                'Product_id' => ['required'],
+                'Serial_no' => ['required','numeric','unique:a_nomor_seris'],
+
+                'Product_Name' => 'required|max:255',   // Editable
+                'Brand' => 'required|max:255',          // Editable
+                'Customer_Vendor' => 'required',        // Editable
+
+                'Trans_Type' => 'required',
+
+                'Price' => 'required',                  // Editable
+                'Discount' => 'required',               // Editable
+            ]);
+        }
+        elseif ($old_Product_id === $new_Product_id || $old_Serial_no === $new_Serial_no){
+
+            $attributes = request()->validate([
+                'Transaksi_id' => ['required'],
+                'Product_id' => ['required'],
+                'Serial_no' => ['required','numeric'],
+
+                'Product_Name' => 'required|max:255',   // Editable
+                'Brand' => 'required|max:255',          // Editable
+                'Customer_Vendor' => 'required',        // Editable
+
+                'Trans_Type' => 'required',
+
+                'Price' => 'required',                  // Editable
+                'Discount' => 'required',               // Editable
+            ]);
+        }
+
+
+
+
+        dd($request);
+
+        ANomorSeri::where('Serial_no', $checkSerial)
+            ->update([
+                // price not updated, because it was buying price
+                'Warranty_Start' => $currdate,
+                'Warranty_Duration' => $Warranty_Duration,
+                'Used' => '1',
+            ]);
+
+
+
+
         return back()
-            ->with('error','Error! Missing Request Data!');
+            ->with('error','Error! Update!');
     }
-//    public function invoke()
-//    {
-//        return back()
-//            ->with('error','Error! Missing Request Data!');
-//    }
+    public function invoke()
+    {
+        return back()
+            ->with('error','Error! Invoke!');
+    }
 //--------------------------------------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------------------------------------
 

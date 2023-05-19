@@ -68,7 +68,7 @@
             </li>
             <li class="nav-item">
 {{--                <a class="nav-link {{  str_contains(request()->url(), 'transaksiview') == true ? 'active' : '' }}" href="{{ route('page', ['page' => 'transaksi-view']) }}">--}}
-                    <a class="nav-link {{  str_contains(request()->url(), 'transaksi-view') == true ? 'active' : '' }}" href="transaksi-view">
+                    <a class="nav-link {{  str_contains(request()->url(), 'transaksiview') == true ? 'active' : '' }}" href="{{ route('transaksi-view') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
@@ -96,6 +96,7 @@
                     <span class="nav-link-text ms-1">About</span>
                 </a>
             </li>
+
         </ul>
     </div>
 </aside>

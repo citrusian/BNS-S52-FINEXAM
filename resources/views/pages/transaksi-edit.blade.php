@@ -1,48 +1,68 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'Transaction Data'])
+{{--    <div id="alert">--}}
+{{--        @include('components.alert')--}}
+{{--    </div>--}}
+{{--    @include('layouts.navbars.auth.topnav', ['title' => 'Transaction Data'])--}}
     <div class="page-header align-items-start pt-5 pb-8 m-3 border-radius-lg">
     </div>
+    <span class="mask bg-gradient-dark opacity-6"></span>
     <div class="container-fluid"style="
      background-image: url('/background/signup-cover.jpg');
      background-position: top;
-     height: 100vh;
+     height: 95vh;
      background-size: cover;
      background-repeat: no-repeat;">
         <div class="row mt-lg-n10 mt-md-n11 mt-n10 justify-content-center">
             <div class="col-md-8">
                 <div class="card z-index-0">
-                    <div class="card-header text-center pt-4">
+                    <div class="card-header text-center pt-4 pb-0">
                         <h5>Edit Transaksi</h5>
-                        <h5>Transaction Number:{{session('postkey')}}</h5>
+{{--                        <h5>Transaction Number:{{session('postkey')}}</h5>--}}
+                            <div id="alert">
+                                @include('components.alert')
+                            </div>
                     </div>
-                        <div id="alert">
-                            @include('components.alert')
-                        </div>
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('transaksi-register') }}" enctype="multipart/form-data">
+                    <div class="card-body pt-0">
+{{--                        ...................... berjam jam error gara2 lupa ganti route--}}
+
+                        <form method="POST" action="{{ route('transaksi-edit-update') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
-                                <p class="text-uppercase text-sm">Transaction Data</p>
+                                <p class="text-uppercase text-sm pt-0">Transaction Data</p>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="Product_id" class="form-control-label">Item Code</label>
-                                        <input type="text" name="Product_id" class="form-control" placeholder="APL-4928" aria-label="Product_id" value="{{session('Transaksi_id')}}" readonly>
+                                        <label for="Transaksi_id" class="form-control-label">Transaction Number</label>
+                                        <input type="text" name="Transaksi_id" class="form-control" placeholder="APL-4928" aria-label="Transaksi_id" value="{{ session('Transaksi_id')}}" readonly>
+                                        @error('Transaksi_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="old_Product_id" class="form-control-label">Model Code</label>
+                                        <input type="text" name="old_Product_id" class="form-control" placeholder="APL-4928" aria-label="old_Product_id" value="{{session('Product_id')}}"readonly>
+                                        @error('old_Product_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="old_Serial_no" class="form-control-label">Serial Number</label>
+                                        <input type="number" name="old_Serial_no" class="form-control" placeholder="3268204658275" aria-label="old_Serial_no" value="{{session('Serial_no')}}" readonly>
+                                        @error('old_Serial_no') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="Product_id" class="form-control-label">New Model Code</label>
+                                        <input type="text" name="Product_id" class="form-control" placeholder="APL-4928" aria-label="Product_id" value="{{session('Product_id')}}">
                                         @error('Product_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="Product_id" class="form-control-label">Item Code</label>
-                                        <input type="text" name="Product_id" class="form-control" placeholder="APL-4928" aria-label="Product_id" value="{{session('Product_id')}}" readonly>
-                                        @error('Product_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="Harga_Beli" class="form-control-label">Serial Number</label>
-                                        <input type="number" name="Serial_no" class="form-control" placeholder="3268204658275" aria-label="Serial_no" value="{{session('Serial_no')}}" readonly>
+                                        <label for="Serial_no" class="form-control-label">New Serial Number</label>
+                                        <input type="number" name="Serial_no" class="form-control" placeholder="3268204658275" aria-label="Serial_no" value="{{session('Serial_no')}}">
                                         @error('Serial_no') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
                                     </div>
                                 </div>

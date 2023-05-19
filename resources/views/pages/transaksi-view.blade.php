@@ -39,7 +39,7 @@
 {{--                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="No">No.</th>--}}
                                 <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Image">Transaction No.</th>
                                 <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Nama">Tanggal</th>
-                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Item Code</th>
+                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Model Code</th>
                                 <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Harga</th>
                                 <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Customer / Vendor</th>
                                 <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Jenis Transaksi</th>
@@ -52,7 +52,7 @@
 {{--                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="No">No.</th>--}}
                                 <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Image">Transaction No.</th>
                                 <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Nama">Tanggal</th>
-                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Item Code</th>
+                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Model Code</th>
                                 <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Harga</th>
                                 <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Customer / Vendor</th>
                                 <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Jenis Transaksi</th>
