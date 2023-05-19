@@ -1,22 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-    <div id="alert">
-        @include('components.alert')
+    <div class="page-header align-items-start pt-5 pb-8 m-3 border-radius-lg">
     </div>
-    {{--    @include('layouts.navbars.guest.navbar')--}}
-    {{--    <main class="main-content  mt-0">--}}
-    <div class="page-header align-items-start pt-5 pb-8 m-3 border-radius-lg"
-    >
-    </div>
-    {{--        <div class="container">--}}
-    <div class="container-fluid py-4"style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signup-cover.jpg'); background-position: top;">
+    <div class="container-fluid py-4"style="background-image: url('/background/signup-cover.jpg');
+                                            background-position: top;">
         <div class="row mt-lg-n10 mt-md-n11 mt-n10 justify-content-center">
-            {{--                <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">--}}
             <div class="col-md-8">
                 <div class="card z-index-0">
                     <div class="card-header text-center pt-4">
                         <h5>Register New User</h5>
+                    </div>
+                    <div id="alert">
+                        @include('components.alert')
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('register.perform') }}" enctype="multipart/form-data">
@@ -71,24 +67,15 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group">
-{{--                                        <select id="role">--}}
-{{--                                            <option data-text="Admin" value="1">Admin</option>--}}
-{{--                                            <option data-text="Super Admin" value="0">Super Admin</option>--}}
-{{--                                        </select>--}}
                                         <label for="role" class="form-control-label">Role</label>
                                         {{--                                            fallback to old value if validator failed--}}
                                         <select type="role" name="role" class="form-control">
-
-                                                <option data-text="Admin" value=0>Admin</option>
-                                                <option data-text="Super Admin" value=1>Super Admin</option>
-
-
-{{--                                            <option value="1"  {{ old('role') == 'Admin' ? 'selected' : '' }}>--}}
-{{--                                                Admin--}}
-{{--                                            </option>--}}
-{{--                                            <option value="0" {{ old('role') == 'Super Admin' ? 'selected' : '' }}>--}}
-{{--                                                Super Admin--}}
-{{--                                            </option>--}}
+                                            <option value="0" {{ old('role') == 0 ? 'selected' : '' }}>
+                                                Super Admin
+                                            </option>
+                                            <option value="1" {{ old('role') == 1 ? 'selected' : '' }}>
+                                                Admin
+                                            </option>
                                         </select>
                                         @error('role') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
                                     </div>

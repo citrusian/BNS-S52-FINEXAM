@@ -20,8 +20,17 @@ class RegisterController extends Controller
     public function store(Request $request)
     {
 
-        $curid = DB::table('Users')->count();
+//        $curid = DB::table('Users')->count();
+        // count not always reliable eg: deletion
+
+        $getlast = DB::table('b_transaksis')
+            ->latest('id')
+            ->first();
+//        dd($getlast);
+
+        $curid = $getlast->id;
         $curid +=1;
+//        dd($curid);
 
         Log::debug("currid: ".$curid);
 
@@ -34,7 +43,7 @@ class RegisterController extends Controller
             'password' => 'required|min:5|max:255',
             'confirm-password' => 'same:password',
             'terms' => 'required',
-//
+
             'role' => 'required',
             'firstname' => 'required',
             'lastname' => 'required',
@@ -48,26 +57,14 @@ class RegisterController extends Controller
         Log::info(print_r($attributes, true));
 
         $user = User::create($attributes);
-//
-        if ($request->role === "Super Admin"){
-            $role = 0;
-        }
-        else{
-            $role = 1;
-        }
 
         $update = DB::table('users')
             ->where('id', $curid)
             ->update([
-                'role' =>  $role,
                 'pp_path' =>  '0-Default.jpg',
             ]);
 
-//        Log::debug("curruse: ".$user);
-//        Log::debug("currid: ".$update);
-
         return back()
             ->with('succes','User Created');
-//            ->with('image',$imageName);
     }
 }

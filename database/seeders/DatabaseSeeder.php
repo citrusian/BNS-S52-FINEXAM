@@ -61,16 +61,19 @@ class DatabaseSeeder extends Seeder
 //        ]);
         // Disabled, more easy to define number in here than *Seeder.php
 
+        $usernumber = 20 ;
+        $itemnumber = 50 ;
+
         User::factory()
-            ->count(15)
+            ->count($usernumber)
             ->create();
 
         ABarang::factory()
-            ->count(10)
+            ->count($itemnumber)
             ->create();
 
         ANomorSeri::factory()
-            ->count(10)
+            ->count($itemnumber)
             ->create();
 
         // Used to dynamically calculate random data input

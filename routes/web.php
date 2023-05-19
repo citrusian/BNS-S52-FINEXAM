@@ -5,10 +5,12 @@ use App\Http\Controllers\CUserManagement;
 use App\Http\Controllers\EditProfileController;
 use App\Http\Controllers\GuestRegisterController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetPassword;
+use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,7 +33,11 @@ Route::get('/', function () {
 Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
 
 Route::get('/register', [GuestRegisterController::class, 'create'])->middleware('guest')->name('register');
-Route::post('/register', [GuestRegisterController::class, 'store'])->middleware('guest')->name('register.perform');
+//Route::post('/register', [GuestRegisterController::class, 'store'])->middleware('guest')->name('register.perform');
+
+
+Route::get('/new_user', [RegisterController::class, 'create'])->middleware('auth')->name('register');
+Route::post('/register', [RegisterController::class, 'store'])->middleware('auth')->name('register.perform');
 
 Route::get('/login', [LoginController::class, 'show'])->middleware('guest')->name('login');
 Route::post('/login', [LoginController::class, 'login'])->middleware('guest')->name('login.perform');
@@ -52,6 +58,7 @@ Route::group(['middleware' => 'auth'], function () {
 //    Route::get('/new_user', [UserProfileController::class, 'show_new'])->name('show_new');
 //    Route::post('/new_user', [UserProfileController::class, 'new'])->name('profile_new');
 
+    Route::get('/credits', [PageController::class, 'credits'])->name('credits');
 
     Route::get('/user_management', [CUserManagement::class, 'index'])->name('user_management');
     Route::get('/new_user', [UserProfileController::class, 'show_new'])->name('show_new');
@@ -62,14 +69,22 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/edituser', [EditProfileController::class, 'updateuser'])->name('updateuser');
     Route::post('/edituser2', [EditProfileController::class, 'updateppicture'])->name('updateppicture');
 
+    Route::get('/transaksi-view', [TransaksiController::class, 'get'])->name('transaksi-view');
+    Route::get('/transaksi-register', [TransaksiController::class, 'index'])->name('transaksi-register');
+    Route::post('/transaksi-register', [TransaksiController::class, 'create'])->name('transaksi-create');
+    Route::post('/transaksi-edit', [TransaksiController::class, 'edit'])->name('transaksi-edit');
+    Route::post('/transaksi-edit-update', [TransaksiController::class, 'update'])->name('transaksi-edit-update');
+    Route::post('/transaksi-delete', [TransaksiController::class, 'delete'])->name('transaksi-delete');
 
-    Route::get('/register', [RegisterController::class, 'create'])->name('register');
-    Route::post('/register', [RegisterController::class, 'store'])->name('register.perform');
+    Route::get('/item-view', [ItemController::class, 'get'])->name('item-view');
+    Route::get('/item-register', [ItemController::class, 'index'])->name('item-register');
+    Route::post('/item-register', [TransaksiController::class, 'create'])->name('item-create');
+    Route::post('/item-view', [ItemController::class, 'edit'])->name('item-edit');
+    Route::post('/item-delete', [ItemController::class, 'delete'])->name('item-delete');
 
 
-	Route::get('/profile-static', [PageController::class, 'profile'])->name('profile-static');
-	Route::get('/sign-in-static', [PageController::class, 'signin'])->name('sign-in-static');
-	Route::get('/sign-up-static', [PageController::class, 'signup'])->name('sign-up-static');
+
+    Route::get('/itemmanagement', [PageController::class, 'itemmanagement'])->name('itemmanagement');
 
 
 

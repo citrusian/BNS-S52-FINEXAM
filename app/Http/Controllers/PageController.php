@@ -24,9 +24,17 @@ class PageController extends Controller
         return abort(404);
     }
 
-//    public function profile()
+    public function credits()
+    {
+        return view("pages.credits");
+    }
+//    public function transaksi()
 //    {
-//        return view("pages.profile-static");
+//        return view("pages.transaksiview");
+//    }
+//    public function itemmanagement()
+//    {
+//        return view("pages.item");
 //    }
 //
 //    public function signin()

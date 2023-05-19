@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('b_transaksis', function (Blueprint $table) {
             $table->id();
-            $table->date('Tanggal');
             $table->integer('No_Trans')->unique();
-            $table->string('Customer / Vendor');
+            $table->date('Tanggal');
             $table->string('Trans_Type');
+            $table->string('Customer_Vendor');
             $table->timestamps();
         });
     }

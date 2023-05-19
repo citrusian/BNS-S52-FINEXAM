@@ -10,9 +10,9 @@ class BTransaksi extends Model
     use HasFactory;
 
     protected $fillable = [
-        'Tanggal',
         'No_Trans',
-        'Customer / Vendor',
+        'Tanggal',
+        'Customer_Vendor',
         'Trans_Type',
     ];
 
