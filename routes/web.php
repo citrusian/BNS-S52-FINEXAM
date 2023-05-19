@@ -69,10 +69,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/edituser', [EditProfileController::class, 'updateuser'])->name('updateuser');
     Route::post('/edituser2', [EditProfileController::class, 'updateppicture'])->name('updateppicture');
 
-
-
-
-
     Route::get('/transaksi-view', [TransaksiController::class, 'get'])->name('transaksi-view');
     Route::get('/transaksi-register', [TransaksiController::class, 'index'])->name('transaksi-register');
     Route::post('/transaksi-register', [TransaksiController::class, 'create'])->name('transaksi-create');
@@ -81,7 +77,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/transaksi-delete', [TransaksiController::class, 'delete'])->name('transaksi-delete');
 
     Route::get('/item-view', [ItemController::class, 'get'])->name('item-view');
-//    Route::post('/item-view', [ItemController::class, 'delete'])->name('item-delete');
     Route::get('/item-register', [ItemController::class, 'index'])->name('item-register');
     Route::post('/item-register', [TransaksiController::class, 'create'])->name('item-create');
     Route::post('/item-view', [ItemController::class, 'edit'])->name('item-edit');

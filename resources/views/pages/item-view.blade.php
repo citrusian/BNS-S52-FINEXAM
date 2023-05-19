@@ -41,7 +41,7 @@
                                 <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Serial_no</th>
                                 <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Prod_date</th>
                                 <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Used</th>
-                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Action</th>
+{{--                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Action</th>--}}
                             </tr>
                             </thead>
                             <tfoot>
@@ -54,7 +54,7 @@
                                 <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Serial_no</th>
                                 <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Prod_date</th>
                                 <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Used</th>
-                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Action</th>
+{{--                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Action</th>--}}
                             </tr>
                             </tfoot>
 
@@ -85,19 +85,19 @@
                                     <td class="Stok align-middle text-center text-wrap">
                                         {{ $query->Used }}
                                     </td>
-                                    <td class="Action text-center text-wrap"  style="width: 5%; height: 5%">
-                                        <div class="justify-content-center align-items-center">
-                                            <form role="form" method="POST" action={{ route('item-edit') }} enctype="multipart/form-data">
-                                                @csrf
-                                                <div id='HiddenView' style="display: none;">
-                                                    <input class="form-control" type="text" name="postid" value="{{ $query->id }}" >
-                                                </div>
-                                                <div class="card-header py-0">
-                                                    <button type="submit" class="btn btn-primary">Edit</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </td>
+{{--                                    <td class="Action text-center text-wrap"  style="width: 5%; height: 5%">--}}
+{{--                                        <div class="justify-content-center align-items-center">--}}
+{{--                                            <form role="form" method="POST" action={{ route('item-edit') }} enctype="multipart/form-data">--}}
+{{--                                                @csrf--}}
+{{--                                                <div id='HiddenView' style="display: none;">--}}
+{{--                                                    <input class="form-control" type="text" name="postid" value="{{ $query->id }}" >--}}
+{{--                                                </div>--}}
+{{--                                                <div class="card-header py-0">--}}
+{{--                                                    <button type="submit" class="btn btn-primary">Edit</button>--}}
+{{--                                                </div>--}}
+{{--                                            </form>--}}
+{{--                                        </div>--}}
+{{--                                    </td>--}}
                                 </tr>
                             @endforeach
                             </tbody>

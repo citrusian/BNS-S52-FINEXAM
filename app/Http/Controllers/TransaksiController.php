@@ -165,42 +165,12 @@ class TransaksiController extends Controller
         $old_Serial_no = $request->old_Serial_no;
         $new_Product_id = $request->Product_id;
         $new_Serial_no = $request->Serial_no;
-//        dd($old_Product_id,$old_Serial_no);
 
-//        $attributes = request()->validate([
-//            'Transaksi_id' => ['required'],
-//            'old_Product_id' => ['required'],
-//            'old_Serial_no' => ['required|numeric'],
-//
-//            'Product_id' => ['required|unique->ignore.$user->id'],
-//            'Serial_no' => ['required|numeric|min:3'],
-////            'Product_id' => ['required',Rule::unique('posts')->ignore($this->route('post'))  ],
-////            'Serial_no' => ['required|numeric|min:3|unique->ignore($request->old_Serial_no)'],
-//
-//            'Product_Name' => 'required|max:255',   // Editable
-//            'Brand' => 'required|max:255',          // Editable
-//            'Customer_Vendor' => 'required',        // Editable
-//
-//            'Trans_Type' => 'required',
-//
-//            'Price' => 'required',                  // Editable
-//            'Discount' => 'required',               // Editable
-//        ]);
-//            $test = response()->json(['errors'=>$attributes->errors()]);
-//            $test = response()->json(['errors'=>$attributes->errors()]);
-//            $test = $attributes->errors();
-//            dd($test);
 
-        $postkey =  $request->postkey;
-        $TID =  $request->Transaksi_id;
-        $PID =  $request->old_Product_id;
-        $SN =  $request->old_Serial_no;
-        $PN =  $request->Product_Name;
-        $BR =  $request->Brand;
-        $CV =  $request->Customer_Vendor;
-        $TY =  $request->Trans_Type;
-        $PR =  $request->Price;
-        $DC =  $request->Discount;
+        $postkey =  $request->postkey; $TID =  $request->Transaksi_id; $PID =  $request->old_Product_id;
+        $SN =  $request->old_Serial_no; $PN =  $request->Product_Name; $BR =  $request->Brand;
+        $CV =  $request->Customer_Vendor; $TY =  $request->Trans_Type; $PR =  $request->Price;
+        $DC =  $request->Discount; $SNN = $new_Serial_no;  $PIDN = $new_Product_id;
 
 //        Manual validator, unique->ignore cant validate request .......................
         if ($old_Product_id != $new_Product_id){
@@ -215,10 +185,10 @@ class TransaksiController extends Controller
                 'Price' => 'required',                  // Editable
                 'Discount' => 'required',               // Editable
             ]);
-            $message = $attributes->messages()->all()[0];
-//            dd($message);
-
+//            $message = $attributes->messages()->all();
+//            dd ($message);
             if ($attributes->fails()) {
+                $message = $attributes->messages()->all()[0];
                 return redirect('transaksi-edit')
                     ->with(['error' => $message])
                     // not in collection, because i already using this at view-edit
@@ -230,27 +200,33 @@ class TransaksiController extends Controller
             }
         }
         if ($old_Serial_no !=$new_Serial_no){
-            $attributes = request()->validate([
+            $attributes = Validator::make($request->all(),[
                 'Transaksi_id' => ['required'],
                 'Product_id' => ['required'],
                 'Serial_no' => ['required','numeric','unique:a_nomor_seris'],
-
                 'Product_Name' => 'required|max:255',   // Editable
                 'Brand' => 'required|max:255',          // Editable
                 'Customer_Vendor' => 'required',        // Editable
-
                 'Trans_Type' => 'required',
-
                 'Price' => 'required',                  // Editable
                 'Discount' => 'required',               // Editable
             ]);
+//            $message = $attributes->messages()->all()[0];
+            if ($attributes->fails()) {
+                return redirect('transaksi-edit')
+                    ->with(['error' => $message])
+                    ->with([
+                        'postkey' =>  $postkey,'Transaksi_id' =>  $TID,'Product_id' =>  $PID,'Serial_no' => $SN,
+                        'Product_Name' =>  $PN,'Brand' =>  $BR,'Customer_Vendor' =>  $CV,'Trans_Type' =>  $TY,
+                        'Price' =>  $PR,'Discount' =>  $DC,
+                    ]);
+            }
         }
         elseif ($old_Product_id === $new_Product_id || $old_Serial_no === $new_Serial_no){
-
             $attributes = request()->validate([
                 'Transaksi_id' => ['required'],
-                'Product_id' => ['required'],
-                'Serial_no' => ['required','numeric'],
+                'Product_id' => ['required'],           // Editable
+                'Serial_no' => ['required','numeric'],  // Editable
 
                 'Product_Name' => 'required|max:255',   // Editable
                 'Brand' => 'required|max:255',          // Editable
@@ -262,25 +238,42 @@ class TransaksiController extends Controller
                 'Discount' => 'required',               // Editable
             ]);
         }
+//        dd($test);
 
-
-
-
-        dd($request);
-
-        ANomorSeri::where('Serial_no', $checkSerial)
+        ANomorSeri::where('Serial_no', $SN)
             ->update([
                 // price not updated, because it was buying price
-                'Warranty_Start' => $currdate,
-                'Warranty_Duration' => $Warranty_Duration,
-                'Used' => '1',
+                'Product_id' => $PIDN,
+                'Serial_no' => $SNN,
+                'Price' => $PR,
+            ]);
+//        dd($test);
+        ABarang::where('Model_No', $PID)
+            ->update([
+                // price not updated, because it was buying price
+                'Model_No' => $PIDN,
+                'Product_Name' => $PN,
+                'Brand' => $BR,
+                'Price' => $PR,
+            ]);
+//        dd($test);
+        BDetailTransaksi::where('Serial_no', $SN)
+            ->update([
+                // price not updated, because it was buying price
+                'Product_id' => $PIDN,
+                'Serial_no' => $SNN,
+                'Price' => $PR,
+            ]);
+        BTransaksi::where('No_Trans', $TID)
+            ->update([
+                // price not updated, because it was buying price
+                'Customer_Vendor' => $CV,
             ]);
 
-
-
-
-        return back()
-            ->with('error','Error! Update!');
+        return redirect('transaksi-view')
+            ->with('succes','Data Updated!');
+//        return back()
+//            ->with('succes','Data Updated!');
     }
     public function invoke()
     {
