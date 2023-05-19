@@ -38,9 +38,9 @@
                                 <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Nama">Name</th>
                                 <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Brand</th>
                                 <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Price</th>
-                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Serial_no</th>
-                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Prod_date</th>
-                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Used</th>
+                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Serial Number</th>
+                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Prod Date</th>
+                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">SN Used</th>
 {{--                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Action</th>--}}
                             </tr>
                             </thead>
@@ -51,9 +51,9 @@
                                 <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Nama">Name</th>
                                 <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Brand</th>
                                 <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Price</th>
-                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Serial_no</th>
-                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Prod_date</th>
-                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Used</th>
+                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Serial Number</th>
+                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Prod Date</th>
+                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">SN Used</th>
 {{--                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Action</th>--}}
                             </tr>
                             </tfoot>

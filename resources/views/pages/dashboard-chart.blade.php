@@ -11,9 +11,9 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Money</p>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Sales</p>
                                     <h5 class="font-weight-bolder">
-                                        $53,000
+                                        Rp. {{$monthIncome}}
                                     </h5>
                                     <p class="mb-0">
                                         <span class="text-success text-sm font-weight-bolder">+55%</span>
@@ -36,9 +36,9 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Users</p>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Expense</p>
                                     <h5 class="font-weight-bolder">
-                                        2,300
+                                        Rp. {{$monthExpense}}
                                     </h5>
                                     <p class="mb-0">
                                         <span class="text-success text-sm font-weight-bolder">+3%</span>
@@ -61,13 +61,13 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">New Clients</p>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Staff</p>
                                     <h5 class="font-weight-bolder">
-                                        +3,462
+                                        {{$totalUser}}
                                     </h5>
                                     <p class="mb-0">
-                                        <span class="text-danger text-sm font-weight-bolder">-2%</span>
-                                        since last quarter
+                                        <span class="text-danger text-sm font-weight-bolder"></span>
+                                        &nbsp
                                     </p>
                                 </div>
                             </div>
@@ -86,12 +86,12 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Sales</p>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Profit / Loss</p>
                                     <h5 class="font-weight-bolder">
-                                        $103,430
+                                        Rp. {{$monthProfit}}
                                     </h5>
                                     <p class="mb-0">
-                                        <span class="text-success text-sm font-weight-bolder">+5%</span> than last month
+                                        <span class="text-success text-sm font-weight-bolder"></span> This month Profit / Loss
                                     </p>
                                 </div>
                             </div>
@@ -120,8 +120,6 @@
                         <h6 class="text-capitalize">Sales overview</h6>
                     </div>
                     <div class="card-body p-3">
-
-
                         <div class="chart">
                             <div id="chart_div"></div>
                             <script>
@@ -135,29 +133,24 @@
 
                                     var data = new google.visualization.DataTable();
                                     data.addColumn('date', 'Month');
-                                    data.addColumn('number', "Average Temperature");
-                                    data.addColumn('number', "Average Hours of Daylight");
+                                    data.addColumn('number', "Income");
+                                    data.addColumn('number', "Expense");
 
                                     data.addRows([
-                                        [new Date(2014, 0),  -.5,  5.7],
-                                        [new Date(2014, 1),   .4,  8.7],
-                                        [new Date(2014, 2),   .5,   12],
-                                        [new Date(2014, 3),  2.9, 15.3],
-                                        [new Date(2014, 4),  6.3, 18.6],
-                                        [new Date(2014, 5),    9, 20.9],
-                                        [new Date(2014, 6), 10.6, 19.8],
-                                        [new Date(2014, 7), 10.3, 16.6],
-                                        [new Date(2014, 8),  7.4, 13.3],
-                                        [new Date(2014, 9),  4.4,  9.9],
-                                        [new Date(2014, 10), 1.1,  6.6],
-                                        [new Date(2014, 11), -.2,  4.5]
+                                        [new Date(2022, 11),  {{$datj11022}},  {{$datb11022}}],
+                                        [new Date(2022, 12),   {{$datj12022}},  {{$datb12022}}],
+                                        [new Date(2023, 1),   {{$datj1122}},  {{$datb1122}}],
+                                        [new Date(2023, 2),   {{$datj2122}},  {{$datb2122}}],
+                                        [new Date(2023, 3),   {{$datj3122}},  {{$datb3122}}],
+                                        [new Date(2023, 4),   {{$datj4122}},  {{$datb4122}}],
+                                        [new Date(2023, 5),  {{$datj5122}},  {{$datb5122}}],
                                     ]);
 
                                     var materialOptions = {
                                         chart: {
-                                            title: 'Average Temperatures and Daylight in Iceland Throughout the Year'
+                                            title: 'Average of Sales and Loss Throughout the Year'
                                         },
-                                        width: 1000,
+                                        width: 850,
                                         height: 500,
                                         series: {
                                             // Gives each series an axis name that matches the Y-axis below.

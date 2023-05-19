@@ -24,8 +24,6 @@
                         <h5 class="text-lead text-white">Website dibuat dengan tujuan ujian Final Exam Binus</h5>
                         <h5 class="text-lead text-white">COMP6621036 – Web Programming</h5>
                         <h5 class="text-lead text-white">&nbsp</h5>
-                        <h5 class="text-lead text-white">-Nama: Reyhan Aulia Faried</h5>
-                        <h5 class="text-lead text-white">-Nim : 2401963084</h5>
                     </div>
 
                     <div class="col-lg-5 text-center mx-auto">

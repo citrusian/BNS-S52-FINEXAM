@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChangePassword;
 use App\Http\Controllers\CUserManagement;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EditProfileController;
 use App\Http\Controllers\GuestRegisterController;
 use App\Http\Controllers\HomeController;
@@ -30,7 +31,7 @@ Route::get('/', function () {
 });
 
 
-Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
+Route::get('/', function () {return redirect('/dashboard-chart');})->middleware('auth');
 
 Route::get('/register', [GuestRegisterController::class, 'create'])->middleware('guest')->name('register');
 //Route::post('/register', [GuestRegisterController::class, 'store'])->middleware('guest')->name('register.perform');
@@ -83,8 +84,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/item-delete', [ItemController::class, 'delete'])->name('item-delete');
 
 
+    Route::get('/credits', function () {return view('pages.credits');})->name('credits');;
 
-    Route::get('/itemmanagement', [PageController::class, 'itemmanagement'])->name('itemmanagement');
+
+    Route::get('/dashboard-chart', [DashboardController::class, 'index'])->name('dashboard-chart');
 
 
 

@@ -16,8 +16,8 @@ class ABarangSeeder extends Seeder
      */
     public function run(): void
     {
-        ABarang::factory()
-            ->count(10)
-            ->create();
+//        ABarang::factory()
+//            ->count(10)
+//            ->create();
     }
 }

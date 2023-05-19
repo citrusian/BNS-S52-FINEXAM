@@ -27,7 +27,8 @@ class ANomorSeriFactory extends Factory
         // get price using Model_No FK
         $price = DB::table('a_barangs')->where('Model_No', $Product_id)->value('Price');
         // rand production date between last year and last 6 month
-        $Prod_date = $this->faker->dateTimeInInterval('-1 years', '+6 months');
+        $Prod_date = $this->faker->dateTimeInInterval('-6 months', '+6 months');
+//        $Prod_date = $this->faker->dateTimeInInterval('-6 months', '+6 months');
 
         // rand used status
         $used = $this->faker->numberBetween(0,1);
