@@ -12,6 +12,9 @@ use NumberFormatter;
 class DashboardController extends Controller
 {
 
+//----------------------------------------------
+    // Get Data per month
+//----------------------------------------------
     public function index()
     {
         $currentYear = Carbon::now()->year;
@@ -21,7 +24,7 @@ class DashboardController extends Controller
 
         $result = [];
         // Separator
-        $transTypes = ['Jual', 'Beli', 'Price'];
+//        $transTypes = ['Jual', 'Beli', 'Price'];
 
         $transTypes = ['Jual', 'Beli'];
 
@@ -52,15 +55,100 @@ class DashboardController extends Controller
                 // Calculate the Price based on Jual/Beli transactions
                 $price = $monthData->sum('Price');
                 $result[$month->format('M Y')]['Price'] = $price;
+
+                // Count available stock by brand
+                $getStockbyBrand = $monthData->where('a_nomor_seris.Used', '!=', true)
+                    ->groupBy('a_barangs.Brand')
+                    ->pluck('Brand', DB::raw('COUNT(*) as count'));
+
+                $result[$month->format('M Y')]['getStockbyBrand'] = $getStockbyBrand;
             }
         }
 
-//        $test = $result['Dec 2023']['Jual']->sum('Price');
-//        $test = $test = isset($result['Apr 2023']['Jual']) ? $result['Apr 2023']['Jual']->sum('Price') : 0;
-//        dd($test);
+//----------------------------------------------
+        // Get Stock By Brand
+//----------------------------------------------
+        function getStockbyBrand($brandName)
+        {
+            return DB::table('b_detail_transaksis')
+                ->rightJoin('b_transaksis', 'b_detail_transaksis.Transaksi_id', '=', 'b_transaksis.No_Trans')
+                ->rightJoin('a_nomor_seris', 'b_detail_transaksis.Product_id', '=', 'a_nomor_seris.Product_id')
+                ->rightJoin('a_barangs', 'a_nomor_seris.Product_id', '=', 'a_barangs.Model_No')
+                ->select(
+                    'a_barangs.Brand',
+                    DB::raw('COUNT(*) AS count')
+                )
+                ->where('a_nomor_seris.Used', 0)
+                ->where('a_barangs.Brand', $brandName)
+                ->groupBy('a_barangs.Brand')
+                ->get();
+        }
 
+        $brandName = 'Acer';
+        $getObject = getStockbyBrand($brandName);
+        $Acer = $getObject[0]->count;
+
+        $brandName = 'Apple';
+        $getObject = getStockbyBrand($brandName);
+        $Apple = $getObject[0]->count;
+
+        $brandName = 'Asus';
+        $getObject = getStockbyBrand($brandName);
+        $Asus = $getObject[0]->count;
+
+        $brandName = 'Dell';
+        $getObject = getStockbyBrand($brandName);
+        $Dell = $getObject[0]->count;
+
+        $brandName = 'HP';
+        $getObject = getStockbyBrand($brandName);
+        $HP = $getObject[0]->count;
+
+        $brandName = 'Lenovo';
+        $getObject = getStockbyBrand($brandName);
+        $Lenovo= $getObject[0]->count;
+
+//        dd($Lenovo,$Asus,$Apple,$Apple,$Dell,$HP,$Lenovo);
+
+//----------------------------------------------
+        // get other Brand, eg: manual input
+//----------------------------------------------
+
+        $exclusion = ['Acer', 'Apple', 'Asus', 'Dell', 'HP', 'Lenovo'];
+
+        $getObject = DB::table('b_detail_transaksis')
+            ->rightJoin('b_transaksis', 'b_detail_transaksis.Transaksi_id', '=', 'b_transaksis.No_Trans')
+            ->rightJoin('a_nomor_seris', 'b_detail_transaksis.Product_id', '=', 'a_nomor_seris.Product_id')
+            ->rightJoin('a_barangs', 'a_nomor_seris.Product_id', '=', 'a_barangs.Model_No')
+            ->select(
+                'a_barangs.Brand',
+                DB::raw('COUNT(*) AS count')
+            )
+            ->where('a_nomor_seris.Used', 0)
+            ->whereNotIn('a_barangs.Brand', $exclusion)
+            ->groupBy('a_barangs.Brand')
+            ->get();
+
+
+        if ($getObject->count() > 0) {
+            $tempRandom = $getObject->random();
+            $brandName = $tempRandom->Brand;
+            $count = $tempRandom->count;
+        }
+        else{
+            $count = 0;
+            // give 0 if no other brand exist
+        }
+
+        $Other= $count;
+
+//        dd($Lenovo,$Asus,$Apple,$Apple,$Dell,$HP,$Lenovo,$Other);
+//----------------------------------------------
+        // loop to Insert Data per Month
+//----------------------------------------------
         $dataj = [];
         $datab = [];
+        // init array............
         $months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
         for ($year = $lastYear; $year <= $lastYear + 1; $year++) {
@@ -79,53 +167,55 @@ class DashboardController extends Controller
 
 //        $test = compact('dataj', 'datab');
 //        $test->merge('dataj', 'datab');
-
+//        use php or js?
         $merge = array_merge($dataj, $datab);
         $monthIncome = $merge['datj5122'];
         $monthExpense = $merge['datb5122'];
         $monthProfit = $monthIncome - $monthExpense;
+        if ($monthProfit > 1){
+            $lossStatus = 0;
+        }
+        else{
+            $lossStatus = 1;
+        }
 
 //---------------------------------- Format
         $locale = 'en_US';
-        $formattedSales = number_format($monthIncome, 2, '.', ',');
         $formatter = new NumberFormatter($locale, NumberFormatter::CURRENCY);
 
-        $currencySymbol = $formatter->getSymbol(NumberFormatter::CURRENCY_SYMBOL);
-        $monthIncome = $currencySymbol . $formattedSales;
+        function formatCurrency($value, $formatter) {
+            $formattedValue = number_format($value, 2, '.', ',');
+            $currencySymbol = $formatter->getSymbol(NumberFormatter::CURRENCY_SYMBOL);
+            return $currencySymbol . $formattedValue;
+        }
 
-        $formattedSales = number_format($monthExpense, 2, '.', ',');
-        $formatter = new NumberFormatter($locale, NumberFormatter::CURRENCY);
-
-        $currencySymbol = $formatter->getSymbol(NumberFormatter::CURRENCY_SYMBOL);
-        $monthExpense = $currencySymbol . $formattedSales;
-
-        $formattedSales = number_format($monthProfit, 2, '.', ',');
-        $formatter = new NumberFormatter($locale, NumberFormatter::CURRENCY);
-
-        $currencySymbol = $formatter->getSymbol(NumberFormatter::CURRENCY_SYMBOL);
-        $monthProfit = $currencySymbol . $formattedSales;
+        $monthIncome = formatCurrency($monthIncome, $formatter);
+        $monthExpense = formatCurrency($monthExpense, $formatter);
+        $monthProfit = formatCurrency($monthProfit, $formatter);
 //---------------------------------- Format
 //        dd($localizedSales);
+//        dd($Lenovo,$Asus,$Apple,$Acer,$Dell,$HP,$Lenovo,$Other);
 
         $userCount = User::count();
         $merge2 = [
             'monthIncome' => $monthIncome,
             'monthExpense' => $monthExpense,
             'monthProfit' => $monthProfit,
+            'lossStatus' => $lossStatus,
             'totalUser' => $userCount,
+            'Acer' => $Acer,
+            'Apple' => $Apple,
+            'Asus' => $Asus,
+            'Dell' => $Dell,
+            'HP' => $HP,
+            'Lenovo' => $Lenovo,
+            'Other' => $Other,
         ];
 //        dd($merge2);
 
         return view('pages.dashboard-chart')->with($merge)->with($merge2);
 //        return view('pages.dashboard-chart')->with($dataj,$datab);
 //        return view('pages.dashboard-chart', compact('dataj', 'datab'));
-
-
-
-        dd($dataj,$datab);
-//return redirect('transaksi-edit')->with($data);
-//        return view('pages.dashboard-chart')->with($dataj,$datab);
-//        return redirect('pages.dashboard-chart')->with($data);
     }
 }
 //$data = [

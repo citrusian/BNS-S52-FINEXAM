@@ -251,3 +251,89 @@ class DashboardControllerBackup extends Controller
 //    'dat91023_beli' => $month_910_year_23_beli,
 //    'dat111223_beli' => $month_1112_year_23_beli,
 //];
+
+//---------------------------------- Format
+//        $locale = 'en_US';
+//        $formattedSales = number_format($monthIncome, 2, '.', ',');
+//        $formatter = new NumberFormatter($locale, NumberFormatter::CURRENCY);
+//
+//        $currencySymbol = $formatter->getSymbol(NumberFormatter::CURRENCY_SYMBOL);
+//        $monthIncome = $currencySymbol . $formattedSales;
+//
+//        $formattedSales = number_format($monthExpense, 2, '.', ',');
+//        $formatter = new NumberFormatter($locale, NumberFormatter::CURRENCY);
+//
+//        $currencySymbol = $formatter->getSymbol(NumberFormatter::CURRENCY_SYMBOL);
+//        $monthExpense = $currencySymbol . $formattedSales;
+//
+//        $formattedSales = number_format($monthProfit, 2, '.', ',');
+//        $formatter = new NumberFormatter($locale, NumberFormatter::CURRENCY);
+//
+//        $currencySymbol = $formatter->getSymbol(NumberFormatter::CURRENCY_SYMBOL);
+//        $monthProfit = $currencySymbol . $formattedSales;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//$brandName = 'Lenovo';
+//
+//$availableStockByBrand = DB::table('b_detail_transaksis')
+//    ->rightJoin('b_transaksis', 'b_detail_transaksis.Transaksi_id', '=', 'b_transaksis.No_Trans')
+//    ->rightJoin('a_nomor_seris', 'b_detail_transaksis.Product_id', '=', 'a_nomor_seris.Product_id')
+//    ->rightJoin('a_barangs', 'a_nomor_seris.Product_id', '=', 'a_barangs.Model_No')
+//    ->select(
+//        'a_barangs.Brand',
+//        DB::raw('COUNT(*) AS count')
+//    )
+//    ->where('a_nomor_seris.Used', 0)
+//    ->where('a_barangs.Brand', $brandName)
+//    ->groupBy('a_barangs.Brand')
+//    ->get();
+//
+//$Lenovo = $availableStockByBrand[0]->count;
+//$brandName = 'Asus';
+//
+//$availableStockByBrand = DB::table('b_detail_transaksis')
+//    ->rightJoin('b_transaksis', 'b_detail_transaksis.Transaksi_id', '=', 'b_transaksis.No_Trans')
+//    ->rightJoin('a_nomor_seris', 'b_detail_transaksis.Product_id', '=', 'a_nomor_seris.Product_id')
+//    ->rightJoin('a_barangs', 'a_nomor_seris.Product_id', '=', 'a_barangs.Model_No')
+//    ->select(
+//        'a_barangs.Brand',
+//        DB::raw('COUNT(*) AS count')
+//    )
+//    ->where('a_nomor_seris.Used', 0)
+//    ->where('a_barangs.Brand', $brandName)
+//    ->groupBy('a_barangs.Brand')
+//    ->get();
+//
+//$Asus = $availableStockByBrand[0]->count;
+//$brandName = 'Apple';
+//
+//$availableStockByBrand = DB::table('b_detail_transaksis')
+//    ->rightJoin('b_transaksis', 'b_detail_transaksis.Transaksi_id', '=', 'b_transaksis.No_Trans')
+//    ->rightJoin('a_nomor_seris', 'b_detail_transaksis.Product_id', '=', 'a_nomor_seris.Product_id')
+//    ->rightJoin('a_barangs', 'a_nomor_seris.Product_id', '=', 'a_barangs.Model_No')
+//    ->select(
+//        'a_barangs.Brand',
+//        DB::raw('COUNT(*) AS count')
+//    )
+//    ->where('a_nomor_seris.Used', 0)
+//    ->where('a_barangs.Brand', $brandName)
+//    ->groupBy('a_barangs.Brand')
+//    ->get();
+//
+//$Apple = $availableStockByBrand[0]->count;
+//
+//dd($Lenovo,$Asus,$Apple);
