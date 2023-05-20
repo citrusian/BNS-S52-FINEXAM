@@ -19,15 +19,15 @@ class BDetailTransaksiSeeder extends Seeder
 //-------------------------------------------------------
     public function run()
     {
-        $chunkSize = 500; // Adjust the chunk size as needed
+        $chunkSize = env('CHUNK_SIZE', 500);
+        // Init trans number from 1000 before ++
+        $Transaksi_id = 1000;
 
         DB::table('a_nomor_seris')
             ->orderBy('id')
-            ->chunk($chunkSize, function ($barangs) {
+            ->chunk($chunkSize, function ($barangs) use (&$Transaksi_id) {
                 $transaksis = [];
                 // init array
-                $Transaksi_id = 1000;
-                // doesnt need static var
                 foreach ($barangs as $barang) {
                     $getUsed = $barang->Used;
                     $Product_id = $barang->Product_id;
@@ -74,7 +74,7 @@ class BDetailTransaksiSeeder extends Seeder
                     }
                 }
                 DB::table('b_detail_transaksis')->insert($transaksis);
-            });
+            }
+        );
     }
-
 }

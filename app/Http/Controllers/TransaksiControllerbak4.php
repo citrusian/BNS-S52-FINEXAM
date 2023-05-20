@@ -8,15 +8,13 @@ use App\Models\BDetailTransaksi;
 use App\Models\BTransaksi;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Traits\DebugToConsole;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 
-class TransaksiController extends Controller
+class TransaksiControllerbak4 extends Controller
 {
     use DebugToConsole;
 
@@ -72,8 +70,7 @@ class TransaksiController extends Controller
                     'Used' => '0',
                 ]);
             return back()
-//                ->with('warn','Transaction Deleted!')
-                ->with('sweetConfirm','Transaction '. $postkey . ' Deleted!');
+                ->with('warn','Transaction Deleted!');
         }
 //        -------------------------------------------------------------------------------
 //        Beli - Delete All Related to the items
@@ -84,8 +81,7 @@ class TransaksiController extends Controller
             $delTD = DB::table('a_barangs')->where('Model_No', $getModel)->delete();
             $delTD = DB::table('a_nomor_seris')->where('Product_id', $getModel)->delete();
             return back()
-//                ->with('warn','Transaction Deleted!')
-                ->with('sweetConfirm','Transaction '. $postkey . ' Deleted!');
+                ->with('warn','Transaction Deleted!');
         }
         else{
             return back()
@@ -266,7 +262,7 @@ class TransaksiController extends Controller
             ]);
 
         return redirect('transaksi-view')
-            ->with('succes','Data Transaksi '. $TID .' Updated!');
+            ->with('succes','Data Updated!');
     }
 
     public function invoke()
@@ -279,55 +275,36 @@ class TransaksiController extends Controller
 
     public function create(Request $request)
     {
-
-        $user = Auth::user();
-
-
-
-
         $latestTransaction = DB::table('b_transaksis')->latest('id')->first();
         $curid = $latestTransaction->id + 1;
         $currdate = now()->toDateString();
         $Transaksi_id = $curid + 1000;
 
-
-
-        $merge = [];
-        $merge = array_merge($merge, Arr::except($request->all(), ['_token']));
-        $merge = array_merge($merge,[
+        $request->merge([
             'Transaksi_id' => $Transaksi_id,
             'No_Trans' => $Transaksi_id,
             'Tanggal' => $currdate
         ]);
-//        dd($merge);
 
         if ($request->Trans_Type === "Jual") {
             $getDuplicate = DB::table('b_detail_transaksis')->where('Product_id', $request->Product_id)->count();
             $getDuplicate2 = DB::table('b_detail_transaksis')->where('Serial_no', $request->Serial_no)->count();
 
             if ($getDuplicate > 1 || $getDuplicate2 > 1) {
-                return back()->with('error', 'Error! Stok Barang Sudah Terjual!')
-                    ->with(['merge' =>  $merge,]);
+                return back()->with('error', 'Error! Stok Barang Sudah Terjual!');
             }
 
-            if ($getDuplicate === 0 || $getDuplicate2 === 0){
-//                return back()->with('error', 'Error! Barang Tidak Terdaftar!');
-//                return back()->with('error', 'Error! Barang Tidak Terdaftar!')->with($merge);
-//                return back()->with('error', 'Error! Barang Tidak Terdaftar!')->withErrors('Product_id', 'Error! Barang Tidak Terdaftar!')->with($merge);
-                return back()
-                    ->withErrors(['Product_id' => 'Error! Barang Tidak Terdaftar!'])
-                    ->with(['merge' =>  $merge,])
-                    ->with('error', 'Error! Barang Tidak Terdaftar!');
+            if ($getDuplicate === 0 || $getDuplicate2 === 0) {
+                return back()->with('error', 'Error! Barang Tidak Terdaftar!')->withErrors('Product_id', 'Error! Barang Tidak Terdaftar!');
+//                return back()->withErrors(['Product_id' => 'Error! Barang Tidak Terdaftar!'])->with('error', 'Error! Barang Tidak Terdaftar!');
 
             }
 
-            $checkSerial = DB::table('b_detail_transaksis')->where('Product_id', $request->Product_id)->value('Serial_no');
-            $checkModel = DB::table('b_detail_transaksis')->where('Serial_no', $request->Serial_no)->value('Product_id');
-
+            $checkSerial = DB::table('b_detail_transaksis')->where('Product_id', $request->Product_id)->first()->Serial_no;
+            $checkModel = DB::table('b_detail_transaksis')->where('Serial_no', $request->Serial_no)->first()->Product_id;
 
             if ($request->Serial_no !== $checkSerial || $request->Product_id !== $checkModel) {
-                return back()->with('error', 'Error! Model dan Serial Number Tidak Cocok!')
-                    ->with(['merge' =>  $merge,]);
+                return back()->with('error', 'Error! Model dan Serial Number Tidak Cocok!');
             }
 
             $request->merge([

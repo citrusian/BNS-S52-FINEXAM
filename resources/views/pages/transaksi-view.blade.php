@@ -1,14 +1,8 @@
 @extends('layouts.app')
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Transaction Data'])
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="./assets/js/jquery-1.11.2.min.js"></script>
-{{--    <script src="./assets/js/simplePagination.js"></script>--}}
-    <script src="./assets/js/jquery.simplePagination.enrique26.js"></script>
-{{--    <script src="./assets/js/simplePagination-1.6.js"></script>--}}
-{{--    <script src="./assets/js/main.js"></script>--}}
-{{--    <script src="./assets/js/jquery.pajinate.min.js"></script>--}}
-    <link type="text/css" rel="stylesheet" href="./assets/css/simplePagination.css"/>
+
+
     <div class="row mt-4 mx-4">
         <div class="col-12">
             <div class="card mb-4">
@@ -63,10 +57,7 @@
 
                             <tbody class="Table">
                             @foreach ($q1 as $query)
-                                <tr  class="paginate">
-{{--                                    <td class="No align-middle text-center text-wrap" style="width:3%;">--}}
-{{--                                        {{ $query->id }}--}}
-{{--                                    </td>--}}
+                                <tr class="paginate">
                                     <td class="Nama align-middle text-center text-wrap">
                                         {{ $query->No_Trans }}
                                     </td>
@@ -85,32 +76,30 @@
                                     <td class="Jenis align-middle text-center text-wrap">
                                         {{ $query->Trans_Type }}
                                     </td>
-                                    <td class="Action text-center text-wrap"  style="width: 5%; height: 5%">
+                                    <td class="Action text-center text-wrap" style="width: 5%; height: 5%">
                                         <div class="justify-content-center align-items-center">
                                             <form role="form" method="POST" action={{ route('transaksi-edit') }} enctype="multipart/form-data">
                                                 @csrf
                                                 <div id='HiddenView' style="display: none;">
-                                                    <input class="form-control" type="text" name="postkey" value="{{ $query->No_Trans }}" >
+                                                    <input class="form-control" type="text" name="postkey" value="{{ $query->No_Trans }}">
                                                 </div>
                                                 <div class="card-header py-0">
                                                     <button type="submit" class="btn btn-primary">Edit</button>
                                                 </div>
                                             </form>
-
                                         </div>
                                     </td>
-                                    <td class="Action text-center text-wrap"  style="width: 5%; height: 5%">
+                                    <td class="Action text-center text-wrap" style="width: 5%; height: 5%">
                                         <div class="justify-content-center align-items-center">
                                             <form role="form" method="POST" action={{ route('transaksi-delete') }} enctype="multipart/form-data">
                                                 @csrf
                                                 <div id='HiddenView' style="display: none;">
-                                                    <input class="form-control" type="text" name="postkey" value="{{ $query->No_Trans }}" >
+                                                    <input class="form-control" type="text" name="postkey" value="{{ $query->No_Trans }}">
                                                 </div>
                                                 <div class="card-header py-0">
-                                                    <button type="submit" class="btn btn-primary">Delete</button>
+                                                    <button type="button" class="btn btn-primary deleteButton">Delete</button>
                                                 </div>
                                             </form>
-
                                         </div>
                                     </td>
                                 </tr>
@@ -138,6 +127,63 @@
                                 paginatorAlign: "center"
                             });
                         </script>
+                        <script>
+                            const deleteButtons = document.querySelectorAll('.deleteButton');
+
+                            deleteButtons.forEach((button) => {
+                                button.addEventListener('click', function(event) {
+                                    event.preventDefault(); // Prevent the default button click behavior
+
+                                    const deleteForm = button.closest('form'); // Find the closest form element
+
+                                    Swal.fire({
+                                        title: 'Are you sure?',
+                                        text: "You won't be able to revert this!",
+                                        icon: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonText: 'Yes, delete it!',
+                                        cancelButtonText: 'No, cancel',
+                                        reverseButtons: true
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            // The user confirmed the deletion
+                                            // Proceed with the form submission
+                                            deleteForm.submit(); // Submit the corresponding form
+                                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                                            // The user canceled the deletion
+                                            Swal.fire(
+                                                'Cancelled',
+                                                'Your imaginary file is safe :)',
+                                                'error'
+                                            );
+                                        }
+                                    });
+                                });
+                            });
+                        </script>
+                        @if(session('sweetConfirm'))
+                            <script>
+                                const Toast = Swal.mixin({
+                                    toast: true,
+                                    position: 'center',
+                                    color: 54545 ,
+                                    showConfirmButton: false,
+                                    timer: 3000,
+                                    timerProgressBar: true,
+                                    didOpen: (toast) => {
+                                        toast.addEventListener('mouseenter', Swal.stopTimer);
+                                        toast.addEventListener('mouseleave', Swal.resumeTimer);
+                                    }
+                                });
+
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: "{{ session('sweetConfirm') }}"
+                                });
+                            </script>
+                        @endif
+
+
                     </div>
             </div>
         </div>

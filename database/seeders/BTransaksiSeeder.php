@@ -22,9 +22,9 @@ class BTransaksiSeeder extends Seeder
         // BTransaksiSeeder "1,061.17 ms DONE" into "17.23 ms DONE"
         // BDetailTransaksiSeeder "1,215.23 ms DONE" into "20.36 ms DONE"
 
-        $counterNoTrans = 1000;
+        $chunkSize = env('CHUNK_SIZE', 500);
         // Init trans number from 1000 before ++
-        $chunkSize = 500; // Adjust the chunk size as needed
+        $counterNoTrans = 1000;
 
         DB::table('a_nomor_seris')
             ->orderBy('id') // Add the orderBy clause to ensure consistent results
@@ -63,35 +63,8 @@ class BTransaksiSeeder extends Seeder
                         ];
                     }
                 }
-
                 DB::table('b_transaksis')->insert($insertData);
-            });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            }
+        );
     }
 }

@@ -8,15 +8,13 @@ use App\Models\BDetailTransaksi;
 use App\Models\BTransaksi;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Traits\DebugToConsole;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 
-class TransaksiController extends Controller
+class TransaksiControllerBak3 extends Controller
 {
     use DebugToConsole;
 
@@ -72,8 +70,7 @@ class TransaksiController extends Controller
                     'Used' => '0',
                 ]);
             return back()
-//                ->with('warn','Transaction Deleted!')
-                ->with('sweetConfirm','Transaction '. $postkey . ' Deleted!');
+                ->with('warn','Transaction Deleted!');
         }
 //        -------------------------------------------------------------------------------
 //        Beli - Delete All Related to the items
@@ -84,8 +81,7 @@ class TransaksiController extends Controller
             $delTD = DB::table('a_barangs')->where('Model_No', $getModel)->delete();
             $delTD = DB::table('a_nomor_seris')->where('Product_id', $getModel)->delete();
             return back()
-//                ->with('warn','Transaction Deleted!')
-                ->with('sweetConfirm','Transaction '. $postkey . ' Deleted!');
+                ->with('warn','Transaction Deleted!');
         }
         else{
             return back()
@@ -158,17 +154,33 @@ class TransaksiController extends Controller
 //        dd($getDuplicate);
 //        dd($getDuplicate2);
 
-        // combine redundant validator
         if ($old_Product_id != $new_Product_id){
-            // only need this validator at this check
             $attributes = Validator::make($request->all(),[
+                'Transaksi_id' => ['required'],
                 'Product_id' => ['required','unique:a_nomor_seris'],
+                'Serial_no' => ['required','numeric'],
+                'Product_Name' => 'required|max:255',   // Editable
+                'Brand' => 'required|max:255',          // Editable
+                'Customer_Vendor' => 'required',        // Editable
+                'Trans_Type' => 'required',
+                'Price' => 'required',                  // Editable
+                'Discount' => 'required',               // Editable
             ]);
+//            $message = $attributes->messages()->all();
+//            dd ($message);
+
 
             if ($request->Trans_Type === "Jual") {
-                if ($getDuplicate > 1 || $getDuplicate === 0) {
-                    $errorMessage = $getDuplicate > 1 ? 'Sudah ada transaksi lain terhadap Model Code tersebut!' : 'Model Code Tidak Terdaftar. Silahkan Tambahkan Barang Baru!';
-                    return back()->with('error', 'Error! <br>' . $errorMessage)
+                if ($getDuplicate > 1) {
+                return back()->with('error', 'Error! <br>Sudah ada transaksi lain terhadap Model Code tersebut!')
+                    ->with([
+                        'postkey' =>  $postkey,'Transaksi_id' =>  $TID,'Product_id' =>  $PID,'Serial_no' => $SN,
+                        'Product_Name' =>  $PN,'Brand' =>  $BR,'Customer_Vendor' =>  $CV,'Trans_Type' =>  $TY,
+                        'Price' =>  $PR,'Discount' =>  $DC,
+                    ]);
+                }
+                if ($getDuplicate === 0) {
+                    return back()->with('error', 'Error! <br>Model Code Tidak Terdaftar <br> Silahkan Tambahkan Barang Baru!')
                         ->with([
                             'postkey' =>  $postkey,'Transaksi_id' =>  $TID,'Product_id' =>  $PID,'Serial_no' => $SN,
                             'Product_Name' =>  $PN,'Brand' =>  $BR,'Customer_Vendor' =>  $CV,'Trans_Type' =>  $TY,
@@ -176,27 +188,44 @@ class TransaksiController extends Controller
                         ]);
                 }
             }
+//            $message = $attributes->messages()->all();
+//            dd ($message);
             if ($attributes->fails()) {
-                // only need this validator at this check
                 $message = $attributes->messages()->all()[0];
                 return redirect('transaksi-edit')
                     ->with(['error' => $message])
+                    // not in collection, because i already using this at view-edit
                     ->with([
-                        'postkey' =>  $postkey,'Transaksi_id' =>  $TID,'Product_id' =>  $PID,'Serial_no' => $SN,
-                        'Product_Name' =>  $PN,'Brand' =>  $BR,'Customer_Vendor' =>  $CV,'Trans_Type' =>  $TY,
-                        'Price' =>  $PR,'Discount' =>  $DC,
-                    ]);
+                    'postkey' =>  $postkey,'Transaksi_id' =>  $TID,'Product_id' =>  $PID,'Serial_no' => $SN,
+                    'Product_Name' =>  $PN,'Brand' =>  $BR,'Customer_Vendor' =>  $CV,'Trans_Type' =>  $TY,
+                    'Price' =>  $PR,'Discount' =>  $DC,
+                ]);
             }
         }
         if ($old_Serial_no !=$new_Serial_no){
             $attributes = Validator::make($request->all(),[
+                'Transaksi_id' => ['required'],
+                'Product_id' => ['required'],
                 'Serial_no' => ['required','numeric','unique:a_nomor_seris'],
+                'Product_Name' => 'required|max:255',   // Editable
+                'Brand' => 'required|max:255',          // Editable
+                'Customer_Vendor' => 'required',        // Editable
+                'Trans_Type' => 'required',
+                'Price' => 'required',                  // Editable
+                'Discount' => 'required',               // Editable
             ]);
 
             if ($request->Trans_Type === "Jual") {
-                if ($getDuplicate2 > 1 || $getDuplicate2 === 0) {
-                    $errorMessage = $getDuplicate > 1 ? 'Sudah ada transaksi lain terhadap Serial Number tersebut!' : 'Serial Number Tidak Terdaftar <br> Silahkan Tambahkan Barang Baru!';
-                    return back()->with('error', 'Error! <br>' . $errorMessage)
+                if ($getDuplicate2 > 1) {
+                    return back()->with('error', 'Error! <br>Sudah ada transaksi lain terhadap Serial Number tersebut!')
+                        ->with([
+                            'postkey' =>  $postkey,'Transaksi_id' =>  $TID,'Product_id' =>  $PID,'Serial_no' => $SN,
+                            'Product_Name' =>  $PN,'Brand' =>  $BR,'Customer_Vendor' =>  $CV,'Trans_Type' =>  $TY,
+                            'Price' =>  $PR,'Discount' =>  $DC,
+                        ]);
+                }
+                if ($getDuplicate2 === 0) {
+                    return back()->with('error', 'Error! <br>Serial Number Tidak Terdaftar <br> Silahkan Tambahkan Barang Baru!')
                         ->with([
                             'postkey' =>  $postkey,'Transaksi_id' =>  $TID,'Product_id' =>  $PID,'Serial_no' => $SN,
                             'Product_Name' =>  $PN,'Brand' =>  $BR,'Customer_Vendor' =>  $CV,'Trans_Type' =>  $TY,
@@ -204,6 +233,7 @@ class TransaksiController extends Controller
                         ]);
                 }
             }
+
             if ($attributes->fails()) {
                 $message = $attributes->messages()->all()[0];
                 return redirect('transaksi-edit')
@@ -215,8 +245,6 @@ class TransaksiController extends Controller
                     ]);
             }
         }
-
-
         elseif ($old_Product_id === $new_Product_id || $old_Serial_no === $new_Serial_no){
             $attributes = request()->validate([
                 'Transaksi_id' => ['required'],
@@ -235,99 +263,79 @@ class TransaksiController extends Controller
         }
 //        dd($test);
 
-        // skip price update anywhere except BDetailTransaksi
-        // because those DB store buying price
-        // and use db raw, to call old value
         ANomorSeri::where('Serial_no', $SN)
             ->update([
-                'Product_id' => $PIDN,
-                'Serial_no' => $SNN,
-                'Price' => $request->Trans_Type === "Jual" ? DB::raw('Price') : $PR,
-            ]);
-
-        ABarang::where('Model_No', $PID)
-            ->update([
-                'Model_No' => $PIDN,
-                'Product_Name' => $PN,
-                'Brand' => $BR,
-                'Price' => $request->Trans_Type === "Jual" ? DB::raw('Price') : $PR,
-            ]);
-
-        BDetailTransaksi::where('Transaksi_id', $TID)
-            ->update([
+                // price not updated, because it was buying price
                 'Product_id' => $PIDN,
                 'Serial_no' => $SNN,
                 'Price' => $PR,
             ]);
-
+//        dd($test);
+        ABarang::where('Model_No', $PID)
+            ->update([
+                // price not updated, because it was buying price
+                'Model_No' => $PIDN,
+                'Product_Name' => $PN,
+                'Brand' => $BR,
+                'Price' => $PR,
+            ]);
+//        dd($test);
+        BDetailTransaksi::where('Serial_no', $SN)
+            ->update([
+                // price not updated, because it was buying price
+                'Product_id' => $PIDN,
+                'Serial_no' => $SNN,
+                'Price' => $PR,
+            ]);
         BTransaksi::where('No_Trans', $TID)
             ->update([
+                // price not updated, because it was buying price
                 'Customer_Vendor' => $CV,
             ]);
 
         return redirect('transaksi-view')
-            ->with('succes','Data Transaksi '. $TID .' Updated!');
+            ->with('succes','Data Updated!');
+//        return back()
+//            ->with('succes','Data Updated!');
     }
-
     public function invoke()
     {
         return back()
-            ->with('error','Error! Invoke! Placeholder Command!');
+            ->with('error','Error! Invoke!');
     }
 //--------------------------------------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------------------------------------
 
     public function create(Request $request)
     {
-
-        $user = Auth::user();
-
-
-
-
         $latestTransaction = DB::table('b_transaksis')->latest('id')->first();
         $curid = $latestTransaction->id + 1;
         $currdate = now()->toDateString();
         $Transaksi_id = $curid + 1000;
 
-
-
-        $merge = [];
-        $merge = array_merge($merge, Arr::except($request->all(), ['_token']));
-        $merge = array_merge($merge,[
+        $request->merge([
             'Transaksi_id' => $Transaksi_id,
             'No_Trans' => $Transaksi_id,
             'Tanggal' => $currdate
         ]);
-//        dd($merge);
 
         if ($request->Trans_Type === "Jual") {
             $getDuplicate = DB::table('b_detail_transaksis')->where('Product_id', $request->Product_id)->count();
             $getDuplicate2 = DB::table('b_detail_transaksis')->where('Serial_no', $request->Serial_no)->count();
 
             if ($getDuplicate > 1 || $getDuplicate2 > 1) {
-                return back()->with('error', 'Error! Stok Barang Sudah Terjual!')
-                    ->with(['merge' =>  $merge,]);
+                return back()->with('error', 'Error! Stok Barang Sudah Terjual!');
             }
 
-            if ($getDuplicate === 0 || $getDuplicate2 === 0){
-//                return back()->with('error', 'Error! Barang Tidak Terdaftar!');
-//                return back()->with('error', 'Error! Barang Tidak Terdaftar!')->with($merge);
-//                return back()->with('error', 'Error! Barang Tidak Terdaftar!')->withErrors('Product_id', 'Error! Barang Tidak Terdaftar!')->with($merge);
-                return back()
-                    ->withErrors(['Product_id' => 'Error! Barang Tidak Terdaftar!'])
-                    ->with(['merge' =>  $merge,])
-                    ->with('error', 'Error! Barang Tidak Terdaftar!');
-
+            if ($getDuplicate === 0 || $getDuplicate2 === 0) {
+                return back()->with('error', 'Error! Barang Tidak Terdaftar!');
             }
 
-            $checkSerial = DB::table('b_detail_transaksis')->where('Product_id', $request->Product_id)->value('Serial_no');
-            $checkModel = DB::table('b_detail_transaksis')->where('Serial_no', $request->Serial_no)->value('Product_id');
-
+            $checkSerial = DB::table('b_detail_transaksis')->where('Product_id', $request->Product_id)->first()->Serial_no;
+            $checkModel = DB::table('b_detail_transaksis')->where('Serial_no', $request->Serial_no)->first()->Product_id;
 
             if ($request->Serial_no !== $checkSerial || $request->Product_id !== $checkModel) {
-                return back()->with('error', 'Error! Model dan Serial Number Tidak Cocok!')
-                    ->with(['merge' =>  $merge,]);
+                return back()->with('error', 'Error! Model dan Serial Number Tidak Cocok!');
             }
 
             $request->merge([
