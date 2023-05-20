@@ -14,7 +14,7 @@ use App\Http\Traits\DebugToConsole;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 
-class TransaksiController extends Controller
+class TransaksiControllerBakup2 extends Controller
 {
     use DebugToConsole;
 

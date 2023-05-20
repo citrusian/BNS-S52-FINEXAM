@@ -61,8 +61,8 @@ class DatabaseSeeder extends Seeder
 //        ]);
         // Disabled, more easy to define number in here than *Seeder.php
 
-        $usernumber = 100 ;
-        $itemnumber = 500 ;
+        $usernumber = env('USER_NUMBER', 100);
+        $itemnumber = env('ITEM_NUMBER', 500);
 
         User::factory()
             ->count($usernumber)
