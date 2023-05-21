@@ -32,14 +32,22 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Product_id" class="form-control-label">Item Code</label>
-                                        <input type="text" name="Product_id" class="form-control" placeholder="APL-4928" aria-label="Product_id" value="{{ old('Product_id') }}" >
-                                        @error('Product_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+{{--                                        <input type="text" name="Product_id" class="form-control" placeholder="APL-4928" aria-label="Product_id" value="{{ old('Product_id') }}" >--}}
+{{--                                        <input type="text" name="Product_id" class="form-control" placeholder="APL-4928" aria-label="Product_id" value="{{ session('merge.Product_id') }}" >--}}
+                                        <input type="text" name="Product_id" class="form-control" placeholder="APL-4928" aria-label="Product_id" value="{{ old('Product_id', session('merge.Product_id')) }}" >
+
+
+                                        {{--                                        @error('Product_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror--}}
+                                        @error('Product_id')
+                                        <p class="text-danger text-xs pt-1">{{ $message }}</p>
+                                        @enderror
+
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Harga_Beli" class="form-control-label">Serial Number</label>
-                                        <input type="number" name="Serial_no" class="form-control" placeholder="3268204658275" aria-label="Serial_no" value="{{ old('Serial_no') }}" >
+                                        <input type="number" name="Serial_no" class="form-control" placeholder="3268204658275" aria-label="Serial_no" value="{{ old('Serial_no', session('merge.Serial_no')) }}" >
                                         @error('Serial_no') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
                                     </div>
                                 </div>
@@ -48,14 +56,14 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Product_Name" class="form-control-label">Product Name</label>
-                                        <input type="text" name="Product_Name" class="form-control" placeholder="Zenbook" aria-label="Product_Name" value="{{ old('Product_Name') }}" >
+                                        <input type="text" name="Product_Name" class="form-control" placeholder="Zenbook" aria-label="Product_Name" value="{{ old('Product_Name', session('merge.Product_Name')) }}" >
                                         @error('Product_Name') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Brand" class="form-control-label">Brand</label>
-                                        <input type="text" name="Brand" class="form-control" placeholder="Asus" aria-label="Brand" value="{{ old('Brand') }}" >
+                                        <input type="text" name="Brand" class="form-control" placeholder="Asus" aria-label="Brand" value="{{ old('Brand', session('merge.Brand')) }}" >
                                         @error('Brand') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
                                     </div>
                                 </div>
@@ -66,12 +74,13 @@
                                         <label for="Customer_Vendor" class="form-control-label">Customer / Vendor</label>
                                         {{--                                            fallback to old value if validator failed--}}
                                         <select type="Customer_Vendor" name="Customer_Vendor" class="form-control">
-                                            <option value="Customer"  {{ old('Customer_Vendor') == 'Customer' ? 'selected' : '' }}>
+                                            <option value="Customer" {{ old('Customer_Vendor', session('merge.Customer_Vendor')) == 'Customer' ? 'selected' : '' }}>
                                                 Customer
                                             </option>
-                                            <option value="Vendor" {{ old('Customer_Vendor') == 'Vendor' ? 'selected' : '' }}>
+                                            <option value="Vendor" {{ old('Customer_Vendor', session('merge.Customer_Vendor')) == 'Vendor' ? 'selected' : '' }}>
                                                 Vendor
                                             </option>
+
                                         </select>
                                         @error('Customer_Vendor') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
                                     </div>
@@ -81,11 +90,11 @@
                                         <label for="Trans_Type" class="form-control-label">Jenis Transaksi</label>
                                         {{--                                            fallback to old value if validator failed--}}
                                         <select type="Trans_Type" name="Trans_Type" class="form-control">
-                                            <option value="Jual"  {{ old('Trans_Type') == 'Jual' ? 'selected' : '' }}>
-                                                Jual
-                                            </option>
-                                            <option value="Beli" {{ old('Trans_Type') == 'Beli' ? 'selected' : '' }}>
+                                            <option value="Beli" {{ old('Trans_Type', session('merge.Trans_Type')) == 'Beli' ? 'selected' : '' }}>
                                                 Beli
+                                            </option>
+                                            <option value="Jual"  {{ old('Trans_Type', session('merge.Trans_Type')) == 'Jual' ? 'selected' : '' }}>
+                                                Jual
                                             </option>
                                         </select>
                                         @error('Trans_Type') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
@@ -96,14 +105,14 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Price" class="form-control-label">Harga</label>
-                                        <input type="number" name="Price" class="form-control" placeholder="5000000" aria-label="Price" value="{{ old('Price') }}" >
+                                        <input type="number" name="Price" class="form-control" placeholder="5000000" aria-label="Price" value="{{ old('Price', session('merge.Price')) }}" >
                                         @error('Price') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Discount" class="form-control-label">Discount</label>
-                                        <input type="number" name="Discount" class="form-control" placeholder="0" aria-label="Discount" value="{{ old('Discount') }}" >
+                                        <input type="number" name="Discount" class="form-control" placeholder="-200000" aria-label="Discount" value="{{ old('Discount', session('merge.Discount')) }}" >
                                         @error('Discount') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
                                     </div>
                                 </div>
@@ -120,7 +129,7 @@
         </div>
     </div>
     <div class="mx-md-11" id="alert">
-        @include('components.alert')
+{{--        @include('components.alert')--}}
     </div>
     {{--    </main>--}}
 @endsection

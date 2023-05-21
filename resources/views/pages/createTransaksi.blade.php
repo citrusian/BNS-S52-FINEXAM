@@ -49,45 +49,6 @@
                             </tfoot>
 
                             <tbody class="Table">
-{{--                            @foreach ($q1 as $query)--}}
-{{--                                <tr>--}}
-{{--                                    <td class="Images" style="width: 15%;max-height: 20%;">--}}
-{{--                                        <img src="img/barang/{{ $query->image }}" width="100%">--}}
-{{--                                    </td>--}}
-{{--                                    <td class="Nama align-middle text-center text-wrap">--}}
-{{--                                        {{ $query->Nama }}--}}
-{{--                                    </td>--}}
-{{--                                    <td class="Deskripsi align-middle text-center text-wrap" style="width:15%;">--}}
-{{--                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--}}
-{{--                                        {{ $query->Deskripsi }}--}}
-{{--                                    </td>--}}
-{{--                                    <td class="Jenis align-middle text-center text-wrap">--}}
-{{--                                        {{ $query->Jenis }}--}}
-{{--                                    </td>--}}
-{{--                                    <td class="Stok align-middle text-center text-wrap"  style="width: 10%;">--}}
-{{--                                        {{ $query->Stok }}--}}
-{{--                                    </td>--}}
-{{--                                    <td class="Harga_Beli align-middle text-center text-wrap"  style="width: 10%;">--}}
-{{--                                        {{ $query->Harga_Beli }}--}}
-{{--                                    </td>--}}
-{{--                                    <td class="Harga_Jual align-middle text-center text-wrap"  style="width: 10%;">--}}
-{{--                                        {{$query->Harga_Jual}}--}}
-{{--                                    </td>--}}
-{{--                                    <td class="Action align-middle text-center text-wrap"  style="width: 10%;">--}}
-{{--                                        <div class="d-flex px-3 py-1 justify-content-center align-items-center">--}}
-{{--                                            <form role="form" method="GET" action={{ route('edititem') }} enctype="multipart/form-data">--}}
-{{--                                                @csrf--}}
-{{--                                                <div id='HiddenView' style="display: none;">--}}
-{{--                                                    <input class="form-control" type="text" name="postid" value="{{ $query->id }}" >--}}
-{{--                                                </div>--}}
-{{--                                                <div class="card-header pb-0">--}}
-{{--                                                    <button type="submit" class="">Edit</button>--}}
-{{--                                                </div>--}}
-{{--                                            </form>--}}
-{{--                                        </div>--}}
-{{--                                    </td>--}}
-{{--                                </tr>--}}
-{{--                            @endforeach--}}
                             </tbody>
                         </table>
                     </div>

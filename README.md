@@ -13,7 +13,7 @@ create your own '.env' files, or use the avaliable '.env.example'
 composer install
 composer dump-autoload
 ```
-***Check the DatabaseSeeder.php before migrate***
+***Check the DatabaseSeeder.php and ENV files before migrate***
 >The default configuration of the DatabaseSeeder includes the creation of 100 Users, 500 Items, and approximately 500-1000 Transaction Data
 
 It is recommended to modify it to around 100 Users and 150 Items for normal test.

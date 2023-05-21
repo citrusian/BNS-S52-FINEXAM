@@ -105,17 +105,7 @@
                         <div id="page-nav"></div>
                     </div>
                     <!-- Card footer -->
-                    <div class="card-footer"  style="border-radius: 0 0;">
-                        <script>
-                            $("#table-id").simplePagination({
-                                perPage: 10,
-                                currentPage: 1,
-                                previousButtonClass: "btn btn-primary",
-                                nextButtonClass: "btn btn-primary",
-                                paginatorAlign: "center"
-                            });
-                        </script>
-                    </div>
+                    @include('layouts.footers.auth.footer-transaksi-view')
                 </div>
             </div>
         </div>

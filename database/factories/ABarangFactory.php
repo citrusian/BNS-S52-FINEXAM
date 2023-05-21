@@ -19,72 +19,67 @@ class ABarangFactory extends Factory
      */
     public function definition()
     {
-        $randInit =  $this->faker->numberBetween(1, 6);
+        $randInit = $this->faker->numberBetween(1, 6);
 
-        if ($randInit === 1) {
-            $randName = Arr::random(['ProArt', 'Zenbook', 'ROG', 'TUF', 'ZEPHYRUS']);
+        $brands = [
+            1 => [
+                'brand' => 'Asus',
+                'names' => ['ProArt', 'Zenbook', 'ROG', 'TUF', 'ZEPHYRUS'],
+                'modelPrefix' => 'ASS',
+                'priceRange' => [5000000, 25000000],
+            ],
+            2 => [
+                'brand' => 'HP',
+                'names' => ['Elitebook', 'Envy', 'Omen', 'Pavilion'],
+                'modelPrefix' => 'HPE',
+                'priceRange' => [5000000, 15000000],
+            ],
+            3 => [
+                'brand' => 'Lenovo',
+                'names' => ['IdeaPad', 'Legion', 'ThinkPad', 'ThinkBook', 'Yoga'],
+                'modelPrefix' => 'LNV',
+                'priceRange' => [5000000, 15000000],
+            ],
+            4 => [
+                'brand' => 'Dell',
+                'names' => ['Alienware', 'G Series', 'Inspiron', 'Latitude', 'Precision', 'Vostro', 'XPS'],
+                'modelPrefix' => 'DLL',
+                'priceRange' => [5000000, 15000000],
+            ],
+            5 => [
+                'brand' => 'Acer',
+                'names' => ['Aspire', 'Enduro', 'Nitro', 'Predator', 'Swift', 'TravelMate'],
+                'modelPrefix' => 'ACR',
+                'priceRange' => [5000000, 15000000],
+            ],
+            6 => [
+                'brand' => 'Apple',
+                'names' => ['MacBook', 'MacBook Air', 'MacBook Pro'],
+                'modelPrefix' => 'APL',
+                'priceRange' => [5000000, 15000000],
+            ],
+        ];
+
+        if (isset($brands[$randInit])) {
+            $brandData = $brands[$randInit];
+
+            $randName = Arr::random($brandData['names']);
+
             return [
                 'Product_Name' => $randName,
-                'Brand' => "Asus",
-                'Price' => $this->faker->numberBetween(5000000, 25000000),
-                'Model_No' => $this->faker->unique()->numerify('ASS-####'),
-            ];
-        }
-        elseif ($randInit === 2){
-            $randName = Arr::random(['Elitebook', 'Envy', 'Omen', 'Pavilion']);
-            return [
-                'Product_Name' => $randName,
-                'Brand' => "HP",
-                'Price' => $this->faker->numberBetween(5000000, 15000000),
-                'Model_No' => $this->faker->unique()->numerify('HPE-####'),
-            ];
-        }
-        elseif ($randInit === 3){
-            $randName = Arr::random(['IdeaPad', 'Legion', 'ThinkPad', 'ThinkBook', 'Yoga']);
-            return [
-                'Product_Name' => $randName,
-                'Brand' => "Lenovo",
-                'Price' => $this->faker->numberBetween(5000000, 15000000),
-                'Model_No' => $this->faker->unique()->numerify('LNV-####'),
-            ];
-        }
-        elseif ($randInit === 4){
-            $randName = Arr::random(['Alienware', 'G Series', 'Inspiron', 'Latitude', 'Precision', 'Vostro', 'XPS']);
-            return [
-                'Product_Name' => $randName,
-                'Brand' => "Dell",
-                'Price' => $this->faker->numberBetween(5000000, 15000000),
-                'Model_No' => $this->faker->unique()->numerify('DLL-####'),
-            ];
-        }
-        elseif ($randInit === 5){
-            $randName = Arr::random(['Aspire', 'Enduro', 'Nitro', 'Predator', 'Swift', 'TravelMate']);
-            return [
-                'Product_Name' => $randName,
-                'Brand' => "Acer",
-                'Price' => $this->faker->numberBetween(5000000, 15000000),
-                'Model_No' => $this->faker->unique()->numerify('ACR-####'),
-            ];
-        }
-        elseif ($randInit === 6){
-            $randName = Arr::random(['MacBook', 'MacBook Air', 'MacBook Pro']);
-            return [
-                'Product_Name' => $randName,
-                'Brand' => "Apple",
-                'Price' => $this->faker->numberBetween(5000000, 15000000),
-                'Model_No' => $this->faker->unique()->numerify('APL-####'),
+                'Brand' => $brandData['brand'],
+                'Price' => $this->faker->numberBetween($brandData['priceRange'][0], $brandData['priceRange'][1]),
+                'Model_No' => $this->faker->unique()->numerify($brandData['modelPrefix'].'-####'),
             ];
         }
 
         // Fallback if somehow rand number exceed max limit
-        else{
-            return [
-                'Product_Name' => "Error",
-                'Brand' => "Error",
-                'Price' => 0,
-                'Model_No' => $this->faker->numerify('ZZZ-####'),
-            ];
-        }
+        return [
+            'Product_Name' => 'Error',
+            'Brand' => 'Error',
+            'Price' => 0,
+            'Model_No' => $this->faker->numerify('ZZZ-####'),
+        ];
 
     }
 }

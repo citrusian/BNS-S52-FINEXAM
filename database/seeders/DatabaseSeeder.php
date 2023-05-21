@@ -53,16 +53,9 @@ class DatabaseSeeder extends Seeder
             'pp_path' => "2.jpg",
         ]);
 
-//      Call Additional Seeder Using Factories
-//        $this->call([
-//            ABarangSeeder::class,
-//            ANomorSeriSeeder::class,
-//            BTransaksiSeeder::class,
-//        ]);
-        // Disabled, more easy to define number in here than *Seeder.php
-
-        $usernumber = 100 ;
-        $itemnumber = 500 ;
+        // Use key from .env, or if missing revert to default 100,500
+        $usernumber = env('USER_NUMBER', 100);
+        $itemnumber = env('ITEM_NUMBER', 500);
 
         User::factory()
             ->count($usernumber)

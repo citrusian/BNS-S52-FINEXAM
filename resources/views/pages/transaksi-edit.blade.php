@@ -34,21 +34,21 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="Transaksi_id" class="form-control-label">Transaction Number</label>
-                                        <input type="text" name="Transaksi_id" class="form-control" placeholder="APL-4928" aria-label="Transaksi_id" value="{{ session('Transaksi_id')}}" readonly>
+                                        <input type="text" name="Transaksi_id" class="form-control" placeholder="APL-4928" aria-label="Transaksi_id" value="{{ session('Transaksi_id')}}" readonly tabindex="-1" style="pointer-events: none; ">
                                         @error('Transaksi_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="old_Product_id" class="form-control-label">Model Code</label>
-                                        <input type="text" name="old_Product_id" class="form-control" placeholder="APL-4928" aria-label="old_Product_id" value="{{session('Product_id')}}"readonly>
+                                        <input type="text" name="old_Product_id" class="form-control" placeholder="APL-4928" aria-label="old_Product_id" value="{{session('Product_id')}}" readonly tabindex="-1" style="pointer-events: none; ">
                                         @error('old_Product_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="old_Serial_no" class="form-control-label">Serial Number</label>
-                                        <input type="number" name="old_Serial_no" class="form-control" placeholder="3268204658275" aria-label="old_Serial_no" value="{{session('Serial_no')}}" readonly>
+                                        <input type="number" name="old_Serial_no" class="form-control" placeholder="3268204658275" aria-label="old_Serial_no" value="{{session('Serial_no')}}" readonly tabindex="-1" style="pointer-events: none; ">
                                         @error('old_Serial_no') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
                                     </div>
                                 </div>
@@ -103,7 +103,7 @@
                                     <div class="form-group">
                                         <label for="Trans_Type" class="form-control-label">Jenis Transaksi</label>
 {{--                                        fallback to old value if validator failed--}}
-                                        <select type="Trans_Type" name="Trans_Type" class="form-control" readonly>
+                                        <select type="Trans_Type" name="Trans_Type" class="form-control" readonly tabindex="-1" style="pointer-events: none; ">
                                             <option value="Jual"  {{ session('Trans_Type') == 'Jual' ? 'selected' : '' }}>
                                                 Jual
                                             </option>

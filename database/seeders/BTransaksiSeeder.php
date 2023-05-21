@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ANomorSeri;
 use App\Models\BTransaksi;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -14,50 +15,56 @@ class BTransaksiSeeder extends Seeder
      *
      * @return void
      */
-    private static $counterBarang = 1;
-    private static $counterNoTrans = 1;
 
     public function run()
     {
-        $initGetBarang = DB::table('a_nomor_seris')->count();
+        // modify into chunk too,
+        // BTransaksiSeeder "1,061.17 ms" into "17.23 ms"
+        // BDetailTransaksiSeeder "1,215.23 ms" into "20.36 ms"
 
-//        $barang =
-        for ($i = 0; $i < $initGetBarang; $i++){
-            $tanggal = DB::table('a_nomor_seris')->where('id', (self::$counterBarang))->value('Prod_date');
+        $chunkSize = env('CHUNK_SIZE', 500);
+        // Init trans number from 1000 before ++
+        $counterNoTrans = 1000;
 
-            $getUsed = DB::table('a_nomor_seris')->where('id', (self::$counterBarang))->value('Used');
-            $TransJB = "Beli";
-            $transCV = "Vendor";
+        DB::table('a_nomor_seris')
+            ->orderBy('id') // Add the orderBy clause to ensure consistent results
+            ->select('Prod_date', 'Used', 'Warranty_Start')
+            ->chunk($chunkSize, function ($barangData) use (&$counterNoTrans) {
+                $insertData = [];
 
-            DB::table('b_transaksis')->insert([
-                'No_Trans' => (self::$counterNoTrans++) + (1000),
-                'Tanggal' => $tanggal,
-                'Customer_Vendor' => $transCV,
-                'Trans_Type' => $TransJB,
-                "created_at" =>  \Carbon\Carbon::now(),
-                "updated_at" => \Carbon\Carbon::now(),
-            ]);
+                foreach ($barangData as $barang) {
+                    $tanggal = $barang->Prod_date;
+                    $getUsed = $barang->Used;
+                    $TransJB = "Beli";
+                    $transCV = "Vendor";
 
-            // only add additional transaction when Used === 1
-            if ($getUsed === 1){
-                $TransJB = "Jual";
-                $transCV = "Customer";
-                $tanggal = DB::table('a_nomor_seris')->where('id', (self::$counterBarang))->value('Warranty_Start');
+                    $insertData[] = [
+                        'No_Trans' => $counterNoTrans++,
+                        'Tanggal' => $tanggal,
+                        'Customer_Vendor' => $transCV,
+                        'Trans_Type' => $TransJB,
+                        "created_at" => \Carbon\Carbon::now(),
+                        "updated_at" => \Carbon\Carbon::now(),
+                    ];
 
-                DB::table('b_transaksis')->insert([
-                    'No_Trans' => (self::$counterNoTrans++) + (1000),
-                    'Tanggal' => $tanggal,
-                    'Customer_Vendor' => $transCV,
-                    'Trans_Type' => $TransJB,
-                    "created_at" =>  \Carbon\Carbon::now(),
-                    "updated_at" => \Carbon\Carbon::now(),
-                ]);
+                    // Only add additional transaction when Used === 1
+                    if ($getUsed === 1) {
+                        $TransJB = "Jual";
+                        $transCV = "Customer";
+                        $tanggal = $barang->Warranty_Start;
+
+                        $insertData[] = [
+                            'No_Trans' => $counterNoTrans++,
+                            'Tanggal' => $tanggal,
+                            'Customer_Vendor' => $transCV,
+                            'Trans_Type' => $TransJB,
+                            "created_at" => \Carbon\Carbon::now(),
+                            "updated_at" => \Carbon\Carbon::now(),
+                        ];
+                    }
+                }
+                DB::table('b_transaksis')->insert($insertData);
             }
-            self::$counterBarang++;
-            // note:
-            // $counterNoTrans get increased at call
-            // $counterBarang  get increased at loop end
-
-        }
+        );
     }
 }

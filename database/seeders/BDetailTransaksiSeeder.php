@@ -14,78 +14,67 @@ class BDetailTransaksiSeeder extends Seeder
      *
      * @return void
      */
-
-    private static $counterBarang = 1;
-    private static $Transaksi_id = 1;
-
+//-------------------------------------------------------
+//  Chunk Test
+//-------------------------------------------------------
     public function run()
     {
-        $initGetBarang = DB::table('a_nomor_seris')->count();
+        $chunkSize = env('CHUNK_SIZE', 500);
+        // Init trans number from 1000 before ++
+        $Transaksi_id = 1000;
 
-//        $barang =
-        for ($i = 0; $i < $initGetBarang; $i++){
+        DB::table('a_nomor_seris')
+            ->orderBy('id')
+            ->chunk($chunkSize, function ($barangs) use (&$Transaksi_id) {
+                $transaksis = [];
+                // init array
+                foreach ($barangs as $barang) {
+                    $getUsed = $barang->Used;
+                    $Product_id = $barang->Product_id;
+                    $Serial_no = $barang->Serial_no;
+                    $PriceBuy = $barang->Price;
 
-            $getUsed = DB::table('a_nomor_seris')->where('id', (self::$counterBarang))->value('Used');
+//                  store data in array first before insert, more performance than calling query on loop
+                    $transaksis[] = [
+                        'Transaksi_id' => $Transaksi_id++,
+                        'Product_id' => $Product_id,
+                        'Serial_no' => $Serial_no,
+                        'Price' => $PriceBuy,
+                        'Discount' => '0',
+                        'created_at' => \Carbon\Carbon::now(),
+                        'updated_at' => \Carbon\Carbon::now(),
+                    ];
 
-            $Product_id = DB::table('a_nomor_seris')->where('id', (self::$counterBarang))->value('Product_id');
-            $Serial_no = DB::table('a_nomor_seris')->where('id', (self::$counterBarang))->value('Serial_no');
+                    // only add additional transaction when Used === 1
+                    if ($getUsed === 1) {
+                        $Discount = Arr::random([0.05, 0.08, 0.1, 0.15]);
+                        $DiscountPrice = $PriceBuy * $Discount;
 
-            $PriceBuy = DB::table('a_nomor_seris')->where('id', (self::$counterBarang))->value('Price');
+                        $randgen = Arr::random([0, 1]);
 
+                        if ($randgen === 0) {
+                            // Untung
+                            $FinalPrice = $PriceBuy + $DiscountPrice;
+                            $FinalDiscount = $DiscountPrice;
+                        } else {
+                            // Rugi / Discount
+                            $FinalPrice = $PriceBuy - $DiscountPrice;
+                            $FinalDiscount = $DiscountPrice * -1;
+                        }
 
-
-            DB::table('b_detail_transaksis')->insert([
-                'Transaksi_id' => (self::$Transaksi_id++) + (1000),
-//                'Product_id' => $Product_id . " beli",
-                'Product_id' => $Product_id,
-                'Serial_no' => $Serial_no,
-                'Price' => $PriceBuy,
-                'Discount' => '0',
-                "created_at" =>  \Carbon\Carbon::now(),
-                "updated_at" => \Carbon\Carbon::now(),
-            ]);
-
-            // only add additional transaction when Used === 1
-            if ($getUsed === 1){
-                $Discount = Arr::random([0.05, 0.08 ,0.1, 0.15]);
-                $DiscountPrice = $PriceBuy * $Discount;
-
-                $randgen = Arr::random([0, 1]);
-                $randcall = $randgen;
-
-                if ($randgen === 0){
-                    // Untung
-                    $FinalPrice = $PriceBuy + $DiscountPrice;
-                    $FinalDiscount = $DiscountPrice;
+                        $transaksis[] = [
+                            'Transaksi_id' => $Transaksi_id++,
+                            'Product_id' => $Product_id,
+                            'Serial_no' => $Serial_no,
+                            'Price' => $FinalPrice,
+                            'Discount' => $FinalDiscount,
+                            'created_at' => \Carbon\Carbon::now(),
+                            'updated_at' => \Carbon\Carbon::now(),
+                        ];
+                    }
                 }
-                else {
-                    // Rugi / Discount
-                    $FinalPrice = $PriceBuy - $DiscountPrice;
-                    $FinalDiscount = $DiscountPrice * -1;
-                }
-
-                DB::table('b_detail_transaksis')->insert([
-                    'Transaksi_id' => (self::$Transaksi_id++) + (1000),
-//                    'Product_id' => $Product_id . " jual",
-                    'Product_id' => $Product_id,
-                    'Serial_no' => $Serial_no,
-                    'Price' => $FinalPrice,
-                    'Discount' => $FinalDiscount,
-                    "created_at" =>  \Carbon\Carbon::now(),
-                    "updated_at" => \Carbon\Carbon::now(),
-                ]);
+                DB::table('b_detail_transaksis')->insert($transaksis);
             }
-            self::$counterBarang++;
-            // note:
-            // $counterNoTrans get increased at call
-            // $counterBarang  get increased at loop end
-
-        }
+        );
     }
 }
-
-//'Transaksi_id',
-//'Product_id',
-//'Serial_no',
-//'Price',
-//'Discount',

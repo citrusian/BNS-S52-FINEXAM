@@ -17,18 +17,24 @@
                             <div class="card card-plain">
                                 <div class="card-header pb-0 text-start">
                                     <h4 class="font-weight-bolder">Sign In</h4>
-                                    <p class="mb-0">Enter your email and password to sign in</p>
+                                    <p class="mb-0">Gunakan Email ini dengan menggunakan seeder</p>
+                                    <p class="mb-0">&nbsp</p>
+                                    <p class="mb-0">Super Admin</p>
+                                    <p class="mb-0">supdadmin@admin.com  :  supdadmin</p>
+                                    <p class="mb-0">&nbsp</p>
+                                    <p class="mb-0">Admin</p>
+                                    <p class="mb-0">admin@admin.com  :  admin</p>
                                 </div>
                                 <div class="card-body">
                                     <form role="form" method="POST" action="{{ route('login.perform') }}">
                                         @csrf
                                         @method('post')
                                         <div class="flex flex-col mb-3">
-                                            <input type="email" name="email" class="form-control form-control-lg" value="{{ old('email') ?? 'admin@admin.com' }}" aria-label="Email">
+                                            <input type="email" name="email" class="form-control form-control-lg" value="{{ old('email') ?? 'supdadmin@admin.com' }}" aria-label="Email">
                                             @error('email') <p class="text-danger text-xs pt-1"> {{$message}} </p>@enderror
                                         </div>
                                         <div class="flex flex-col mb-3">
-                                            <input type="password" name="password" class="form-control form-control-lg" aria-label="Password" value="admin" >
+                                            <input type="password" name="password" class="form-control form-control-lg" aria-label="Password" value="supdadmin" >
                                             @error('password') <p class="text-danger text-xs pt-1"> {{$message}} </p>@enderror
                                         </div>
                                         <div class="form-check form-switch">
@@ -40,18 +46,6 @@
                                         </div>
                                     </form>
                                 </div>
-{{--                                <div class="card-footer text-center pt-0 px-lg-2 px-1">--}}
-{{--                                    <p class="mb-1 text-sm mx-auto">--}}
-{{--                                        Forgot you password? Reset your password--}}
-{{--                                        <a href="{{ route('reset-password') }}" class="text-primary text-gradient font-weight-bold">here</a>--}}
-{{--                                    </p>--}}
-{{--                                </div>--}}
-{{--                                <div class="card-footer text-center pt-0 px-lg-2 px-1">--}}
-{{--                                    <p class="mb-4 text-sm mx-auto">--}}
-{{--                                        Don't have an account?--}}
-{{--                                        <a href="{{ route('register') }}" class="text-primary text-gradient font-weight-bold">Sign up</a>--}}
-{{--                                    </p>--}}
-{{--                                </div>--}}
                             </div>
                         </div>
                         <div

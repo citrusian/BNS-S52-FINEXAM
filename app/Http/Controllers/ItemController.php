@@ -32,8 +32,6 @@ class ItemController extends Controller
 //--------------------------------------------------------------------------------------------------------------------------------------
     public function delete()
     {
-//        $deleted = DB::table('b_transaksis')->where('votes', '>', 100)->delete();
-//        $deleted = DB::table('b_detail_transaksis')->where('votes', '>', 100)->delete();
         return back()
             ->with('error','Error! Missing Request Data!');
     }
@@ -42,8 +40,6 @@ class ItemController extends Controller
 //--------------------------------------------------------------------------------------------------------------------------------------
     public function edit()
     {
-//        $deleted = DB::table('b_transaksis')->where('votes', '>', 100)->delete();
-//        $deleted = DB::table('b_detail_transaksis')->where('votes', '>', 100)->delete();
         return back()
             ->with('error','Error! Missing Request Data!');
     }

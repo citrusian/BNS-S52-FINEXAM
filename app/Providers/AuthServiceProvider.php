@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
@@ -25,6 +26,13 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('item-view', function ($user) {
+            $role = Auth::user()->role;
+            if ($role === 0) {
+                return true; // User with role SuperAdmin is authorized
+            }
+            return false;    // User with role other denied
+        });
+        $this->registerPolicies();
     }
 }

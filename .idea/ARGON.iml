@@ -130,5 +130,6 @@
     <orderEntry type="library" name="jquery-1.11.2" level="application" />
     <orderEntry type="library" name="42d5adcbca" level="application" />
     <orderEntry type="library" name="buttons" level="application" />
+    <orderEntry type="library" name="sweetalert2" level="application" />
   </component>
 </module>
