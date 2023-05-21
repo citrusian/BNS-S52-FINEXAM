@@ -1,13 +1,14 @@
 <div class="card-footer"  style="border-radius: 0 0;">
     <script>
         $("#table-id").simplePagination({
-            perPage: 25,
+            perPage: 15,
             currentPage: 1,
             previousButtonClass: "btn btn-primary",
             nextButtonClass: "btn btn-primary",
             paginatorAlign: "center"
         });
     </script>
+
     <script>
         const deleteButtons = document.querySelectorAll('.deleteButton');
 
@@ -42,6 +43,7 @@
             });
         });
     </script>
+
     @if(session('sweetConfirm'))
         <script>
             const Toast = Swal.mixin({
@@ -132,6 +134,7 @@
             }
         });
     </script>
+
     <script>
     function loadPaginatedContent(page) {
         $.ajax({

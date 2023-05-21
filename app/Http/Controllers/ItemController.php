@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\DB;
 
 class ItemController extends Controller
 {
-
     public function get()
     {
         $query = DB::table('a_barangs')
@@ -202,10 +201,8 @@ class ItemController extends Controller
 
             return back()
                 ->with('succes','Succes! Transaction Data Added!');
-
 //--------------------------------------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------------------------------------
-
         }
         else {
             return back()

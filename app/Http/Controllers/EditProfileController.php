@@ -14,7 +14,6 @@ class EditProfileController extends Controller
     public function show(Request $request)
     {
         $userid = $request->get('postid');
-        Log::debug("testreq: ".$userid);
         Session::put('user', $userid);
 //        dd($userid);
         return redirect('edit-profile');
@@ -22,18 +21,6 @@ class EditProfileController extends Controller
 
     public function updateuser(Request $request)
     {
-        Log::debug("postid: ".$request->get('postid'));
-        Log::debug("username: ".$request->get('username'));
-        Log::debug("firstname: ".$request->get('firstname'));
-        Log::debug("lastname: ".$request->get('lastname'));
-        Log::debug("email: ".$request->get('email'));
-        Log::debug("address: ".$request->get('address'));
-        Log::debug("city: ".$request->get('city'));
-        Log::debug("country: ".$request->get('country'));
-        Log::debug("postal: ".$request->get('postal'));
-        Log::debug("TTL: ".$request->get('TTL'));
-        Log::debug("gender: ".$request->get('gender'));
-        Log::debug("idtype: ".$request->get('idtype'));
         $curid = $request->get('postid');
         $user = DB::table('users')->where('id',$curid)->get();
         $call = $user;
@@ -52,7 +39,6 @@ class EditProfileController extends Controller
             'about' => ['max:255'],
 //            'role' => ['required'],
         ]);
-//        $call = $attributes;
 //        dd($attributes);
 
         User::where('id',$curid)

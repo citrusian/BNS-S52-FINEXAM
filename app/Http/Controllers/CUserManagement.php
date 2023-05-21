@@ -26,7 +26,6 @@ class CUserManagement extends Controller
         $test = " Test";
         $test2 = ' Test';
 
-//        Log::debug($query);
         return view("pages.user-management",['q1'=>$query]);
     }
 }

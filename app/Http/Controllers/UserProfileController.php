@@ -20,7 +20,7 @@ class UserProfileController extends Controller
             $role = "Admin";
         }
 
-//        return view('pages.user-profile');
+        //        return view('pages.user-profile');
         return view('pages.user-profile')->with('Role', $role);
     }
 
@@ -56,7 +56,6 @@ class UserProfileController extends Controller
     public function ppicture(Request $request)
     {
         // Check if file is present in the request
-
         if ($request->hasFile('image')) {
             // limit input
             $request->validate([
@@ -108,7 +107,6 @@ class UserProfileController extends Controller
                 'profile_ktp_photo_path' => $imageName,
             ]);
 
-
         $attributes = $request->validate([
             'username' => ['required','max:255', 'min:2'],
             'firstname' => ['max:100'],
@@ -119,8 +117,6 @@ class UserProfileController extends Controller
         ]);
 
         $user = User::create($attributes);
-
-
         return back()
             ->with('succes','Succes! User Created!');
     }

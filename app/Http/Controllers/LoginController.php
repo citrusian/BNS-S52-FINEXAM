@@ -31,7 +31,9 @@ class LoginController extends Controller
 
             $getRole = Auth::user()->role;
             if ($getRole === 0){
-                return redirect()->intended('transaksi-view');
+//                return redirect()->intended('transaksi-view');
+                // transaksi-view need post request to get data
+                return redirect()->intended('profile');
             }
             else{
                 return redirect()->intended('profile');
