@@ -19,11 +19,13 @@
                                     <h4 class="font-weight-bolder">Sign In</h4>
                                     <p class="mb-0">Gunakan Email ini dengan menggunakan seeder</p>
                                     <p class="mb-0">&nbsp</p>
-                                    <p class="mb-0">Super Admin</p>
-                                    <p class="mb-0">supdadmin@admin.com  :  supdadmin</p>
+                                    <p class="mb-0 h5">Privilege: Super Admin</p>
+                                    <p class="mb-0">supdadmin@admin.com</p>
+                                    <p class="mb-0">secret</p>
                                     <p class="mb-0">&nbsp</p>
-                                    <p class="mb-0">Admin</p>
-                                    <p class="mb-0">admin@admin.com  :  admin</p>
+                                    <p class="mb-0 h5">Privilege: Admin</p>
+                                    <p class="mb-0">admin@admin.com</p>
+                                    <p class="mb-0">secret</p>
                                 </div>
                                 <div class="card-body">
                                     <form role="form" method="POST" action="{{ route('login.perform') }}">
@@ -34,7 +36,7 @@
                                             @error('email') <p class="text-danger text-xs pt-1"> {{$message}} </p>@enderror
                                         </div>
                                         <div class="flex flex-col mb-3">
-                                            <input type="password" name="password" class="form-control form-control-lg" aria-label="Password" value="supdadmin" >
+                                            <input type="password" name="password" class="form-control form-control-lg" aria-label="Password" value="{{ old('password') ?? 'secret' }}" >
                                             @error('password') <p class="text-danger text-xs pt-1"> {{$message}} </p>@enderror
                                         </div>
                                         <div class="form-check form-switch">

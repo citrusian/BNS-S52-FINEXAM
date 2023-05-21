@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use App\Http\Traits\DebugToConsole;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
@@ -21,16 +20,6 @@ use NumberFormatter;
 
 class TransaksiController extends Controller
 {
-    use DebugToConsole;
-
-
-
-    public function chartFunction()
-    {
-        return view('pages.transaksi-register');
-    }
-
-
     public function get(Request $request)
     {
 //        dd($request->all());
@@ -64,17 +53,12 @@ class TransaksiController extends Controller
 //        dd($query);
 
         $role = Auth::user()->role;
-
-
         $currentYear = Carbon::now()->year;
         $lastYear = Carbon::now()->subYear()->year;
         $startMonth = Carbon::now()->subMonths(11)->startOfMonth();
         $endMonth = Carbon::now()->endOfMonth();
 
         $result = [];
-        // Separator
-//        $transTypes = ['Jual', 'Beli', 'Price'];
-
         $transTypes = ['Jual', 'Beli'];
 
         for ($month = $startMonth; $month <= $endMonth; $month->addMonth()) {
@@ -117,8 +101,7 @@ class TransaksiController extends Controller
 //----------------------------------------------
         // Get Stock By Brand
 //----------------------------------------------
-        function getStockbyBrand($brandName)
-        {
+        function getStockbyBrand($brandName) {
             return DB::table('b_detail_transaksis')
                 ->Join('b_transaksis', 'b_detail_transaksis.Transaksi_id', '=', 'b_transaksis.No_Trans')
                 ->Join('a_nomor_seris', 'b_detail_transaksis.Product_id', '=', 'a_nomor_seris.Product_id')
@@ -212,7 +195,6 @@ class TransaksiController extends Controller
                 $datab['datb' . ($index + 1) . ($year - $lastYear) . '22'] = $beliPrice;
             }
         }
-
 
 //        $test = compact('dataj', 'datab');
 //        $test->merge('dataj', 'datab');
@@ -530,18 +512,12 @@ class TransaksiController extends Controller
 
     public function create(Request $request)
     {
-
         $userRole = Auth::user()->role;
-
-
-
 
         $latestTransaction = DB::table('b_transaksis')->latest('id')->first();
         $curid = $latestTransaction->id + 1;
         $currdate = now()->toDateString();
         $Transaksi_id = $curid + 1000;
-
-
 
         $request->request->add(['Transaksi_id' => $Transaksi_id, 'No_Trans' => $Transaksi_id, 'Tanggal' => $currdate]);
         $merge = [];
@@ -563,19 +539,14 @@ class TransaksiController extends Controller
             }
 
             if ($getDuplicate === 0 || $getDuplicate2 === 0){
-//                return back()->with('error', 'Error! Barang Tidak Terdaftar!');
-//                return back()->with('error', 'Error! Barang Tidak Terdaftar!')->with($merge);
-//                return back()->with('error', 'Error! Barang Tidak Terdaftar!')->withErrors('Product_id', 'Error! Barang Tidak Terdaftar!')->with($merge);
                 return back()
                     ->withErrors(['Product_id' => 'Error! Barang Tidak Terdaftar!'])
                     ->with(['merge' =>  $merge,])
                     ->with('error', 'Error! Barang Tidak Terdaftar!');
-
             }
 
             $checkSerial = DB::table('b_detail_transaksis')->where('Product_id', $request->Product_id)->value('Serial_no');
             $checkModel = DB::table('b_detail_transaksis')->where('Serial_no', $request->Serial_no)->value('Product_id');
-
 
             if ($request->Serial_no !== $checkSerial || $request->Product_id !== $checkModel) {
                 return back()->with('error', 'Error! Model dan Serial Number Tidak Cocok!')

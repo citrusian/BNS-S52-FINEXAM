@@ -129,7 +129,6 @@ class DashboardController extends Controller
             ->groupBy('a_barangs.Brand')
             ->get();
 
-
         if ($getObject->count() > 0) {
             $tempRandom = $getObject->random();
             $brandName = $tempRandom->Brand;
@@ -163,7 +162,6 @@ class DashboardController extends Controller
                 $datab['datb' . ($index + 1) . ($year - $lastYear) . '22'] = $beliPrice;
             }
         }
-
 
 //        $test = compact('dataj', 'datab');
 //        $test->merge('dataj', 'datab');
