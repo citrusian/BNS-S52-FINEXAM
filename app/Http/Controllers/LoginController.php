@@ -29,7 +29,13 @@ class LoginController extends Controller
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $request->session()->regenerate();
 
-            return redirect()->intended('dashboard');
+            $getRole = Auth::user()->role;
+            if ($getRole === 0){
+                return redirect()->intended('transaksi-view');
+            }
+            else{
+                return redirect()->intended('profile');
+            }
         }
 
         return back()->withErrors([

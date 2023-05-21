@@ -216,6 +216,30 @@
     </script>
 
 
+    <script>
+    function loadPaginatedContent(page) {
+        $.ajax({
+            url: '/your-pagination-endpoint',
+            type: 'GET',
+            data: { page: page },
+            success: function (response) {
+                // Update the table body with the new content
+                $('#table-id tbody').html(response.tableContent);
+
+                // Update the pagination links
+                $('#page-nav').html(response.paginationLinks);
+            },
+            error: function (xhr, status, error) {
+                // Handle the error response from the server
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: error
+                });
+            }
+        });
+    }
+    </script>
 
 
 

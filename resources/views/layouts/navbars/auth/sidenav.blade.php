@@ -15,29 +15,9 @@
     <hr class="horizontal dark mt-0">
     <div class="collapse navbar-collapse  w-auto h-auto " id="sidenav-collapse-main">
         <ul class="navbar-nav">
-
-
-            <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'dashboard-chart' ? 'active' : '' }}" href="{{ route('dashboard-chart') }}">
-                    <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Laporan Grafik</span>
-                </a>
-            </li>
 {{--            ---------------------------------------------------------------------------------------------------}}
             <hr class="horizontal dark">
 {{--            ---------------------------------------------------------------------------------------------------}}
-
-
-
-
-
-
-
-
-
             <li class="nav-item mt-3 d-flex align-items-center">
                 <div class="ps-4">
                     <i class="ni ni-badge" style="color: #f4645f;"></i>
@@ -53,7 +33,7 @@
                     <span class="nav-link-text ms-1">Profile</span>
                 </a>
             </li>
-{{--            @if($role == 0)--}}
+            @if($role == 0)
             <li class="nav-item">
                 <a class="nav-link {{ str_contains(request()->url(), 'user_management') == true ? 'active' : '' }}" href="{{ route('user_management') }}">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -62,7 +42,7 @@
                     <span class="nav-link-text ms-1">User Management</span>
                 </a>
             </li>
-{{--            @endif--}}
+            @endif
             {{-----------------------------------------------------------------------------------------------------}}
             <hr class="horizontal dark">
             {{-----------------------------------------------------------------------------------------------------}}
@@ -71,6 +51,8 @@
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Tansaction</h6>
             </li>
 
+{{--            // Disable untuk Super Admin, memiliki tombol sendiri didalam laporan transaksi--}}
+            @if($role == 1)
             <li class="nav-item">
                 <a class="nav-link {{ str_contains(request()->url(), 'item-view') == true ? 'active' : '' }}" href="{{ route('transaksi-register') }}">
                     <div
@@ -80,8 +62,8 @@
                     <span class="nav-link-text ms-1">Masukan Transaksi</span>
                 </a>
             </li>
-
-{{--            @if($role == 0)--}}
+            @endif
+            @if($role == 0)
             <li class="nav-item">
                 <a class="nav-link {{ str_contains(request()->url(), 'item-view') == true ? 'active' : '' }}" href="{{ route('item-view') }}">
                     <div
@@ -91,8 +73,8 @@
                     <span class="nav-link-text ms-1">Manajemen Barang</span>
                 </a>
             </li>
-{{--            @endif--}}
-
+            @endif
+            @if($role == 0)
             <li class="nav-item">
                     <a class="nav-link {{  str_contains(request()->url(), 'transaksi-view') == true ? 'active' : '' }}" href="{{ route('transaksi-view') }}">
                     <div
@@ -102,6 +84,7 @@
                     <span class="nav-link-text ms-1">Laporan Transaksi</span>
                 </a>
             </li>
+            @endif
             {{-----------------------------------------------------------------------------------------------------}}
             <hr class="horizontal dark">
             {{-----------------------------------------------------------------------------------------------------}}

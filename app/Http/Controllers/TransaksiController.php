@@ -18,9 +18,17 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use NumberFormatter;
 
+
 class TransaksiController extends Controller
 {
     use DebugToConsole;
+
+
+
+    public function chartFunction()
+    {
+        return view('pages.transaksi-register');
+    }
 
 
     public function get(Request $request)
@@ -38,7 +46,8 @@ class TransaksiController extends Controller
                 ->where('Trans_Type', '=', 'Beli')
                 ->rightJoin('b_detail_transaksis', 'Transaksi_id', '=', 'No_Trans')
                 ->orderByDesc('b_transaksis.created_at')
-                ->get();
+//                ->get();
+                ->paginate(10); // Set the number of items per page, e.g., 10
         }
         elseif ($filter == 1){
             $query = DB::table('b_transaksis')
@@ -46,14 +55,16 @@ class TransaksiController extends Controller
                 ->where('Trans_Type', '=', 'Jual')
                 ->rightJoin('b_detail_transaksis', 'Transaksi_id', '=', 'No_Trans')
                 ->orderByDesc('b_transaksis.created_at')
-                ->get();
+//                ->get();
+                ->paginate(10); // Set the number of items per page, e.g., 10
         }
         else{
             $query = DB::table('b_transaksis')
                 ->select('*')
                 ->rightJoin('b_detail_transaksis','Transaksi_id','=','No_Trans')
                 ->orderByDesc('b_transaksis.created_at')
-                ->get();
+//                ->get();
+                ->paginate(10); // Set the number of items per page, e.g., 10
         }
 //        dd($query);
 
