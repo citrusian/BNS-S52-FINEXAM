@@ -37,6 +37,7 @@ class TransaksiController extends Controller
                 ->select('*')
                 ->where('Trans_Type', '=', 'Beli')
                 ->rightJoin('b_detail_transaksis', 'Transaksi_id', '=', 'No_Trans')
+                ->orderByDesc('b_transaksis.created_at')
                 ->get();
         }
         elseif ($filter == 1){
@@ -44,12 +45,14 @@ class TransaksiController extends Controller
                 ->select('*')
                 ->where('Trans_Type', '=', 'Jual')
                 ->rightJoin('b_detail_transaksis', 'Transaksi_id', '=', 'No_Trans')
+                ->orderByDesc('b_transaksis.created_at')
                 ->get();
         }
         else{
             $query = DB::table('b_transaksis')
                 ->select('*')
                 ->rightJoin('b_detail_transaksis','Transaksi_id','=','No_Trans')
+                ->orderByDesc('b_transaksis.created_at')
                 ->get();
         }
 //        dd($query);
@@ -521,12 +524,13 @@ class TransaksiController extends Controller
             ->with('error','Error! Invoke! Placeholder Command!');
     }
 //--------------------------------------------------------------------------------------------------------------------------------------
+//        Form insert barang, jika masi ada waktu optimize, ada validate & merge berulang2
 //--------------------------------------------------------------------------------------------------------------------------------------
 
     public function create(Request $request)
     {
 
-        $user = Auth::user();
+        $userRole = Auth::user()->role;
 
 
 
@@ -538,6 +542,7 @@ class TransaksiController extends Controller
 
 
 
+        $request->request->add(['Transaksi_id' => $Transaksi_id, 'No_Trans' => $Transaksi_id, 'Tanggal' => $currdate]);
         $merge = [];
         $merge = array_merge($merge, Arr::except($request->all(), ['_token']));
         $merge = array_merge($merge,[
@@ -608,7 +613,12 @@ class TransaksiController extends Controller
                 'Used' => '1'
             ]);
 
-            return back()->with('succes', 'Success! Transaction Data Added!');
+            if ($userRole == 1){
+                return redirect('profile');
+            }
+            else{
+                return back()->with('succes', 'Success! Transaction Data Added!');
+            }
         }
         elseif ($request->Trans_Type === "Beli") {
             $request->merge([
@@ -638,6 +648,7 @@ class TransaksiController extends Controller
             }
 
             $request->merge(['Prod_date' => $currdate]);
+//            dd($request);
 
             $validatedData = $request->validate([
                 'Transaksi_id' => 'required',
@@ -655,13 +666,21 @@ class TransaksiController extends Controller
                 'Trans_Type' => 'required',
                 'Used' => 'required'
             ]);
+            $transaksiid = $request->Transaksi_id;
+//            dd($transaksiid);
 
             BTransaksi::create($validatedData);
             BDetailTransaksi::create($validatedData);
             ANomorSeri::create($validatedData);
             ABarang::create($validatedData);
 
-            return back()->with('succes', 'Success! Transaction Data Added!');
+            if ($userRole == 1){
+                return redirect('profile')
+                ->with('sweetConfirm','Transaksi '. $transaksiid . ' Berhasil Ditambahkan!');
+            }
+            else{
+                return back()->with('succes', 'Success! Transaction Data Added!');
+            }
         }
         else {
             return back()

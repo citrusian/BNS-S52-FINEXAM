@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class UserProfileController extends Controller
@@ -53,28 +54,55 @@ class UserProfileController extends Controller
 
 
 
+//    public function ppicture(Request $request)
+//    {
+//        // limit input
+//        $request->validate([
+//            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+//        ]);
+//
+//        $imageName = auth()->id().'.'.$request->image->extension();
+//        $request->image->move(public_path('img/profile'), $imageName);
+//
+////        set current id to add / replace
+//        $curid = auth()->id();
+//        User::where('id',$curid)
+//            ->update([
+//                'pp_path' => $imageName,
+//            ]);
+//
+//        return back()
+//            ->with('succes', 'Picture succesfully updated')
+//            ->with('image',$imageName);
+//    }
     public function ppicture(Request $request)
     {
-        // limit input
-        $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
-        ]);
+        // Check if file is present in the request
 
-        $imageName = auth()->id().'.'.$request->image->extension();
-        $request->image->move(public_path('img/profile'), $imageName);
-
-//        set current id to add / replace
-        $curid = auth()->id();
-        User::where('id',$curid)
-            ->update([
-                'pp_path' => $imageName,
+        if ($request->hasFile('image')) {
+            // limit input
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
             ]);
 
-        return back()
-            ->with('succes', 'Picture succesfully updated')
-            ->with('image',$imageName);
-    }
+            $imageName = auth()->id().'.'.$request->image->extension();
+            $request->image->move(public_path('img/profile'), $imageName);
 
+            // Set current id to add/replace
+            $curid = auth()->id();
+            User::where('id', $curid)
+                ->update([
+                    'pp_path' => $imageName,
+                ]);
+
+            return back()
+                ->with('success', 'Picture successfully updated')
+                ->with('image', $imageName);
+        } else {
+            return back()
+                ->with('error', 'No image file found');
+        }
+    }
 
 
 

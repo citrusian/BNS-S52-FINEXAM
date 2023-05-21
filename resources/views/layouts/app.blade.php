@@ -26,6 +26,8 @@
     <link type="text/css" rel="stylesheet" href="./assets/css/simplePagination.css"/>
     <script src="./assets/js/sweetalert2.11.js"></script>
     <link rel="stylesheet" href="./assets/js/sweetalert2.css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 </head>
 
 <body class="{{ $class ?? '' }}">

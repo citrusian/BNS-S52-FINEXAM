@@ -72,6 +72,8 @@ Route::group(['middleware' => 'auth','check.role'], function () {
 
     Route::post('/transaksi-edit', [TransaksiController::class, 'edit'])->name('transaksi-edit');
     Route::post('/transaksi-edit-update', [TransaksiController::class, 'update'])->name('transaksi-edit-update');
+    Route::get('/item-register', [ItemController::class, 'index'])->name('item-register');
+    Route::post('/item-register', [TransaksiController::class, 'create'])->name('item-create');
 
 //  Super Admin Gates
     Route::group(['middleware' => 'can:item-view'], function () {
@@ -87,8 +89,6 @@ Route::group(['middleware' => 'auth','check.role'], function () {
         Route::post('/transaksi-delete', [TransaksiController::class, 'delete'])->name('transaksi-delete');
         Route::get('/item-view', [ItemController::class, 'get'] )->name('item-view');
 
-        Route::get('/item-register', [ItemController::class, 'index'])->name('item-register');
-        Route::post('/item-register', [TransaksiController::class, 'create'])->name('item-create');
         Route::post('/item-view', [ItemController::class, 'edit'])->name('item-edit');
         Route::post('/item-delete', [ItemController::class, 'delete'])->name('item-delete');
 
