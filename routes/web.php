@@ -34,7 +34,6 @@ Route::get('/', function () {
 Route::get('/', function () {return redirect('/dashboard-chart');})->middleware('auth');
 
 Route::get('/register', [GuestRegisterController::class, 'create'])->middleware('guest')->name('register');
-//Route::post('/register', [GuestRegisterController::class, 'store'])->middleware('guest')->name('register.perform');
 
 
 Route::get('/new_user', [RegisterController::class, 'create'])->middleware('auth')->name('register');
@@ -48,7 +47,7 @@ Route::get('/change-password', [ChangePassword::class, 'show'])->middleware('gue
 Route::post('/change-password', [ChangePassword::class, 'update'])->middleware('guest')->name('change.perform');
 Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth','check.role'], function () {
     Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
     Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update');
     Route::post('/profile2', [UserProfileController::class, 'ppicture'])->name('profile_ppicture');
@@ -61,35 +60,48 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/credits', [PageController::class, 'credits'])->name('credits');
 
-    Route::get('/user_management', [CUserManagement::class, 'index'])->name('user_management');
-    Route::get('/new_user', [UserProfileController::class, 'show_new'])->name('show_new');
-    Route::post('/new_user', [UserProfileController::class, 'new'])->name('profile_new');
-
-
-    Route::get('/edituser', [EditProfileController::class, 'show'])->name('editeuser');
-    Route::post('/edituser', [EditProfileController::class, 'updateuser'])->name('updateuser');
-    Route::post('/edituser2', [EditProfileController::class, 'updateppicture'])->name('updateppicture');
 
     Route::get('/transaksi-view', [TransaksiController::class, 'get'])->name('transaksi-view');
+    Route::POST('/transaksi-view-nofilter', [TransaksiController::class, 'get'])->name('transaksi-view-nofilter');
+    Route::POST('/transaksi-view-filtersell', [TransaksiController::class, 'get'])->name('transaksi-view-filtersell');
+    Route::POST('/transaksi-view-filterbuy', [TransaksiController::class, 'get'])->name('transaksi-view-filterbuy');
+
     Route::get('/transaksi-register', [TransaksiController::class, 'index'])->name('transaksi-register');
     Route::post('/transaksi-register', [TransaksiController::class, 'create'])->name('transaksi-create');
+
+
     Route::post('/transaksi-edit', [TransaksiController::class, 'edit'])->name('transaksi-edit');
     Route::post('/transaksi-edit-update', [TransaksiController::class, 'update'])->name('transaksi-edit-update');
-    Route::post('/transaksi-delete', [TransaksiController::class, 'delete'])->name('transaksi-delete');
 
-    Route::get('/item-view', [ItemController::class, 'get'])->name('item-view');
-    Route::get('/item-register', [ItemController::class, 'index'])->name('item-register');
-    Route::post('/item-register', [TransaksiController::class, 'create'])->name('item-create');
-    Route::post('/item-view', [ItemController::class, 'edit'])->name('item-edit');
-    Route::post('/item-delete', [ItemController::class, 'delete'])->name('item-delete');
+//  Super Admin Gates
+    Route::group(['middleware' => 'can:item-view'], function () {
+        Route::get('/user_management', [CUserManagement::class, 'index'])->name('user_management');
+        Route::get('/new_user', [UserProfileController::class, 'show_new'])->name('show_new');
+        Route::post('/new_user', [UserProfileController::class, 'new'])->name('profile_new');
 
 
-    Route::get('/credits', function () {return view('pages.credits');})->name('credits');;
+        Route::get('/edituser', [EditProfileController::class, 'show'])->name('editeuser');
+        Route::post('/edituser', [EditProfileController::class, 'updateuser'])->name('updateuser');
+        Route::post('/edituser2', [EditProfileController::class, 'updateppicture'])->name('updateppicture');
 
+        Route::post('/transaksi-delete', [TransaksiController::class, 'delete'])->name('transaksi-delete');
+        Route::get('/item-view', [ItemController::class, 'get'] )->name('item-view');
+
+        Route::get('/item-register', [ItemController::class, 'index'])->name('item-register');
+        Route::post('/item-register', [TransaksiController::class, 'create'])->name('item-create');
+        Route::post('/item-view', [ItemController::class, 'edit'])->name('item-edit');
+        Route::post('/item-delete', [ItemController::class, 'delete'])->name('item-delete');
+
+    });
 
     Route::get('/dashboard-chart', [DashboardController::class, 'index'])->name('dashboard-chart');
 
 
+
+
+
+
+    Route::get('/credits', function () {return view('pages.credits');})->name('credits');;
 
 
 

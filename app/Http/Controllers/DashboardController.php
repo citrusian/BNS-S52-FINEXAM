@@ -214,21 +214,5 @@ class DashboardController extends Controller
 //        dd($merge2);
 
         return view('pages.dashboard-chart')->with($merge)->with($merge2);
-//        return view('pages.dashboard-chart')->with($dataj,$datab);
-//        return view('pages.dashboard-chart', compact('dataj', 'datab'));
     }
 }
-//$data = [
-//    'postkey' => $postkey,
-//    'Transaksi_id' => $postkey,
-//    'Product_id' => $detailTransaksi->Product_id,
-//    'Serial_no' => $product->Serial_no,
-//    'Product_Name' => $product->Product_Name,
-//    'Brand' => $product->Brand,
-//    'Customer_Vendor' => $transaksi->Customer_Vendor,
-//    'Trans_Type' => $transaksi->Trans_Type,
-//    'Price' => $detailTransaksi->Price,
-//    'Discount' => $detailTransaksi->Discount,
-//];
-//
-//return redirect('transaksi-edit')->with($data);
