@@ -295,6 +295,7 @@
                         <div id="page-nav"></div>
                     </div>
                     @include('layouts.footers.auth.footer-transaksi-view')
+                    @include('layouts.footers.auth.footer-transaksi-chart')
                 </div>
             </div>
         </div>

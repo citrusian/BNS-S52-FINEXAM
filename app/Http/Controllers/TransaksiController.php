@@ -13,6 +13,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Traits\DebugToConsole;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use NumberFormatter;
@@ -20,6 +21,12 @@ use NumberFormatter;
 
 class TransaksiController extends Controller
 {
+
+    public function SchedulingTest(Request $request)
+    {
+        Log::info('SchedulingTest Running');
+    }
+
     public function get(Request $request)
     {
 //        dd($request->all());
