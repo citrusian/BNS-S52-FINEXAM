@@ -42,29 +42,24 @@ class TransaksiController extends Controller
 
         if ($filter == 2) {
             $query = DB::table('b_transaksis')
-                ->select('*')
                 ->where('Trans_Type', '=', 'Beli')
-                ->rightJoin('b_detail_transaksis', 'Transaksi_id', '=', 'No_Trans')
+                ->join('b_detail_transaksis', 'Transaksi_id', '=', 'No_Trans')
                 ->orderByDesc('b_transaksis.created_at')
-//                ->get();
-                ->paginate(10); // Set the number of items per page, e.g., 10
+                ->get();
         }
         elseif ($filter == 1){
             $query = DB::table('b_transaksis')
-                ->select('*')
                 ->where('Trans_Type', '=', 'Jual')
-                ->rightJoin('b_detail_transaksis', 'Transaksi_id', '=', 'No_Trans')
+                ->join('b_detail_transaksis', 'Transaksi_id', '=', 'No_Trans')
                 ->orderByDesc('b_transaksis.created_at')
-//                ->get();
-                ->paginate(10); // Set the number of items per page, e.g., 10
+                ->get();
         }
         else{
             $query = DB::table('b_transaksis')
-                ->select('*')
-                ->rightJoin('b_detail_transaksis','Transaksi_id','=','No_Trans')
+                ->join('b_detail_transaksis', 'Transaksi_id', '=', 'No_Trans')
                 ->orderByDesc('b_transaksis.created_at')
-//                ->get();
-                ->paginate(10); // Set the number of items per page, e.g., 10
+                ->get();
+
         }
 //        dd($query);
 

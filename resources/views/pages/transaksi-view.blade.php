@@ -285,137 +285,6 @@
                 </div>
             </div>
             <div class="card mb-4 ">
-{{--                <div class="card-header pb-0">--}}
-{{--                    <h6>Transaction List</h6>--}}
-{{--                </div>--}}
-{{--                <div class="mx-md-11 text-md-center" id="alert">--}}
-{{--                    @include('components.alert')--}}
-{{--                </div>--}}
-{{--                <div class="card-body px-0 pt-0 pb-2">--}}
-
-
-
-
-{{--                    <div class="table-responsive-xl" id="table-id">--}}
-{{--                        <table class="table align-items-center table-flush" id="table-id">--}}
-{{--                            <thead>--}}
-{{--                            <tr>--}}
-{{--                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Image">Transaction No.</th>--}}
-{{--                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Nama">Tanggal</th>--}}
-{{--                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Model Code</th>--}}
-{{--                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Harga</th>--}}
-{{--                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Customer / Vendor</th>--}}
-{{--                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Jenis Transaksi</th>--}}
-{{--                                @if($role == 0)--}}
-{{--                                    <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Edit</th>--}}
-{{--                                    <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Delete</th>--}}
-{{--                                @endif--}}
-{{--                            </tr>--}}
-{{--                            </thead>--}}
-{{--                            <tfoot>--}}
-{{--                            <tr>--}}
-{{--                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Image">Transaction No.</th>--}}
-{{--                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Nama">Tanggal</th>--}}
-{{--                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Model Code</th>--}}
-{{--                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Harga</th>--}}
-{{--                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Customer / Vendor</th>--}}
-{{--                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Jenis Transaksi</th>--}}
-{{--                                @if($role == 0)--}}
-{{--                                    <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Edit</th>--}}
-{{--                                    <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Delete</th>--}}
-{{--                                @endif--}}
-{{--                            </tr>--}}
-{{--                            </tfoot>--}}
-
-{{--                            <tbody class="Table">--}}
-{{--                            @foreach ($q1 as $query)--}}
-{{--                                <tr class="paginate">--}}
-{{--                                    <td class="Nama align-middle text-center text-wrap">--}}
-{{--                                        {{ $query->No_Trans }}--}}
-{{--                                    </td>--}}
-{{--                                    <td class="Deskripsi align-middle text-center text-wrap" style="width:15%;">--}}
-{{--                                        {{ $query->Tanggal }}--}}
-{{--                                    </td>--}}
-{{--                                    <td class="Jenis align-middle text-center text-wrap">--}}
-{{--                                        {{ $query->Product_id }}--}}
-{{--                                    </td>--}}
-{{--                                    <td class="Jenis align-middle text-center text-wrap">--}}
-{{--                                        {{ $query->Price }}--}}
-{{--                                    </td>--}}
-{{--                                    <td class="Stok align-middle text-center text-wrap">--}}
-{{--                                        {{ $query->Customer_Vendor }}--}}
-{{--                                    </td>--}}
-{{--                                    <td class="Jenis align-middle text-center text-wrap">--}}
-{{--                                        {{ $query->Trans_Type }}--}}
-{{--                                    </td>--}}
-{{--                                    @if($role == 0)--}}
-{{--                                        <td class="Action text-center text-wrap" style="width: 5%; height: 5%">--}}
-{{--                                            <div class="justify-content-center align-items-center">--}}
-{{--                                                <form role="form" method="POST" action={{ route('transaksi-edit') }} enctype="multipart/form-data">--}}
-{{--                                                    @csrf--}}
-{{--                                                    <div id='HiddenView' style="display: none;">--}}
-{{--                                                        <input class="form-control" type="text" name="postkey" value="{{ $query->No_Trans }}">--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="card-header py-0">--}}
-{{--                                                        <button type="submit" class="btn btn-primary">Edit</button>--}}
-{{--                                                    </div>--}}
-{{--                                                </form>--}}
-{{--                                            </div>--}}
-{{--                                        </td>--}}
-{{--                                        <td class="Action text-center text-wrap" style="width: 5%; height: 5%">--}}
-{{--                                            <div class="justify-content-center align-items-center">--}}
-{{--                                                <form role="form" method="POST" action={{ route('transaksi-delete') }} enctype="multipart/form-data">--}}
-{{--                                                    @csrf--}}
-{{--                                                    <div id='HiddenView' style="display: none;">--}}
-{{--                                                        <input class="form-control" type="text" name="postkey" value="{{ $query->No_Trans }}">--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="card-header py-0">--}}
-{{--                                                        <button type="button" class="btn btn-primary deleteButton">Delete</button>--}}
-{{--                                                    </div>--}}
-{{--                                                </form>--}}
-{{--                                            </div>--}}
-{{--                                        </td>--}}
-{{--                                    @endif--}}
-{{--                                </tr>--}}
-{{--                            @endforeach--}}
-{{--                            </tbody>--}}
-{{--                        </table>--}}
-{{--                        <div id="page-nav"></div>--}}
-{{--                    </div>--}}
-
-{{--                <style>--}}
-{{--                    .pagination {--}}
-{{--                        display: flex;--}}
-{{--                        justify-content: center;--}}
-{{--                        list-style: none;--}}
-{{--                        padding: 0;--}}
-{{--                    }--}}
-
-{{--                    .pagination li {--}}
-{{--                        margin: 0 5px;--}}
-{{--                    }--}}
-
-{{--                    .pagination li a {--}}
-{{--                        display: block;--}}
-{{--                        padding: 5px 10px;--}}
-{{--                        text-decoration: none;--}}
-{{--                        color: #000;--}}
-{{--                        border: 1px solid #ccc;--}}
-{{--                        border-radius: 4px;--}}
-{{--                    }--}}
-
-{{--                    .pagination li.active a {--}}
-{{--                        background-color: #007bff;--}}
-{{--                        color: #fff;--}}
-{{--                        border-color: #007bff;--}}
-{{--                    }--}}
-
-{{--                    .pagination li.disabled a {--}}
-{{--                        opacity: 0.5;--}}
-{{--                        cursor: not-allowed;--}}
-{{--                    }--}}
-{{--                </style>--}}
-
                 <div class="card-header pb-0">
                     <h6>Transaction List</h6>
                 </div>
@@ -423,9 +292,12 @@
                     @include('components.alert')
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
+
+
+
+
                     <div class="table-responsive-xl" id="table-id">
                         <table class="table align-items-center table-flush" id="table-id">
-                            <!-- Table headers -->
                             <thead>
                             <tr>
                                 <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Image">Transaction No.</th>
@@ -442,9 +314,19 @@
                             </thead>
                             <tfoot>
                             <tr>
-                                <!-- ... -->
+                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Image">Transaction No.</th>
+                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Nama">Tanggal</th>
+                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Model Code</th>
+                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Harga</th>
+                                <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Customer / Vendor</th>
+                                <th scope="col" class="sort align-middle text-center word-wrap" data-sort="Deskripsi">Jenis Transaksi</th>
+                                @if($role == 0)
+                                    <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Edit</th>
+                                    <th scope="col" class="sort align-middle text-center text-wrap" data-sort="Jenis">Delete</th>
+                                @endif
                             </tr>
                             </tfoot>
+
                             <tbody class="Table">
                             @foreach ($q1 as $query)
                                 <tr class="paginate">
@@ -467,17 +349,17 @@
                                         {{ $query->Trans_Type }}
                                     </td>
                                     @if($role == 0)
-                                        <td class="Action text-center text-wrap" style="width: 5%; height: 5%">
+                                        <td class="Action text-center text-wrap">
                                                 <form role="form" method="POST" action={{ route('transaksi-edit') }} enctype="multipart/form-data">
                                                     @csrf
-                                                    <input class="form-control" style="display: none" type="text" name="postkey" value="{{ $query->No_Trans }}" >
+                                                    <input class="form-control" style="display: none;" type="text" name="postkey" value="{{ $query->No_Trans }}">
                                                         <button type="submit" class="btn btn-primary">Edit</button>
                                                 </form>
                                         </td>
-                                        <td class="Action text-center text-wrap" style="width: 5%; height: 5%">
+                                        <td class="Action text-center text-wrap">
                                                 <form role="form" method="POST" action={{ route('transaksi-delete') }} enctype="multipart/form-data">
                                                     @csrf
-                                                        <input class="form-control" style="display: none" type="text" name="postkey" value="{{ $query->No_Trans }}" >
+                                                    <input class="form-control" style="display: none;" type="text" name="postkey" value="{{ $query->No_Trans }}">
                                                         <button type="button" class="btn btn-primary deleteButton">Delete</button>
                                                 </form>
                                         </td>
@@ -486,30 +368,8 @@
                             @endforeach
                             </tbody>
                         </table>
+                        <div id="page-nav"></div>
                     </div>
-                    <div id="page-nav"  class="pagination pagination-lg">
-                        {{ $q1->links() }} <!-- Add pagination links -->
-                    </div>
-                </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     @include('layouts.footers.auth.footer-transaksi-view')
                 </div>
             </div>
