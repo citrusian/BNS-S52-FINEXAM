@@ -80,9 +80,9 @@ class TransaksiController extends Controller
         for ($month = $startMonth; $month <= $endMonth; $month->addMonth()) {
             foreach ($transTypes as $transType) {
                 $monthData = DB::table('b_detail_transaksis')
-                    ->rightJoin('b_transaksis', 'b_detail_transaksis.Transaksi_id', '=', 'b_transaksis.No_Trans')
-                    ->rightJoin('a_nomor_seris', 'b_detail_transaksis.Product_id', '=', 'a_nomor_seris.Product_id')
-                    ->rightJoin('a_barangs', 'a_nomor_seris.Product_id', '=', 'a_barangs.Model_No')
+                    ->Join('b_transaksis', 'b_detail_transaksis.Transaksi_id', '=', 'b_transaksis.No_Trans')
+                    ->Join('a_nomor_seris', 'b_detail_transaksis.Product_id', '=', 'a_nomor_seris.Product_id')
+                    ->Join('a_barangs', 'a_nomor_seris.Product_id', '=', 'a_barangs.Model_No')
                     ->select(
                         'b_detail_transaksis.Transaksi_id',
                         'b_detail_transaksis.Product_id',
@@ -120,9 +120,9 @@ class TransaksiController extends Controller
         function getStockbyBrand($brandName)
         {
             return DB::table('b_detail_transaksis')
-                ->rightJoin('b_transaksis', 'b_detail_transaksis.Transaksi_id', '=', 'b_transaksis.No_Trans')
-                ->rightJoin('a_nomor_seris', 'b_detail_transaksis.Product_id', '=', 'a_nomor_seris.Product_id')
-                ->rightJoin('a_barangs', 'a_nomor_seris.Product_id', '=', 'a_barangs.Model_No')
+                ->Join('b_transaksis', 'b_detail_transaksis.Transaksi_id', '=', 'b_transaksis.No_Trans')
+                ->Join('a_nomor_seris', 'b_detail_transaksis.Product_id', '=', 'a_nomor_seris.Product_id')
+                ->Join('a_barangs', 'a_nomor_seris.Product_id', '=', 'a_barangs.Model_No')
                 ->select(
                     'a_barangs.Brand',
                     DB::raw('COUNT(*) AS count')
@@ -166,9 +166,9 @@ class TransaksiController extends Controller
         $exclusion = ['Acer', 'Apple', 'Asus', 'Dell', 'HP', 'Lenovo'];
 
         $getObject = DB::table('b_detail_transaksis')
-            ->rightJoin('b_transaksis', 'b_detail_transaksis.Transaksi_id', '=', 'b_transaksis.No_Trans')
-            ->rightJoin('a_nomor_seris', 'b_detail_transaksis.Product_id', '=', 'a_nomor_seris.Product_id')
-            ->rightJoin('a_barangs', 'a_nomor_seris.Product_id', '=', 'a_barangs.Model_No')
+            ->Join('b_transaksis', 'b_detail_transaksis.Transaksi_id', '=', 'b_transaksis.No_Trans')
+            ->Join('a_nomor_seris', 'b_detail_transaksis.Product_id', '=', 'a_nomor_seris.Product_id')
+            ->Join('a_barangs', 'a_nomor_seris.Product_id', '=', 'a_barangs.Model_No')
             ->select(
                 'a_barangs.Brand',
                 DB::raw('COUNT(*) AS count')
@@ -341,11 +341,6 @@ class TransaksiController extends Controller
         if ($role === 1){
             return back(404);
         }
-
-
-
-
-
 
         $postkey = $request->get('postkey');
 

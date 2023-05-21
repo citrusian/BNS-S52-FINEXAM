@@ -63,7 +63,7 @@
                     toast.addEventListener('mouseleave', Swal.resumeTimer);
                 },
                 customClass: {
-                    background: '#FF0000'
+                    background: '#000000'
                 }
             });
 
@@ -73,80 +73,6 @@
             });
         </script>
     @endif
-
-{{--    <script>--}}
-{{--        document.getElementById('uploadButton').addEventListener('click', async () => {--}}
-{{--            const { value: file } = await Swal.fire({--}}
-{{--                title: 'Select image',--}}
-{{--                input: 'file',--}}
-{{--                inputAttributes: {--}}
-{{--                    'accept': 'image/*',--}}
-{{--                    'aria-label': 'Upload your profile picture'--}}
-{{--                }--}}
-{{--            });--}}
-
-{{--            if (file) {--}}
-{{--                const reader = new FileReader();--}}
-{{--                reader.onload = (e) => {--}}
-{{--                    Swal.fire({--}}
-{{--                        title: 'Your uploaded picture',--}}
-{{--                        imageUrl: e.target.result,--}}
-{{--                        imageAlt: 'The uploaded picture'--}}
-{{--                    }).then((result) => {--}}
-{{--                        if (file) {--}}
-{{--                            const reader = new FileReader();--}}
-{{--                            reader.onload = (e) => {--}}
-{{--                                Swal.fire({--}}
-{{--                                    title: 'Your uploaded picture',--}}
-{{--                                    imageUrl: e.target.result,--}}
-{{--                                    imageAlt: 'The uploaded picture',--}}
-{{--                                    showCancelButton: true,--}}
-{{--                                    confirmButtonText: 'Upload',--}}
-{{--                                    cancelButtonText: 'Cancel',--}}
-{{--                                    showLoaderOnConfirm: true,--}}
-{{--                                    preConfirm: () => {--}}
-{{--                                        const formData = new FormData();--}}
-{{--                                        formData.append('image', file);--}}
-
-{{--                                        // Get the form element--}}
-{{--                                        const form = document.getElementById('uploadForm');--}}
-
-{{--                                        // Set the form action URL--}}
-{{--                                        form.action = '{{ route("profile_ppicture") }}';--}}
-
-{{--                                        // Submit the form--}}
-{{--                                        form.submit();--}}
-{{--                                    }--}}
-{{--                                });--}}
-{{--                            };--}}
-{{--                            reader.readAsDataURL(file);--}}
-{{--                        }--}}
-{{--                    });--}}
-{{--                };--}}
-{{--                reader.readAsDataURL(file);--}}
-{{--            }--}}
-
-{{--        });--}}
-{{--    </script>--}}
-
-
-{{--    <script>--}}
-{{--        document.querySelector('.upload-button').addEventListener('click', function() {--}}
-{{--            Swal.fire({--}}
-{{--                title: 'Confirm Upload',--}}
-{{--                text: 'Are you sure you want to upload the picture?',--}}
-{{--                icon: 'question',--}}
-{{--                showCancelButton: true,--}}
-{{--                confirmButtonText: 'Yes, upload it!',--}}
-{{--                cancelButtonText: 'Cancel'--}}
-{{--            }).then((result) => {--}}
-{{--                if (result.isConfirmed) {--}}
-{{--                    const form = document.getElementById('profileForm');--}}
-{{--                    form.submit();--}}
-{{--                }--}}
-{{--            });--}}
-{{--        });--}}
-{{--    </script>--}}
 
     <script>
         document.querySelector('.select-button').addEventListener('click', async function() {
