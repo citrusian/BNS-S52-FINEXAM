@@ -15,17 +15,21 @@
     <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="./assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+{{--    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>--}}
     <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="assets/css/argon-dashboard.css" rel="stylesheet" />
 
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+{{--    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>--}}
+{{--    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>--}}
+{{--    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>--}}
+    <script src="./assets/js/fontawesome.js"></script>
+    <script src="./assets/js/chartsloader.js"></script>
     <script src="./assets/js/jquery-1.11.2.min.js"></script>
     <script src="./assets/js/jquery.simplePagination.enrique26.js"></script>
     <link type="text/css" rel="stylesheet" href="./assets/css/simplePagination.css"/>
     <script src="./assets/js/sweetalert2.11.js"></script>
-    <link rel="stylesheet" href="./assets/js/sweetalert2.css">
+    <link rel="stylesheet" href="./assets/css/sweetalert2.css">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 </head>
@@ -72,14 +76,12 @@
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="assets/js/argon-dashboard.js"></script>
 
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="./assets/js/jquery-1.11.2.min.js"></script>
-    <script src="./assets/js/jquery.simplePagination.enrique26.js"></script>
-    <link type="text/css" rel="stylesheet" href="./assets/css/simplePagination.css"/>
-    <script src="./assets/js/sweetalert2.11.js"></script>
-    <link rel="stylesheet" href="./assets/js/sweetalert2.css">
-{{--    <script src="assets/js/argon-dashboard.js"></script>--}}
-{{--    <script src="assets/js/simplePagination.js"></script>--}}
+{{--    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>--}}
+{{--    <script src="./assets/js/jquery-1.11.2.min.js"></script>--}}
+{{--    <script src="./assets/js/jquery.simplePagination.enrique26.js"></script>--}}
+{{--    <link type="text/css" rel="stylesheet" href="./assets/css/simplePagination.css"/>--}}
+{{--    <script src="./assets/js/sweetalert2.11.js"></script>--}}
+{{--    <link rel="stylesheet" href="./assets/css/sweetalert2.css">--}}
     @stack('js')
 </body>
 

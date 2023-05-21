@@ -92,11 +92,11 @@ Route::group(['middleware' => 'auth','check.role'], function () {
 
         Route::post('/item-view', [ItemController::class, 'edit'])->name('item-edit');
         Route::post('/item-delete', [ItemController::class, 'delete'])->name('item-delete');
+        Route::get('/dashboard-chart', [DashboardController::class, 'index'])->name('dashboard-chart');
 
         Route::get('/{page}', [PageController::class, 'index'])->name('page');
     });
 
-    Route::get('/dashboard-chart', [DashboardController::class, 'index'])->name('dashboard-chart');
 
 
 
