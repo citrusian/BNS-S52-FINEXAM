@@ -191,8 +191,10 @@
                                     Swal.fire({
                                         icon: 'success',
                                         title: 'File uploaded successfully!'
+                                    }).then(() => {
+                                        // Refresh the page to load PP
+                                        location.reload();
                                     });
-                                    // Perform any additional actions or updates on the page if needed
                                 },
                                 error: function (xhr, status, error) {
                                     // Handle the error response from the server
