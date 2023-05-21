@@ -17,6 +17,4 @@ class BTransaksi extends Model
     ];
 
     protected $dates = ['created_at', 'updated_at', 'Tanggal'];
-
-//    protected string $model = BTransaksi::class;
 }

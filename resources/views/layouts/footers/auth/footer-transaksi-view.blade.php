@@ -1,13 +1,5 @@
 <div class="card-footer"  style="border-radius: 0 0;">
     <script>
-        // pagination 1.6, doesn't work for this type of pagination
-        // $(function() {
-        //     $('#table-id').pagination({
-        //         items: 100,
-        //         itemsOnPage: 10,
-        //         cssStyle: 'light-theme'
-        //     });
-        // });
         $("#table-id").simplePagination({
             perPage: 25,
             currentPage: 1,
@@ -140,8 +132,6 @@
             }
         });
     </script>
-
-
     <script>
     function loadPaginatedContent(page) {
         $.ajax({
@@ -166,11 +156,4 @@
         });
     }
     </script>
-
-
-
-
-
-
-
 </div>

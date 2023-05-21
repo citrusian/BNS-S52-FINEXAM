@@ -53,28 +53,6 @@ class UserProfileController extends Controller
     }
 
 
-
-//    public function ppicture(Request $request)
-//    {
-//        // limit input
-//        $request->validate([
-//            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
-//        ]);
-//
-//        $imageName = auth()->id().'.'.$request->image->extension();
-//        $request->image->move(public_path('img/profile'), $imageName);
-//
-////        set current id to add / replace
-//        $curid = auth()->id();
-//        User::where('id',$curid)
-//            ->update([
-//                'pp_path' => $imageName,
-//            ]);
-//
-//        return back()
-//            ->with('succes', 'Picture succesfully updated')
-//            ->with('image',$imageName);
-//    }
     public function ppicture(Request $request)
     {
         // Check if file is present in the request
@@ -103,10 +81,6 @@ class UserProfileController extends Controller
                 ->with('error', 'No image file found');
         }
     }
-
-
-
-
 
     public function show_new()
     {
@@ -150,24 +124,4 @@ class UserProfileController extends Controller
         return back()
             ->with('succes','Succes! User Created!');
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

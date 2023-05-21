@@ -16,7 +16,7 @@
     <div class="collapse navbar-collapse  w-auto h-auto " id="sidenav-collapse-main">
         <ul class="navbar-nav">
 {{--            ---------------------------------------------------------------------------------------------------}}
-            <hr class="horizontal dark">
+{{--            <hr class="horizontal dark">--}}
 {{--            ---------------------------------------------------------------------------------------------------}}
             <li class="nav-item mt-3 d-flex align-items-center">
                 <div class="ps-4">
@@ -86,22 +86,22 @@
             </li>
             @endif
             {{-----------------------------------------------------------------------------------------------------}}
-            <hr class="horizontal dark">
+{{--            <hr class="horizontal dark">--}}
             {{-----------------------------------------------------------------------------------------------------}}
 
-            <li class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">About</h6>
-            </li>
+{{--            <li class="nav-item mt-3">--}}
+{{--                <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">About</h6>--}}
+{{--            </li>--}}
 
-            <li class="nav-item">
-                <a class="nav-link {{  str_contains(request()->url(), 'credits') == true ? 'active' : '' }}" href="{{ route('credits') }}">
-                    <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-support-16 text-success text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">About</span>
-                </a>
-            </li>
+{{--            <li class="nav-item">--}}
+{{--                <a class="nav-link {{  str_contains(request()->url(), 'credits') == true ? 'active' : '' }}" href="{{ route('credits') }}">--}}
+{{--                    <div--}}
+{{--                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">--}}
+{{--                        <i class="ni ni-support-16 text-success text-sm opacity-10"></i>--}}
+{{--                    </div>--}}
+{{--                    <span class="nav-link-text ms-1">About</span>--}}
+{{--                </a>--}}
+{{--            </li>--}}
         </ul>
     </div>
 </aside>

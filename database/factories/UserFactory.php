@@ -38,11 +38,6 @@ class UserFactory extends Factory
             'postal' => $this->faker->postcode(),
             'about' => $this->faker->bs(),
             'pp_path' => ($this->faker->numberBetween(1, 8)).".jpg",
-
-
-
-
-
         ];
     }
 

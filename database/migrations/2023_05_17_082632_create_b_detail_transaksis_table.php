@@ -16,8 +16,6 @@ return new class extends Migration
         Schema::create('b_detail_transaksis', function (Blueprint $table) {
             $table->id();
             $table->integer('Transaksi_id')->unique();
-//            $table->string('Product_id')->unique();
-//            $table->string('Serial_no')->unique();
             $table->string('Product_id');
             $table->string('Serial_no');
             $table->integer('Price');

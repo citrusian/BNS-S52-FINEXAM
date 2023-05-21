@@ -19,8 +19,8 @@ class BTransaksiSeeder extends Seeder
     public function run()
     {
         // modify into chunk too,
-        // BTransaksiSeeder "1,061.17 ms DONE" into "17.23 ms DONE"
-        // BDetailTransaksiSeeder "1,215.23 ms DONE" into "20.36 ms DONE"
+        // BTransaksiSeeder "1,061.17 ms" into "17.23 ms"
+        // BDetailTransaksiSeeder "1,215.23 ms" into "20.36 ms"
 
         $chunkSize = env('CHUNK_SIZE', 500);
         // Init trans number from 1000 before ++

@@ -19,18 +19,12 @@ class RegisterController extends Controller
 
     public function store(Request $request)
     {
-
-//        $curid = DB::table('Users')->count();
-        // count not always reliable eg: deletion
-
         $getlast = DB::table('b_transaksis')
             ->latest('id')
             ->first();
-//        dd($getlast);
 
         $curid = $getlast->id;
         $curid +=1;
-//        dd($curid);
 
         Log::debug("currid: ".$curid);
 
