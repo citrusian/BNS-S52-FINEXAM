@@ -15,17 +15,11 @@ class CUserManagement extends Controller
 
     public function index()
     {
-//        return view('ages.user-management');
-
-
 //        Get All Query
         $query = DB::table('users')
             ->select('*')
             ->get();
 
-        $test = " Test";
-        $test2 = ' Test';
-
-        return view("pages.user-management",['q1'=>$query]);
+        return view("pages.account.user-management",['q1'=>$query]);
     }
 }

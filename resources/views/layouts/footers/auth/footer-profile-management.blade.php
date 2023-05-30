@@ -1,13 +1,4 @@
 <div class="card-footer"  style="border-radius: 0 0;">
-    <script>
-        $("#table-id").simplePagination({
-            perPage: 15,
-            currentPage: 1,
-            previousButtonClass: "btn btn-primary",
-            nextButtonClass: "btn btn-primary",
-            paginatorAlign: "center"
-        });
-    </script>
 
     <script>
         const deleteButtons = document.querySelectorAll('.popupButton');
@@ -23,9 +14,9 @@
                     text: "You won't be able to revert this!",
                     icon: 'warning',
                     showCancelButton: true,
-                    confirmButtonText: 'Yes, delete it!',
+                    confirmButtonText: 'Yes!',
                     cancelButtonText: 'No, cancel',
-                    reverseButtons: true
+                    reverseButtons: false
                 }).then((result) => {
                     if (result.isConfirmed) {
                         // The user confirmed the deletion
@@ -35,7 +26,7 @@
                         // The user canceled the deletion
                         Swal.fire(
                             'Cancelled',
-                            'Your data is safe :)',
+                            'Data unchanged :)',
                             'error'
                         );
                     }
@@ -69,6 +60,10 @@
     @endif
 
     <script>
+        var userId = '{{ $user[0]->id }}';
+    </script>
+
+    <script>
         document.querySelector('.select-button').addEventListener('click', async function() {
             const { value: file } = await Swal.fire({
                 title: 'Select Image',
@@ -78,6 +73,9 @@
                     'aria-label': 'Upload your profile picture'
                 }
             });
+
+            // get user id from attributes
+            var userId = document.querySelector('[data-userid]').getAttribute('data-userid');
 
             if (file) {
                 const reader = new FileReader();
@@ -93,6 +91,7 @@
                         if (result.isConfirmed) {
                             const formData = new FormData();
                             formData.append('image', file);
+                            formData.append('postid', userId);
 
                             // Perform the file upload action using AJAX
                             $.ajaxSetup({
@@ -101,8 +100,9 @@
                                 }
                             });
                             $.ajax({
-                                url: '{{ route("profile_ppicture") }}',
+                                url: '{{ route("updateuser_picture") }}',
                                 method: 'POST',
+                                // data: formData,
                                 data: formData,
                                 processData: false,
                                 contentType: false,
@@ -133,30 +133,5 @@
                 reader.readAsDataURL(file);
             }
         });
-    </script>
-
-    <script>
-    function loadPaginatedContent(page) {
-        $.ajax({
-            url: '/your-pagination-endpoint',
-            type: 'GET',
-            data: { page: page },
-            success: function (response) {
-                // Update the table body with the new content
-                $('#table-id tbody').html(response.tableContent);
-
-                // Update the pagination links
-                $('#page-nav').html(response.paginationLinks);
-            },
-            error: function (xhr, status, error) {
-                // Handle the error response from the server
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: error
-                });
-            }
-        });
-    }
     </script>
 </div>

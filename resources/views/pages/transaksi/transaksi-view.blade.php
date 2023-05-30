@@ -12,7 +12,7 @@
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Sales</p>
                                     <h5 class="font-weight-bolder" style="color: #40a603">
-                                        Rp. {{$monthIncome}}
+                                        {{$monthIncome}}
                                     </h5>
                                     <p class="mb-0">
                                         <span class="text-success text-sm font-weight-bolder"></span>
@@ -37,7 +37,7 @@
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Expense</p>
                                     <h5 class="font-weight-bolder" style="color: #e30000">
-                                        Rp. {{$monthExpense}}
+                                        {{$monthExpense}}
                                     </h5>
                                     <p class="mb-0">
                                         <span class="text-success text-sm font-weight-bolder"></span>
@@ -284,7 +284,7 @@
                                                 <form role="form" method="POST" action={{ route('transaksi-delete') }} enctype="multipart/form-data">
                                                     @csrf
                                                     <input class="form-control" style="display: none;" type="text" name="postkey" value="{{ $query->No_Trans }}">
-                                                        <button type="button" class="btn btn-primary deleteButton">Delete</button>
+                                                        <button type="button" class="btn btn-primary popupButton">Delete</button>
                                                 </form>
                                         </td>
                                     @endif

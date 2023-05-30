@@ -13,7 +13,7 @@
                     <h6>Action</h6>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
-                    <form role="form" method="GET" action={{ route('show_new') }} enctype="multipart/form-data">
+                    <form role="form" method="GET" action={{ route('create_user') }} enctype="multipart/form-data">
                         @csrf
                         <div class="card-header pb-0">
 {{--                            <div class="card-header">--}}

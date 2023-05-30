@@ -38,13 +38,12 @@
             data.addColumn('number', 'Expense');
 
             data.addRows([
-                [new Date(2022, 11),  {{$datj11022}},  {{$datb11022}}],
-                [new Date(2022, 12),   {{$datj12022}},  {{$datb12022}}],
-                [new Date(2023, 1),   {{$datj1122}},  {{$datb1122}}],
-                [new Date(2023, 2),   {{$datj2122}},  {{$datb2122}}],
-                [new Date(2023, 3),   {{$datj3122}},  {{$datb3122}}],
-                [new Date(2023, 4),   {{$datj4122}},  {{$datb4122}}],
-                [new Date(2023, 5),  {{$datj5122}},  {{$datb5122}}],
+                [new Date({{$chartYear[5]}}, {{$chartMonth[5]}}),  {{$chartJual[5]}},  {{$chartBeli[5]}}],
+                [new Date({{$chartYear[4]}}, {{$chartMonth[4]}}),  {{$chartJual[4]}},  {{$chartBeli[4]}}],
+                [new Date({{$chartYear[3]}}, {{$chartMonth[3]}}),  {{$chartJual[3]}},  {{$chartBeli[3]}}],
+                [new Date({{$chartYear[2]}}, {{$chartMonth[2]}}),  {{$chartJual[2]}},  {{$chartBeli[2]}}],
+                [new Date({{$chartYear[1]}}, {{$chartMonth[1]}}),  {{$chartJual[1]}},  {{$chartBeli[1]}}],
+                [new Date({{$chartYear[0]}}, {{$chartMonth[0]}}),  {{$chartJual[0]}},  {{$chartBeli[0]}}],
             ]);
 
             var formatter = new google.visualization.NumberFormat({
@@ -55,18 +54,28 @@
 
             var materialOptions = {
                 chart: {
-                    title: 'Average of Income and Expense Last 8 Month'
+                    title: 'Average of Income and Expense Last 6 Month'
                 },
                 width: 850,
                 height: 500,
                 series: {
-                    0: {axis: 'Income'},
-                    1: {axis: 'Expense'}
+                    // 0: {axis: 'Income'},
+                    // 1: {axis: 'Expense'}
                 },
-                axes: {
+                axis: {
+                    // Disable Series, it doesn't work on materialchart, only work on classic
                     y: {
-                        Income: {label: 'Million (Rupiah)'},
-                        Expense: {label: 'Million'}
+                        // viewWindowMode: "explicit",
+                        // viewWindow: {
+                        //     min: 0,
+                        //     max: 500000000
+                        // }
+                    },
+                    x: {
+                        // viewWindow: {
+                        //     min: 0,
+                        //     max: 500000000
+                        // }
                     }
                 }
             };

@@ -12,6 +12,8 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetPassword;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\TransaksiEditController;
+use App\Http\Controllers\TransaksiRegisterController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,9 +33,6 @@ Route::get('/', function () {
 });
 
 Route::GET('/', function () {return redirect('/profile');})->middleware('auth');
-Route::GET('/register', [GuestRegisterController::class, 'create'])->middleware('guest')->name('register');
-Route::GET('/new_user', [RegisterController::class, 'create'])->middleware('auth')->name('register');
-Route::POST('/register', [RegisterController::class, 'store'])->middleware('auth')->name('register.perform');
 
 Route::GET('/login', [LoginController::class, 'show'])->middleware('guest')->name('login');
 Route::POST('/login', [LoginController::class, 'login'])->middleware('guest')->name('login.perform');
@@ -46,30 +45,37 @@ Route::GET('/dashboard', [HomeController::class, 'index'])->name('home')->middle
 Route::group(['middleware' => 'auth','check.role'], function () {
     Route::GET('/profile', [UserProfileController::class, 'show'])->name('profile');
     Route::POST('/profile', [UserProfileController::class, 'update'])->name('profile.update');
-    Route::POST('/profile2', [UserProfileController::class, 'ppicture'])->name('profile_ppicture');
-    Route::GET('/transaksi-register', [TransaksiController::class, 'index'])->name('transaksi-register');
-    Route::POST('/transaksi-register', [TransaksiController::class, 'create'])->name('transaksi-create');
+    Route::POST('/profile_pic', [UserProfileController::class, 'ppicture'])->name('profile_ppicture');
+
+    Route::GET('/transaksi-register', [TransaksiRegisterController::class, 'index'])->name('transaksi-register');
+    Route::POST('/transaksi-register', [TransaksiRegisterController::class, 'register'])->name('transaksi-register-create');
 
 //  Super Admin Gates
     Route::group(['middleware' => 'can:item-view'], function () {
         Route::GET('/user_management', [CUserManagement::class, 'index'])->name('user_management');
-        Route::GET('/new_user', [UserProfileController::class, 'show_new'])->name('show_new');
-        Route::POST('/new_user', [UserProfileController::class, 'new'])->name('profile_new');
+        Route::GET('/user_create', [UserProfileController::class, 'create'])->name('create_user');
 
-        Route::GET('/edituser', [EditProfileController::class, 'show'])->name('editeuser');
+//        Route::GET('/register', [GuestRegisterController::class, 'create'])->middleware('guest')->name('register');
+//        Route::GET('/new_user', [RegisterController::class, 'create'])->middleware('auth')->name('register');
+        Route::POST('/register', [RegisterController::class, 'store'])->middleware('auth')->name('register.perform');
+
+
+
+        Route::GET('/edituser', [EditProfileController::class, 'index'])->name('editeuser');
         Route::POST('/edituser', [EditProfileController::class, 'updateuser'])->name('updateuser');
-        Route::POST('/edituser2', [EditProfileController::class, 'updateppicture'])->name('updateppicture');
+        Route::POST('/edituser_pic', [EditProfileController::class, 'updateuser_picture'])->name('updateuser_picture');
 
         Route::GET('/item-view', [ItemController::class, 'get'] )->name('item-view');
         Route::GET('/item-register', [ItemController::class, 'index'])->name('item-register');
         Route::POST('/item-register', [TransaksiController::class, 'create'])->name('item-create');
+
         Route::GET('/transaksi-view', [TransaksiController::class, 'get'])->name('transaksi-view');
         Route::POST('/transaksi-view-nofilter', [TransaksiController::class, 'get'])->name('transaksi-view-nofilter');
         Route::POST('/transaksi-view-filtersell', [TransaksiController::class, 'get'])->name('transaksi-view-filtersell');
         Route::POST('/transaksi-view-filterbuy', [TransaksiController::class, 'get'])->name('transaksi-view-filterbuy');
 
-        Route::POST('/transaksi-edit', [TransaksiController::class, 'edit'])->name('transaksi-edit');
-        Route::POST('/transaksi-edit-update', [TransaksiController::class, 'update'])->name('transaksi-edit-update');
+        Route::POST('/transaksi-edit', [TransaksiEditController::class, 'index'])->name('transaksi-edit');
+        Route::POST('/transaksi-edit-update', [TransaksiEditController::class, 'update'])->name('transaksi-edit-update');
         Route::POST('/transaksi-delete', [TransaksiController::class, 'delete'])->name('transaksi-delete');
 
         Route::POST('/item-view', [ItemController::class, 'edit'])->name('item-edit');

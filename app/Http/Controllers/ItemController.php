@@ -19,12 +19,12 @@ class ItemController extends Controller
             ->rightJoin('a_nomor_seris','Product_id','=','Model_No')
             ->get();
 //        dd($query);
-        return view("pages.item-view",['q1'=>$query]);
+        return view("pages.item.item-view",['q1'=>$query]);
     }
 
     public function index()
     {
-        return view('pages.item-register');
+        return view('pages.item.item-register');
     }
 
 //--------------------------------------------------------------------------------------------------------------------------------------

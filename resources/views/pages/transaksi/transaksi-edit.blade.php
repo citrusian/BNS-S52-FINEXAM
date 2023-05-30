@@ -55,14 +55,14 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Product_id" class="form-control-label">New Model Code</label>
-                                        <input type="text" name="Product_id" class="form-control" placeholder="APL-4928" aria-label="Product_id" value="{{session('Product_id')}}">
+                                        <input type="text" name="Product_id" class="form-control" placeholder="APL-4928" aria-label="Product_id" value="{{session('Product_id')}}" maxlength="20">
                                         @error('Product_id') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Serial_no" class="form-control-label">New Serial Number</label>
-                                        <input type="number" name="Serial_no" class="form-control" placeholder="3268204658275" aria-label="Serial_no" value="{{session('Serial_no')}}">
+                                        <input type="tel" name="Serial_no" class="form-control" placeholder="3268204658275" aria-label="Serial_no" value="{{session('Serial_no')}}" maxlength="20">
                                         @error('Serial_no') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
                                     </div>
                                 </div>
@@ -119,24 +119,25 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Price" class="form-control-label">Harga</label>
-                                        <input type="number" name="Price" class="form-control" placeholder="5000000" aria-label="Price" value="{{session('Price')}}" >
+                                        <input type="tel" name="Price" class="form-control" placeholder="5000000" aria-label="Price" value="{{session('Price')}}" max="100000000" maxlength="10">
                                         @error('Price') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Discount" class="form-control-label">Discount</label>
-                                        <input type="number" name="Discount" class="form-control" placeholder="0" aria-label="Discount" value="{{session('Discount')}}" >
+                                        <input type="tel" name="Discount" class="form-control" placeholder="0" aria-label="Discount" value="{{session('Discount')}}" max="100000000" maxlength="10">
                                         @error('Discount') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
                                     </div>
                                 </div>
 {{--                                                                    ----------------------------}}
                                 <hr class="horizontal dark">
                                 <div class="text-center">
-                                    <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Update Transaction</button>
+                                    <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2 popupButton">Update Transaction</button>
                                 </div>
                             </div>
                         </form>
+                        @include('layouts.footers.auth.footer-transaksi-edit')
                     </div>
                 </div>
             </div>

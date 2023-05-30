@@ -19,14 +19,6 @@ class RegisterController extends Controller
 
     public function store(Request $request)
     {
-        $getlast = DB::table('b_transaksis')
-            ->latest('id')
-            ->first();
-
-        $curid = $getlast->id;
-        $curid +=1;
-
-        Log::debug("currid: ".$curid);
 
         $attributes = request()->validate([
             'username' => 'required|max:255|min:2',
@@ -48,15 +40,12 @@ class RegisterController extends Controller
             'postal' => 'required|numeric',
             'about' => 'max:255',
         ]);
-        Log::info(print_r($attributes, true));
+
+        // use array merge rather than using DB::update,
+        // calling currentid+1 sometimes give random increment
+        $attributes = array_merge($attributes, ['pp_path' => "0-Default.jpg"]);
 
         $user = User::create($attributes);
-
-        $update = DB::table('users')
-            ->where('id', $curid)
-            ->update([
-                'pp_path' =>  '0-Default.jpg',
-            ]);
 
         return back()
             ->with('succes','User Created');

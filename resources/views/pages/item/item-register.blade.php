@@ -17,7 +17,7 @@
                         <h5>Input Barang</h5>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('transaksi-create') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('transaksi-register-create') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <p class="text-uppercase text-sm">Transaction Data</p>

@@ -2,24 +2,6 @@
 
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Your Profile'])
-{{--    <div class="card shadow-lg mx-4 card-profile-bottom">--}}
-{{--        <div class="card-body p-3">--}}
-{{--            <div class="row gx-4">--}}
-{{--                <div class="col-auto">--}}
-{{--                    <div class="avatar avatar-xl position-relative">--}}
-{{--                        <img src="/img/team-1.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <div class="col-auto my-auto">--}}
-{{--                    <div class="h-100">--}}
-{{--                        <h5 class="mb-1">--}}
-{{--                            {{ auth()->user()->firstname ?? 'Firstname' }} {{ auth()->user()->lastname ?? 'Lastname' }}--}}
-{{--                        </h5>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
     <div id="alert">
         @include('components.alert')
     </div>
@@ -120,6 +102,9 @@
                             </div>
                         </div>
                     </div>
+                    {{------------------------------------------------------------------------------------}}
+                    {{--Upload PP Button--}}
+                    {{------------------------------------------------------------------------------------}}
                     <div class="card-header text-center">
                         <div class="d-flex justify-content-center" style="">
                             <button type="button" class="btn btn-sm btn-dark float-right mb-0 d-none d-lg-block select-button">Select Image</button>
@@ -137,33 +122,9 @@
                             </form>
                         </div>
                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                    {{------------------------------------------------------------------------------------}}
+                    {{--Name and Role--}}
+                    {{------------------------------------------------------------------------------------}}
                     <div class="card-body pt-0">
                         <div class="text-center mt-4">
                             @csrf
@@ -191,15 +152,11 @@
                                     </select>
                                 </div>
                             </div>
-
-
-
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        @include('layouts.footers.auth.footer-transaksi-view')
+        @include('layouts.footers.auth.footer-profile')
     </div>
 @endsection

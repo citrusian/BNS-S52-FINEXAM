@@ -2,8 +2,6 @@
 
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Edit Profile'])
-    {{--    <div class="card shadow-lg mx-4 card-profile-bottom">--}}
-    {{--    </div>--}}
     <div id="alert">
         @include('components.alert')
     </div>
@@ -16,13 +14,12 @@
                         <div class="card-header pb-0">
                             <div class="d-flex align-items-center">
                                 <p class="mb-0">Edit Profile</p>
-                                <button type="submit" class="btn btn-primary btn-sm ms-auto">Save</button>
+{{--                                <button type="submit" class="btn btn-primary btn-sm ms-auto">Save</button>--}}
+{{--                                <div class="text-center">--}}
+                                    <button type="submit" class="btn btn-sm btn-dark float-right mb-0 ms-auto  popupButton">Update Profile</button>
+{{--                                </div>--}}
                             </div>
                         </div>
-                        <?php
-                        $user = DB::table('users')->where('id',session('user'))->get();
-                        ?>
-
                         <div id='HiddenView' style="display: none;">
                             <input class="form-control" type="text" name="postid" value="{{ $user[0]->id }}" >
                         </div>
@@ -106,38 +103,6 @@
                         </div>
                     </form>
                     <hr class="horizontal dark">
-                    <hr class="horizontal dark">
-                    <div id='Customer_View2'>
-                        <div class="card-body">
-                            <p class="text-uppercase text-sm">User Picture</p>
-                            <div class="row">
-                                <div class="col-sm">
-                                    <img src="/img/profile/{{ $user[0]->pp_path }}" width="20%">
-                                </div>
-                                <div class="col-sm">
-                                    <form role="form" method="POST" action="{{ route('updateppicture') }}" enctype="multipart/form-data">
-                                        @csrf
-                                        <div id='HiddenView' style="display: none;">
-                                            <input class="form-control" type="text" name="postid" value="{{ $user[0]->id }}" >
-                                        </div>
-                                        <label class="form-label" for="inputImage">Select Image:</label>
-                                        <input
-                                            type="file"
-                                            name="image"
-                                            id="inputImage"
-                                            class="form-control @error('image') is-invalid @enderror">
-
-                                        @error('image')
-                                        <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                        <div class="card-header pb-0">
-                                            <button type="submit" class="btn btn-primary btn-sm ms-auto">Upload</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="col-md-4">
@@ -153,37 +118,81 @@
                             </div>
                         </div>
                     </div>
+
+                    {{------------------------------------------------------------------------------------}}
+                    {{--Upload PP Button--}}
+                    {{------------------------------------------------------------------------------------}}
+                    <div class="card-header text-center">
+                        <div class="d-flex justify-content-center" style="">
+                            <button type="button" class="btn btn-sm btn-dark float-right mb-0 d-none d-lg-block select-button">Select Image</button>
+                            <form id="profileForm" role="form" method="POST" action="{{ route('updateuser_picture') }}" enctype="multipart/form-data" style="display: none;">
+                                @csrf
+                                <div id='HiddenView' style="display: none;">
+                                    <input class="form-control" type="text" name="postid" value="{{ $user[0]->id }}" data-userid="{{ $user[0]->id }}">
+{{--                                    <input class="form-control" type="text" name="postid" value="{{ $user[0]->id }}">--}}
+                                </div>
+
+                                <label class="form-label" for="inputImage">Selected Image:</label>
+                                <input type="file" name="image" id="inputImage" class="form-control @error('image') is-invalid @enderror">
+                                @error('image')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                <div class="card-header pb-0">
+                                    <input type="hidden" name="action" value="register">
+                                    <button type="submit" class="btn btn-primary btn-sm ms-auto upload-button">Upload</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    {{------------------------------------------------------------------------------------}}
+                    {{--Name and Role--}}
+                    {{------------------------------------------------------------------------------------}}
                     <div class="card-body pt-0">
                         <div class="text-center mt-4">
+                            @csrf
                             <h5>
                                 {{ $user[0]->firstname ?? 'Firstname' }} {{ $user[0]->lastname ?? 'Lastname' }}
                             </h5>
                             <div class="h6 font-weight-300">
-                                <i class="ni location_pin mr-2"></i>{{ $user[0]->city ?? 'city' }}, {{ $user[0]->country ?? 'country' }}
+                                {{ $user[0]->city ?? 'city' }}, {{ $user[0]->country ?? 'country' }}
+                            </div>
+
+                            <hr class="horizontal dark">
+
+                            <div class="col-md-12">
+                                <div class="form-group" disabled>
+                                    {{--                                    {{ old('role', auth()->user()->role) }}--}}
+                                    <label for="example-text-input" class="form-control-label">Role</label>
+                                    <select type="role" name="role" class="form-control" disabled="true">
+                                        {{--                                        remember to use name=" old name "--}}
+                                        <option value="0" {{ old('role', $user[0]->role) == 0 ? 'selected' : '' }}>
+                                            Super Admin
+                                        </option>
+                                        <option value="1" {{ old('role', $user[0]->role) == 1 ? 'selected' : '' }}>
+                                            Admin
+                                        </option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <hr class="horizontal dark">
 
-                    <div class="col-md-12">
-                        <div class="form-group" disabled>
-                            {{ old('role', $user[0]->role) }}
-                            <label for="example-text-input" class="form-control-label">Role</label>
-                            <select type="role" name="role" class="form-control" disabled="true">
-                                {{--                                        remember to use name=" old name "--}}
-                                <option value="0" {{ old('role', $user[0]->role) == 0 ? 'selected' : '' }}>
-                                    Super Admin
-                                </option>
-                                <option value="1" {{ old('role', $user[0]->role) == 1 ? 'selected' : '' }}>
-                                    Admin
-                                </option>
-                            </select>
-                        </div>
-                    </div>
+
+
+
+
+
+
+
+
+
+
+
 
                 </div>
             </div>
         </div>
+        @include('layouts.footers.auth.footer-profile-management')
     </div>
 @endsection
